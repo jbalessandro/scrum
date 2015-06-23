@@ -54,5 +54,19 @@ namespace ScrumToPractice.Web.Tests.Services
             // Assert
             Assert.AreEqual("JOSE", usuario.Nome);
         }
+
+        [TestMethod]
+        public void AlterarUsuario()
+        {
+            // Arrange
+            var service = new UsuarioService();
+            var usuario = service.Find(3);
+
+            // Act
+            int id = service.Gravar(usuario);
+
+            // Assert
+            Assert.AreEqual(3, id);
+        }
     }
 }

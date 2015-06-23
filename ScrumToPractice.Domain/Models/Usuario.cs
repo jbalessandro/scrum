@@ -20,6 +20,7 @@ namespace ScrumToPractice.Domain.Models
         [Required(ErrorMessage="Informe o e-mail")]
         [StringLength(100,ErrorMessage="O e-mail do usuário é composto por no máximo 100 caracteres")]
         [DataType(DataType.EmailAddress)]
+        [Display(Name="E-mail")]
         public string Email { get; set; }
 
         [Required(ErrorMessage="Informe o login")]
@@ -34,8 +35,10 @@ namespace ScrumToPractice.Domain.Models
         public bool Ativo { get; set; }
 
         [Required]
+        [Display(Name="Criado em")]
         public DateTime CriadoEm { get; set; }
 
+        [Display(Name="Excluído em")]
         public DateTime? ExcluidoEm { get; set; }
     }
 }
