@@ -15,14 +15,17 @@ namespace ScrumToPractice.Domain.Models
 
         [Required(ErrorMessage="Informe a área")]
         [StringLength(20,ErrorMessage="A área é composta por no máximo 20 caracteres")]
+        [Display(Name="Área")]
         public string Descricao { get; set; }
 
         public bool Ativo { get; set; }
 
         [Required]
+        [Display(Name="Alterado por")]
         public int AlteradoPor { get; set; }
 
         [Required]
+        [Display(Name="Alterado em")]
         public DateTime AlteradoEm { get; set; }
 
         [NotMapped]

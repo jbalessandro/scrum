@@ -120,6 +120,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Administrativo\AdministrativoAreaRegistration.cs" />
+    <Compile Include="Areas\Administrativo\Controllers\AreaController.cs" />
     <Compile Include="Areas\Administrativo\Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -144,6 +145,11 @@
     <Content Include="Areas\Administrativo\Views\Usuario\Create.cshtml" />
     <Content Include="Areas\Administrativo\Views\Usuario\Edit.cshtml" />
     <Content Include="Areas\Administrativo\Views\Usuario\Delete.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Area\Index.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Area\Details.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Area\Create.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Area\Delete.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Area\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
