@@ -121,7 +121,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Administrativo\AdministrativoAreaRegistration.cs" />
     <Compile Include="Areas\Administrativo\Controllers\AreaController.cs" />
+    <Compile Include="Areas\Administrativo\Controllers\QuestaoController.cs" />
     <Compile Include="Areas\Administrativo\Controllers\UsuarioController.cs" />
+    <Compile Include="Areas\Administrativo\Models\AreaQuestao.cs" />
+    <Compile Include="Areas\Administrativo\Models\AreaQuestoes.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -150,6 +153,10 @@
     <Content Include="Areas\Administrativo\Views\Area\Create.cshtml" />
     <Content Include="Areas\Administrativo\Views\Area\Delete.cshtml" />
     <Content Include="Areas\Administrativo\Views\Area\Edit.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Questao\Index.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Shared\_Questoes.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Questao\Details.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Questao\Create.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -180,7 +187,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Administrativo\Models\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,68 @@
+﻿@model ScrumToPractice.Domain.Models.Questao
+
+<div>
+    <h4>Questão</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdArea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdArea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ComentarioScrum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComentarioScrum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MultiplaEscolha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MultiplaEscolha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlteradoPor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlteradoEm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlteradoEm)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Alterar", "Edit", new { id = Model.Id, idArea = ViewBag.IdArea }) |
+    @Html.ActionLink("Voltar", "Index", new { idArea = ViewBag.IdArea })
+</p>

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ScrumToPractice.Domain.Models.Questao>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdArea)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ComentarioScrum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MultiplaEscolha)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdArea)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ComentarioScrum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MultiplaEscolha)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id, idArea = ViewBag.IdArea }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id, idArea = ViewBag.IdArea }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id, idArea = ViewBag.IdArea })
+        </td>
+    </tr>
+}
+
+</table>

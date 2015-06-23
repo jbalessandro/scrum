@@ -1,0 +1,50 @@
+﻿@model ScrumToPractice.Web.Areas.Administrativo.Models.AreaQuestoes
+
+@{
+    ViewBag.Title = "Questões";
+}
+
+<h2>Questões</h2>
+
+<p>
+    @Html.ActionLink("Nova questão", "Create")
+</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            Área da questão:<br />
+            @Html.DropDownList("ddlArea", @Model.Areas, "TODAS", new { onChange = "listarQuestoes();", style="width:180px;" })
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row top20">
+        <blockquote>
+            Questões cadastradas
+        </blockquote>
+    </div>
+    <div class="row top10">        
+        <div id="questoes" class="col-sm-12">
+            @Html.Partial("_Questoes", Model.Questoes)
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    
+    function listarQuestoes() {
+
+        var area = $("#ddlArea").val();
+
+        $.ajax({
+            type: 'GET',
+            url: "/Administrativo/Questao/Questoes",
+            data: { idArea: area },
+            success: function(data){
+                $("#questoes").html(data);
+            }
+        });
+    }
+</script>
