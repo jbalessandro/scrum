@@ -14,6 +14,9 @@
         <th>
             @Html.DisplayNameFor(model => model.MultiplaEscolha)
         </th>
+        <th>
+            Respostas
+        </th>
         <th></th>
     </tr>
 
@@ -30,6 +33,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.MultiplaEscolha)
+        </td>
+        <td>
+            @Html.ActionLink(item.Respostas.Count().ToString(), "Index", "Resposta", new { id = item.Id })
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id, idArea = ViewBag.IdArea }) |

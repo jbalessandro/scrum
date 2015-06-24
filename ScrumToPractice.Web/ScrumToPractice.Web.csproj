@@ -122,9 +122,11 @@
     <Compile Include="Areas\Administrativo\AdministrativoAreaRegistration.cs" />
     <Compile Include="Areas\Administrativo\Controllers\AreaController.cs" />
     <Compile Include="Areas\Administrativo\Controllers\QuestaoController.cs" />
+    <Compile Include="Areas\Administrativo\Controllers\RespostaController.cs" />
     <Compile Include="Areas\Administrativo\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\Administrativo\Models\AreaQuestao.cs" />
     <Compile Include="Areas\Administrativo\Models\AreaQuestoes.cs" />
+    <Compile Include="Areas\Administrativo\Models\QuestaoRespostas.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -159,6 +161,7 @@
     <Content Include="Areas\Administrativo\Views\Questao\Create.cshtml" />
     <Content Include="Areas\Administrativo\Views\Questao\Delete.cshtml" />
     <Content Include="Areas\Administrativo\Views\Questao\Edit.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Resposta\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
