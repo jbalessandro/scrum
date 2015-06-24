@@ -157,6 +157,8 @@
     <Content Include="Areas\Administrativo\Views\Shared\_Questoes.cshtml" />
     <Content Include="Areas\Administrativo\Views\Questao\Details.cshtml" />
     <Content Include="Areas\Administrativo\Views\Questao\Create.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Questao\Delete.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Questao\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

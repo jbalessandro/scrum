@@ -74,70 +74,156 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
                 idArea = 0;
             }
 
-            AreaQuestao areaQuestao = new AreaQuestao
-            {
-                Areas = GetAreas(idArea),
-                Questao = new Questao()
-            };
+            AreaQuestao areaQuestao = GetNovaAreaQuestao(idArea);
 
             ViewBag.IdArea = idArea;
             return View(areaQuestao);
         }
 
+        private AreaQuestao GetNovaAreaQuestao(int? idArea, Questao questao = null)
+        {
+            if (questao == null)
+            {
+                questao = new Questao();
+            }
+            AreaQuestao areaQuestao = new AreaQuestao
+            {
+                Areas = GetAreas(idArea),
+                Questao = questao
+            };
+            return areaQuestao;
+        }  
+      
         // POST: Administrativo/Questao/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Descricao,ComentarioScrum,MultiplaEscolha")] Questao questao, FormCollection collection)
+        public ActionResult Create([Bind(Include = "Descricao,ComentarioScrum,MultiplaEscolha")] Questao questao, FormCollection collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                questao.IdArea = int.Parse(Request.Form["Areas"]);
+                questao.AlteradoEm = DateTime.Now;
+                questao.Ativo = true;
+                questao.AlteradoPor = 1; // TODO
+                TryUpdateModel(questao);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(questao);
+                    return RedirectToAction("Index");
+                }
+                var areaQuestao = GetNovaAreaQuestao(questao.IdArea);
+                return View(areaQuestao);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                var areaQuestao = GetNovaAreaQuestao(int.Parse(Request.Form["Areas"]));
+                return View(areaQuestao);
             }
         }
 
         // GET: Administrativo/Questao/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id, int? idArea)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var questao = service.Find((int)id);
+
+            if (questao == null)
+            {
+                return HttpNotFound();
+            }
+
+            var areaQuestao = GetNovaAreaQuestao(questao.IdArea, questao);
+            if (idArea == null)
+            {
+                idArea = 0;
+            }
+            ViewBag.IdArea = idArea;
+            return View(areaQuestao);
         }
 
         // POST: Administrativo/Questao/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Descricao,ComentarioScrum,MultiplaEscolha,Ativo")] Questao questao, FormCollection collection, int? idArea)
         {
             try
             {
-                // TODO: Add update logic here
+                questao.AlteradoEm = DateTime.Now;
+                questao.AlteradoPor = 1; // TODO
+                TryUpdateModel(questao);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    questao.IdArea = int.Parse(Request.Form["ddlArea"]);
+                    service.Gravar(questao);
+                    return RedirectToAction("Index");
+                }
+                var areaQuestao = GetNovaAreaQuestao(questao.IdArea, questao);
+                if (idArea == null)
+                {
+                    idArea = 0;
+                }
+                ViewBag.IdArea = idArea;
+                return View(areaQuestao);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                var areaQuestao = GetNovaAreaQuestao(questao.IdArea, questao);
+                if (idArea == null)
+                {
+                    idArea = 0;
+                }
+                ViewBag.IdArea = idArea;
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(areaQuestao);
             }
         }
 
         // GET: Administrativo/Questao/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id, int? idArea)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (idArea == null)
+            {
+                idArea = 0;
+            }
+
+            var questao = service.Find((int)id);
+
+            if (questao == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.IdArea = idArea;
+            return View(questao);
         }
 
         // POST: Administrativo/Questao/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, int? idArea)
         {
             try
             {
-                // TODO: Add delete logic here
+                service.Excluir(id);
 
-                return RedirectToAction("Index");
+                if (idArea == null)
+                {
+                    idArea = 0;
+                }
+
+                return RedirectToAction("Index", new { idArea = idArea });
             }
             catch
             {
@@ -157,7 +243,5 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
             ViewBag.IdArea = idArea;
             return PartialView("_Questoes", questoes);
         }
-
-
     }
 }

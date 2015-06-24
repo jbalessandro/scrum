@@ -1,23 +1,25 @@
 ﻿@model ScrumToPractice.Web.Areas.Administrativo.Models.AreaQuestao
 
 @{
-    ViewBag.Title = "Questão - inclusão";
+    ViewBag.Title = "Questão - alteração";
 }
 
-<h2>Nova questão</h2>
+<h2>Edit</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Questao.Id)
+        @Html.Hidden("IdArea", (int)@ViewBag.IdArea)
         <div class="form-group">
             @Html.LabelFor(model => model.Questao.IdArea, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10 top10">
-                @Html.DropDownListFor(x => @Model.Areas, @Model.Areas, new { style="width:180px;" })
+            <div class="col-md-10">
+                @Html.DropDownList("ddlArea", @Model.Areas, new { style="width:180px;" })
             </div>
         </div>
 
@@ -48,15 +50,39 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Questao.Ativo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Questao.Ativo)
+                    @Html.ValidationMessageFor(model => model.Questao.Ativo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Questao.AlteradoPor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Questao.Usuario.Nome, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Questao.AlteradoEm, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Questao.AlteradoEm, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Incluir" class="btn btn-primary" />
+                <input type="submit" value="Gravar" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Voltar", "Index", new { idArea = ViewBag.IdArea })
+    @Html.ActionLink("Voltar", "Index", new { idArea = @ViewBag.IdArea })
 </div>
 
 @section Scripts {
