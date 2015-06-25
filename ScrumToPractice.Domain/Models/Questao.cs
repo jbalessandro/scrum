@@ -14,6 +14,7 @@ namespace ScrumToPractice.Domain.Models
         public int Id { get; set; }
 
         [Range(0,999999999,ErrorMessage="Selecione a área")]
+        [Display(Name="Área")]
         public int IdArea { get; set; }
 
         [Required(ErrorMessage="Informe a descrição da questão")]

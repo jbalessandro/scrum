@@ -80,20 +80,6 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
             return View(areaQuestao);
         }
 
-        private AreaQuestao GetNovaAreaQuestao(int? idArea, Questao questao = null)
-        {
-            if (questao == null)
-            {
-                questao = new Questao();
-            }
-            AreaQuestao areaQuestao = new AreaQuestao
-            {
-                Areas = GetAreas(idArea),
-                Questao = questao
-            };
-            return areaQuestao;
-        }  
-      
         // POST: Administrativo/Questao/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -109,8 +95,11 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(questao);
-                    return RedirectToAction("Index");
+                    // inclui a questao
+                    questao.Id = service.Gravar(questao);                    
+
+                    // rediciona para o cadastramento das respostas para esta questao
+                    return RedirectToAction("Create", "Resposta", new { idQuestao = questao.Id });
                 }
                 var areaQuestao = GetNovaAreaQuestao(questao.IdArea);
                 return View(areaQuestao);
@@ -231,6 +220,36 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
             }
         }
 
+        // GET: Administrativo/Questao/Imprimir
+        public ActionResult Imprimir(int? id)
+        {
+            if (id == null)
+            {
+                id = 0;
+            }
+
+            var questoes = service.Listar()
+                .Where(x => x.Ativo == true && (id == 0 || x.IdArea == id))
+                .ToList()
+                .OrderBy(x => x.Area.Descricao)
+                .ThenBy(x => x.Descricao)
+                .AsEnumerable();
+
+            if (id == 0 || questoes.Count() == 0)
+            {
+                ViewBag.Area = "";
+            }
+            else
+            {
+                ViewBag.Area = " - " + questoes.First().Area.Descricao;
+            }
+
+            return View(questoes);
+        }
+
+
+        #region [ Partial ]
+
         public PartialViewResult Questoes(int? idArea)
         {
             if (idArea == null)
@@ -243,5 +262,27 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
             ViewBag.IdArea = idArea;
             return PartialView("_Questoes", questoes);
         }
+
+        #endregion
+
+
+        #region [ Methods ]
+
+        private AreaQuestao GetNovaAreaQuestao(int? idArea, Questao questao = null)
+        {
+            if (questao == null)
+            {
+                questao = new Questao();
+            }
+            AreaQuestao areaQuestao = new AreaQuestao
+            {
+                Areas = GetAreas(idArea),
+                Questao = questao
+            };
+            return areaQuestao;
+        }
+
+        #endregion
+
     }
 }

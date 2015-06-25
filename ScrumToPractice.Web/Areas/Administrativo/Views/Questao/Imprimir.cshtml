@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ScrumToPractice.Domain.Models.Questao>
+
+@{
+    ViewBag.Title = "Questões Scrum";
+    Layout = "~/Areas/Administrativo/Views/Shared/_LayoutPrint.cshtml";
+}
+
+<h3>QUESTÕES SCRUM @ViewBag.Area</h3>
+<p>(@Model.Count() questões)</p>
+<div class="top40"></div>
+@{
+    foreach (var item in Model)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>@item.Descricao</h4>
+                    <small>@item.Area.Descricao</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach (var resposta in item.Respostas)
+            {
+                <div class="container">
+                    <div class="col-md-1">
+                        @Html.DisplayFor(r => resposta.Correta)
+                    </div>
+                    <div class="col-md-11">
+                        @Html.DisplayFor(r => resposta.Descricao)
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 top20">
+                    <strong>Scrum:</strong>
+                    <p>
+                        @item.ComentarioScrum
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr />
+    }
+}
