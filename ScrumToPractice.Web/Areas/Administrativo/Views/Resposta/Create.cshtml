@@ -1,0 +1,54 @@
+﻿@model ScrumToPractice.Domain.Models.Resposta
+
+@{
+    ViewBag.Title = "Resposta - inclusão";
+}
+
+<div class="top50">
+    <h3>Inclusão de resposta</h3>
+    <strong>@Model.Questao.Descricao</strong>
+</div>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal top50">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.Hidden("IdQuestao", (int)Model.IdQuestao)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Correta, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Correta)
+                    @Html.ValidationMessageFor(model => model.Correta, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Incluir" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar", "Index", new { id = Model.IdQuestao })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

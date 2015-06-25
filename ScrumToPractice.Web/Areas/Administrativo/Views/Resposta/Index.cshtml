@@ -1,12 +1,25 @@
 ﻿@model ScrumToPractice.Web.Areas.Administrativo.Models.QuestaoRespostas
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Questões";
 }
 
-<h2>Index</h2>
+<div class="top50">
+    <h3>@Model.Questao.Descricao</h3>
+</div>
 
-<p>
-    @Html.ActionLink("Nova resposta", "Create")
+<p class="top20">
+    @Html.ActionLink("Nova resposta", "Create", new { idQuestao = Model.Questao.Id })
 </p>
 
+<div class="container">
+    <div class="row top10">
+        <div id="respostas" class="col-sm-12">
+            @{Html.RenderPartial("_Respostas", Model.Respostas);}
+        </div>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Voltar", "Index", "Questao")
+</p>

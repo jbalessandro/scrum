@@ -7,16 +7,17 @@ using System.Web.Mvc;
 using ScrumToPractice.Domain.Models;
 using ScrumToPractice.Domain.Repository;
 using ScrumToPractice.Web.Areas.Administrativo.Models;
+using ScrumToPractice.Domain.Service;
 
 namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 {
     public class RespostaController : Controller
     {
-        IBaseRepository<Resposta> service;
+        IBaseService<Resposta> service;
 
         public RespostaController()
         {
-            service = new EFRepository<Resposta>();
+            service = new RespostaService();
         }
 
         // GET: Administrativo/Resposta
@@ -38,82 +39,144 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
             return View(questaoRespostas);
         }
 
-        private IEnumerable<Resposta> GetRespostas(int idQuestao)
-        {
-            var respostas = service.Listar().Where(x => x.IdQuestao == idQuestao).AsEnumerable();
-            return respostas;
-        }
-
         // GET: Administrativo/Resposta/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var resposta = service.Find((int)id);
+
+            if (resposta == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(resposta);
         }
 
         // GET: Administrativo/Resposta/Create
-        public ActionResult Create()
+        public ActionResult Create(int? idQuestao)
         {
-            return View();
+            if (idQuestao == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var resposta = new Resposta { IdQuestao = (int)idQuestao };
+            return View(resposta);
         }
 
         // POST: Administrativo/Resposta/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include="IdQuestao,Descricao,Correta")] Resposta resposta)
         {
             try
             {
-                // TODO: Add insert logic here
+                resposta.AlteradoEm = DateTime.Now;
+                resposta.AlteradoPor = 1; // TODO: alterado por
+                resposta.Ativo = true;
+                TryUpdateModel(resposta);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(resposta);
+                    return RedirectToAction("Index", new { id = resposta.IdQuestao });
+                }
+                return View(resposta);
             }
             catch
             {
-                return View();
+                return View(resposta);
             }
         }
 
         // GET: Administrativo/Resposta/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var resposta = service.Find((int)id);
+            if (resposta == null)
+            {
+                return HttpNotFound();
+            }
+            
+            return View(resposta);
         }
 
         // POST: Administrativo/Resposta/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include="Id,IdQuestao,Descricao,Correta,Ativo")] Resposta resposta)
         {
             try
             {
-                // TODO: Add update logic here
+                resposta.AlteradoEm = DateTime.Now;
+                resposta.AlteradoPor = 1; // TODO: usuario
+                TryUpdateModel(resposta);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(resposta);
+                    return RedirectToAction("Index", new { id = resposta.IdQuestao });
+                }
+                return View(resposta);
             }
             catch
             {
-                return View();
+                return View(resposta);
             }
         }
 
         // GET: Administrativo/Resposta/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var resposta = service.Find((int)id);
+            if (resposta == null)
+            {
+                return HttpNotFound();
+            }
+            return View(resposta);
         }
 
         // POST: Administrativo/Resposta/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int? id, int? idQuestao)
         {
             try
             {
-                // TODO: Add delete logic here
+                if (id == null || idQuestao == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
 
-                return RedirectToAction("Index");
+                service.Excluir((int)id);
+
+                return RedirectToAction("Index", new { id = idQuestao });
             }
             catch
             {
                 return View();
             }
+        }
+
+        private IEnumerable<Resposta> GetRespostas(int idQuestao)
+        {
+            var respostas = service.Listar().Where(x => x.IdQuestao == idQuestao).AsEnumerable();
+            return respostas;
         }
     }
 }

@@ -35,12 +35,12 @@
             @Html.DisplayFor(modelItem => item.MultiplaEscolha)
         </td>
         <td>
-            @Html.ActionLink(item.Respostas.Count().ToString(), "Index", "Resposta", new { id = item.Id })
+            @Html.ActionLink(item.Respostas.Count().ToString(), "Index", "Resposta", new { id = item.Id }, null)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id, idArea = ViewBag.IdArea }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id, idArea = ViewBag.IdArea }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id, idArea = ViewBag.IdArea })
+            @Html.ActionLink("Alterar", "Edit", new { id=item.Id, idArea = ViewBag.IdArea }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.Id, idArea = ViewBag.IdArea }) |
+            @Html.ActionLink("Excluir", "Delete", new { id = item.Id, idArea = ViewBag.IdArea })
         </td>
     </tr>
 }

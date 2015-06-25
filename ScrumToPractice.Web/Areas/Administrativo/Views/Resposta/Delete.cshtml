@@ -1,0 +1,67 @@
+﻿@model ScrumToPractice.Domain.Models.Resposta
+
+@{
+    ViewBag.Title = "Resposta - excluir";
+}
+
+<div class="top50">
+    <h3>Exclusao de resposta</h3>
+    <strong>@Model.Questao.Descricao</strong>
+</div>
+<div class="text-danger top40">
+    <h3>Confirma a exclusão desta resposta?</h3>
+</div>
+<div class="top50">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Correta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Correta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlteradoPor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlteradoPor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlteradoEm)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.IdQuestao)
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-danger" /> |
+            @Html.ActionLink("Voltar", "Index", new { id = Model.IdQuestao })
+        </div>
+    }
+</div>
