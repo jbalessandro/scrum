@@ -82,7 +82,6 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 
         // POST: Administrativo/Questao/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Descricao,ComentarioScrum,MultiplaEscolha")] Questao questao, FormCollection collection)
         {
             try
@@ -138,7 +137,6 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 
         // POST: Administrativo/Questao/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Descricao,ComentarioScrum,MultiplaEscolha,Ativo")] Questao questao, FormCollection collection, int? idArea)
         {
             try
@@ -200,7 +198,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 
         // POST: Administrativo/Questao/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Delete(int id, int? idArea)
         {
             try

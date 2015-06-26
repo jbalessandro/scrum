@@ -50,7 +50,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 
         // POST: Administrativo/Area/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include="Descricao")] Area area)
         {
             try
@@ -93,7 +93,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 
         // POST: Administrativo/Area/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include="Id,Descricao,Ativo")] Area area)
         {
             try
@@ -135,7 +135,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 
         // POST: Administrativo/Area/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             try

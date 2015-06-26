@@ -7,6 +7,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Data.Entity;
 using ScrumToPractice.Domain.Repository;
+using System.Web.Helpers;
+using System.Security.Claims;
 
 namespace ScrumToPractice.Web
 {
@@ -21,6 +23,8 @@ namespace ScrumToPractice.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
         }
     }
 }

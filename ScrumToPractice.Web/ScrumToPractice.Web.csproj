@@ -169,7 +169,8 @@
     <Content Include="Areas\Administrativo\Views\Resposta\Details.cshtml" />
     <Content Include="Areas\Administrativo\Views\Questao\Imprimir.cshtml" />
     <Content Include="Areas\Administrativo\Views\Shared\_LayoutPrint.cshtml" />
-    <None Include="Properties\PublishProfiles\scrumtopractice.com - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\scrumtopractice - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\scrumtopractice - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
