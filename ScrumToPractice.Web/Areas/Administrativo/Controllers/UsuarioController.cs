@@ -55,6 +55,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
             try
             {
                 usuario.CriadoEm = DateTime.Now;
+                TryUpdateModel(usuario);
 
                 if (ModelState.IsValid)
                 {

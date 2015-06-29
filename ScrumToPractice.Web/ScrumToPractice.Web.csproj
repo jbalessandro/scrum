@@ -122,6 +122,7 @@
     <Compile Include="Areas\Administrativo\AdministrativoAreaRegistration.cs" />
     <Compile Include="Areas\Administrativo\Controllers\AreaController.cs" />
     <Compile Include="Areas\Administrativo\Controllers\HomeAdmController.cs" />
+    <Compile Include="Areas\Administrativo\Controllers\ParametroController.cs" />
     <Compile Include="Areas\Administrativo\Controllers\QuestaoController.cs" />
     <Compile Include="Areas\Administrativo\Controllers\RespostaController.cs" />
     <Compile Include="Areas\Administrativo\Controllers\UsuarioController.cs" />
@@ -171,6 +172,11 @@
     <Content Include="Areas\Administrativo\Views\Questao\Imprimir.cshtml" />
     <Content Include="Areas\Administrativo\Views\Shared\_LayoutPrint.cshtml" />
     <Content Include="Areas\Administrativo\Views\HomeAdm\Index.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Parametro\Index.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Parametro\Details.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Parametro\Create.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Parametro\Edit.cshtml" />
+    <Content Include="Areas\Administrativo\Views\Parametro\Delete.cshtml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

@@ -8,43 +8,43 @@ using ScrumToPractice.Domain.Repository;
 
 namespace ScrumToPractice.Domain.Service
 {
-    public class AreaService: IBaseService<Area>
+    public class ParametroService: IBaseService<Parametro>
     {
-        private IBaseRepository<Area> repository;
+        private IBaseRepository<Parametro> repository;
 
-        public AreaService()
+        public ParametroService()
         {
-            repository = new EFRepository<Area>();
+            repository = new EFRepository<Parametro>();
         }
 
-        public IQueryable<Area> Listar()
+        public IQueryable<Parametro> Listar()
         {
             return repository.Listar();
         }
 
-        public int Gravar(Area item)
+        public int Gravar(Parametro item)
         {
             // formata
-            item.Descricao = item.Descricao.ToUpper().Trim();
             item.AlteradoEm = DateTime.Now;
+            item.Ativo = (item.Id == 0 ? true: item.Ativo);
+            item.Codigo = item.Codigo.ToUpper().Trim();
 
             // valida
-            if (repository.Listar().Where(x => x.Descricao == item.Descricao && x.Id != item.Id).Count() > 0)
+            if (repository.Listar().Where(x => x.Codigo == item.Codigo && x.Id != item.Id).Count() > 0)
             {
-                throw new ArgumentException("Área já cadastrada");
+                throw new ArgumentException("Parâmetro já cadastrado");
             }
 
             // grava
             if (item.Id == 0)
             {
-                item.Ativo = true;
                 return repository.Incluir(item).Id;
             }
 
             return repository.Alterar(item).Id;
         }
 
-        public Area Excluir(int id)
+        public Parametro Excluir(int id)
         {
             try
             {
@@ -53,19 +53,19 @@ namespace ScrumToPractice.Domain.Service
             catch (Exception)
             {
                 // BD nao permite exclusao por FK, inativo
-                var area = repository.Find(id);
+                var parametro = repository.Find(id);
 
-                if (area != null)
+                if (parametro != null)
                 {
-                    area.Ativo = false;
-                    area.AlteradoEm = DateTime.Now;
-                    return repository.Alterar(area);
+                    parametro.Ativo = false;
+                    parametro.AlteradoEm = DateTime.Now;
+                    return repository.Alterar(parametro);
                 }
-                return area;
+                return parametro;
             }
         }
 
-        public Area Find(int id)
+        public Parametro Find(int id)
         {
             return repository.Find(id);
         }

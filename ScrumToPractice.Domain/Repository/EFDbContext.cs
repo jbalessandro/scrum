@@ -27,6 +27,7 @@ namespace ScrumToPractice.Domain.Repository
 
         // DbSets
         public DbSet<Area> Area { get; set; }
+        public DbSet<Parametro> Parametro { get; set; }
         public DbSet<Questao> Questao { get; set; }
         public DbSet<Resposta> Resposta { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
