@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace ScrumToPractice.Web.Areas.Administrativo
 {
@@ -17,7 +19,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo
             context.MapRoute(
                 "Administrativo_default",
                 "Administrativo/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional },
+                new { controller = "HomeAdm", action = "Index", id = UrlParameter.Optional },
                 new [] {"ScrumToPractice.Web.Areas.Administrativo.Controllers"}
             );
         }
