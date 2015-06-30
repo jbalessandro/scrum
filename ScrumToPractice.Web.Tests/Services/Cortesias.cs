@@ -10,17 +10,18 @@ namespace ScrumToPractice.Web.Tests.Services
     public class Cortesias
     {
         [TestMethod]
-        public void ObterCortesia()
+        public void CriarSimulado()
         {
             // Arrange
-            ICortesia cortesia;
-            cortesia = new CortesiaService();
+            ISimuladoCortesia cortesia;
+            cortesia = new CortesiaSimulado();
 
             // Act
-            var simulado = cortesia.GetSimulado();
+            var idNovoSimulado = cortesia.CriarSimulado();
+            var simulado = cortesia.GetSimulado(idNovoSimulado);
 
             // Assert
-            Assert.IsTrue(simulado.Questoes.Count() > 0);
+            Assert.IsTrue(simulado.QuestoesSimuladas.Count() > 0);
         }
     }
 }

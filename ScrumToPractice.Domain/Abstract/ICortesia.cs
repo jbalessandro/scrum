@@ -7,10 +7,15 @@ using ScrumToPractice.Domain.Models;
 
 namespace ScrumToPractice.Domain.Abstract
 {
-    public interface ICortesia
+    public interface ISimuladoCortesia
     {
-        SimuladoCortesia GetSimulado();
+        int CriarSimulado();
+        SimuladoCortesia GetSimulado(int id);
+        QuestaoCortesia GetQuestao(int idCortesia, int idQuestao);
+        QuestaoCortesia GetProximaQuestao(int idCortesia, int idQuestaoAtual = 0);
+        QuestaoCortesia GetQuestaoAnterior(int idCortesia, int idQuestaoAtual);        
         int GetNumQuestoes();
-        int GetNumDiasManutencao();
+
+        // GetResultado
     }
 }

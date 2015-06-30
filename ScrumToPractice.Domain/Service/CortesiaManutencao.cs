@@ -14,12 +14,12 @@ namespace ScrumToPractice.Domain.Service
     public class CortesiaManutencao
     {
         private IBaseService<Cortesia> serviceCortesia;
-        private ICortesia cortesia;
+        private IParametro serviceParametro;
 
         public CortesiaManutencao()
         {
             serviceCortesia = new CortesiaService();
-            cortesia = new CortesiaService();
+            serviceParametro = new ParametroService();
         }
         
         /// <summary>
@@ -29,7 +29,7 @@ namespace ScrumToPractice.Domain.Service
         public void CleanCortesia()
         {
             // numero de dias a excluir em cortesia (CriadoEm)
-            var dataMaximaExclusao = DateTime.Today.Date.AddDays(cortesia.GetNumDiasManutencao() * -1);
+            var dataMaximaExclusao = DateTime.Today.Date.AddDays(GetNumDiasManutencao() * -1);
 
             if (dataMaximaExclusao < DateTime.Today.Date)
             {
@@ -40,6 +40,17 @@ namespace ScrumToPractice.Domain.Service
                     serviceCortesia.Excluir(item.Id);
                 }
             }
+        }
+
+        private int GetNumDiasManutencao()
+        {
+            var parametro = serviceParametro.Find("CORTESIA_MANUTENCAO_DIAS");
+
+            if (parametro != null)
+            {
+                return Convert.ToInt32(parametro.Valor);
+            }
+            return 0;
         }
     }
 }

@@ -9,7 +9,7 @@ using ScrumToPractice.Domain.Abstract;
 
 namespace ScrumToPractice.Domain.Service
 {
-    public class CortesiaService : IBaseService<Cortesia>, ICortesia
+    public class CortesiaService : IBaseService<Cortesia>
     {
         private IBaseRepository<Cortesia> repository;
         private ICorSimulado simulado;
@@ -79,32 +79,6 @@ namespace ScrumToPractice.Domain.Service
         public Cortesia Find(int id)
         {
             return repository.Find(id);
-        }
-
-        public SimuladoCortesia GetSimulado()
-        {
-            // gera uma cortesia
-            var cortesia = Find(Gravar(new Cortesia()));
-
-            // questoes
-            var questoes = simulado.GetSimulados(cortesia.Id);
-
-            return new SimuladoCortesia
-            {
-                Cortesia = cortesia,
-                Questoes = questoes
-            };
-        }
-
-        public int GetNumDiasManutencao()
-        {
-            var parametro = serviceParametro.Find("CORTESIA_MANUTENCAO_DIAS");
-
-            if (parametro != null)
-	        {
-		         return Convert.ToInt32(parametro.Valor);
-	        }
-            return 0;
         }
     }
 }

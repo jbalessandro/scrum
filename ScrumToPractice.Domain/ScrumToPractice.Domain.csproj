@@ -98,6 +98,7 @@
     <Compile Include="Service\CorSimuladoService.cs" />
     <Compile Include="Service\CortesiaManutencao.cs" />
     <Compile Include="Service\CortesiaService.cs" />
+    <Compile Include="Service\CortesiaSimulado.cs" />
     <Compile Include="Service\IBaseService.cs" />
     <Compile Include="Abstract\ICortesia.cs" />
     <Compile Include="Abstract\IQuestao.cs" />
