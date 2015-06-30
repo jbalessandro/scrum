@@ -29,6 +29,8 @@ namespace ScrumToPractice.Domain.Models
         [Display(Name="Questão de multipla escolha?")]
         public bool MultiplaEscolha { get; set; }
 
+        public bool Cortesia { get; set; }
+
         public bool Ativo { get; set; }
 
         [Required]

@@ -82,7 +82,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 
         // POST: Administrativo/Questao/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Descricao,ComentarioScrum,MultiplaEscolha")] Questao questao, FormCollection collection)
+        public ActionResult Create([Bind(Include = "Descricao,ComentarioScrum,MultiplaEscolha,Cortesia")] Questao questao, FormCollection collection)
         {
             try
             {
@@ -137,7 +137,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 
         // POST: Administrativo/Questao/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Id,Descricao,ComentarioScrum,MultiplaEscolha,Ativo")] Questao questao, FormCollection collection, int? idArea)
+        public ActionResult Edit([Bind(Include = "Id,Descricao,ComentarioScrum,MultiplaEscolha,Cortesia,Ativo")] Questao questao, FormCollection collection, int? idArea)
         {
             try
             {

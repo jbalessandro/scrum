@@ -73,5 +73,15 @@ namespace ScrumToPractice.Domain.Service
         {
             return repository.Find(id);
         }
+
+        public IEnumerable<Questao> GetCortesia()
+        {
+            return repository.Listar()
+                .Where(x => x.Ativo == true
+                    && x.Cortesia == true)
+                    .OrderBy(x => Guid.NewGuid())
+                    .Take(10)
+                    .AsEnumerable();
+        }
     }
 }
