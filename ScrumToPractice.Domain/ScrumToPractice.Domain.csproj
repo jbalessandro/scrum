@@ -85,6 +85,7 @@
     <Compile Include="Models\Cortesia.cs" />
     <Compile Include="Models\Parametro.cs" />
     <Compile Include="Models\Questao.cs" />
+    <Compile Include="Models\QuestaoCortesia.cs" />
     <Compile Include="Models\Resposta.cs" />
     <Compile Include="Models\SimuladoCortesia.cs" />
     <Compile Include="Models\Usuario.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Service\AreaService.cs" />
     <Compile Include="Service\CorErradoService.cs" />
     <Compile Include="Service\CorSimuladoService.cs" />
+    <Compile Include="Service\CortesiaManutencao.cs" />
     <Compile Include="Service\CortesiaService.cs" />
     <Compile Include="Service\IBaseService.cs" />
     <Compile Include="Abstract\ICortesia.cs" />

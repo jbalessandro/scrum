@@ -9,15 +9,17 @@ using ScrumToPractice.Domain.Abstract;
 
 namespace ScrumToPractice.Domain.Service
 {
-    public class CortesiaService: IBaseService<Cortesia>, ICortesia
+    public class CortesiaService : IBaseService<Cortesia>, ICortesia
     {
         private IBaseRepository<Cortesia> repository;
         private ICorSimulado simulado;
+        private IParametro serviceParametro;
 
         public CortesiaService()
         {
             repository = new EFRepository<Cortesia>();
             simulado = new CorSimuladoService();
+            serviceParametro = new ParametroService();
         }
 
         public IQueryable<Cortesia> Listar()
@@ -52,9 +54,13 @@ namespace ScrumToPractice.Domain.Service
 
         public int GetNumQuestoes()
         {
-            IParametro service;
-            service = new ParametroService();
-            return Convert.ToInt32(service.Find("NUM_QUESTOES_CORTESIA").Valor);
+            var parametro = serviceParametro.Find("NUM_QUESTOES_CORTESIA");
+
+            if (parametro != null)
+            {
+                return Convert.ToInt32(parametro.Valor);
+            }
+            return 10;
         }
 
         public Cortesia Excluir(int id)
@@ -88,6 +94,17 @@ namespace ScrumToPractice.Domain.Service
                 Cortesia = cortesia,
                 Questoes = questoes
             };
+        }
+
+        public int GetNumDiasManutencao()
+        {
+            var parametro = serviceParametro.Find("CORTESIA_MANUTENCAO_DIAS");
+
+            if (parametro != null)
+	        {
+		         return Convert.ToInt32(parametro.Valor);
+	        }
+            return 0;
         }
     }
 }

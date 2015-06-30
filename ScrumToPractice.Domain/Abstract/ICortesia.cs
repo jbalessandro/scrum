@@ -11,5 +11,6 @@ namespace ScrumToPractice.Domain.Abstract
     {
         SimuladoCortesia GetSimulado();
         int GetNumQuestoes();
+        int GetNumDiasManutencao();
     }
 }

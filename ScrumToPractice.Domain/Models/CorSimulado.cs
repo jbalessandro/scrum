@@ -30,5 +30,23 @@ namespace ScrumToPractice.Domain.Models
 
         [Display(Name="Modify")]
         public DateTime AlteradoEm { get; set; }
+
+        [NotMapped]
+        public virtual Questao Questao
+        {
+            get {
+                return new ScrumToPractice.Domain.Service.QuestaoService().Find(IdQuestao);
+            }
+            set { }
+        }        
+
+        [NotMapped]
+        public virtual Area Area
+        {
+            get {
+                return new ScrumToPractice.Domain.Service.AreaService().Find(IdArea);
+            }
+            set { }
+        }
     }
 }

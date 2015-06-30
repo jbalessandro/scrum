@@ -14,7 +14,7 @@ namespace ScrumToPractice.Web.Tests.Services
         public void IncluirParametro()
         {
             // Arrange
-            var parametro = new Parametro
+            var parametro1 = new Parametro
             {
                 AlteradoEm = DateTime.Now,
                 AlteradoPor = 1,
@@ -22,14 +22,23 @@ namespace ScrumToPractice.Web.Tests.Services
                 Valor = "10"
             };
 
+            var parametro2 = new Parametro
+            {
+                AlteradoEm = DateTime.Now,
+                AlteradoPor = 1,
+                Codigo = "CORTESIA_MANUTENCAO_DIAS",
+                Valor = "30"
+            };
+
             var service = new ParametroService();
             
             // Act
-            parametro.Id = service.Gravar(parametro);
-            
+            parametro1.Id = service.Gravar(parametro1);
+            parametro2.Id = service.Gravar(parametro2);            
 
             // Assert
-            Assert.AreEqual(1, parametro.Id);
+            Assert.AreEqual(1, parametro1.Id);
+            Assert.AreEqual(2, parametro2.Id);
         }
     }
 }
