@@ -61,5 +61,24 @@ namespace ScrumToPractice.Domain.Service
         {
             return repository.Find(id);
         }
+
+        public IEnumerable<CorSimulado> GetCorSimulado(int idCortesia)
+        {
+            // lista de questoes simuladas
+            var questoes = new QuestaoService().GetCortesia();
+           
+            foreach (var item in questoes)
+            {
+                repository.Incluir(new CorSimulado
+                {
+                    AlteradoEm = DateTime.Now,
+                    IdArea = item.IdArea,
+                    IdCortesia = idCortesia,
+                    IdQuestao = item.Id
+                });
+            }
+
+            return repository.Listar().Where(x => x.IdCortesia == idCortesia).AsEnumerable();
+        }
     }
 }
