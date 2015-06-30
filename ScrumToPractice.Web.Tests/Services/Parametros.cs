@@ -18,14 +18,15 @@ namespace ScrumToPractice.Web.Tests.Services
             {
                 AlteradoEm = DateTime.Now,
                 AlteradoPor = 1,
-                Codigo = "CORTESIA_QUESTOES",
+                Codigo = "NUM_QUESTOES_CORTESIA",
                 Valor = "10"
             };
 
             var service = new ParametroService();
-
+            
             // Act
             parametro.Id = service.Gravar(parametro);
+            
 
             // Assert
             Assert.AreEqual(1, parametro.Id);

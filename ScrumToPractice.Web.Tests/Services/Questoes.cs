@@ -20,6 +20,7 @@ namespace ScrumToPractice.Web.Tests.Services
                 Descricao = "Qual o tamanho ideal do Time Scrum?",
                 IdArea = 1,
                 MultiplaEscolha = false,
+                Cortesia = true,
                 ComentarioScrum = "O tamanho ideal do Time Scrum é de 3 a 9 pessoas"
             };
 
@@ -58,22 +59,5 @@ namespace ScrumToPractice.Web.Tests.Services
             Assert.AreEqual(1, questoes.Count());
         }
 
-        [TestMethod]
-        public void ObterQuestoesCortesia()
-        {
-            // Arrange
-            var service = new QuestaoService();
-
-            // Act
-            var questoes1 = service.GetCortesia().First().Id;
-            var questoes2 = service.GetCortesia().First().Id;
-
-            // Assert - as vezes ira passar, as vezes nao
-            // pois para um cadastro pequeno de questoes
-            // muitas vezes podera se repetir
-            // testei e passou com 2 questoes apenas
-            // o sistema esta gerando um random das questoes
-            Assert.AreNotEqual(questoes1, questoes2);
-        }
     }
 }

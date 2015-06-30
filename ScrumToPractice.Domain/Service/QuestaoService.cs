@@ -8,7 +8,7 @@ using ScrumToPractice.Domain.Repository;
 
 namespace ScrumToPractice.Domain.Service
 {
-    public class QuestaoService: IBaseService<Questao>
+    public class QuestaoService: IBaseService<Questao>, IQuestao 
     {
         private IBaseRepository<Questao> repository;
 
@@ -74,14 +74,19 @@ namespace ScrumToPractice.Domain.Service
             return repository.Find(id);
         }
 
-        public IEnumerable<Questao> GetCortesia()
+        public IEnumerable<Questao> GetQuestoesCortesia(int idCortesia)
         {
             return repository.Listar()
                 .Where(x => x.Ativo == true
                     && x.Cortesia == true)
                     .OrderBy(x => Guid.NewGuid())
                     .Take(10)
-                    .AsEnumerable();
+                    .AsEnumerable(); 
+        }
+
+        public IEnumerable<Questao> GetQuestoesSimulado(int idSimulado)
+        {
+            throw new NotImplementedException();
         }
     }
 }

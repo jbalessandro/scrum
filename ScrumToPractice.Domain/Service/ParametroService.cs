@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using ScrumToPractice.Domain.Models;
 using ScrumToPractice.Domain.Repository;
+using ScrumToPractice.Domain.Abstract;
 
 namespace ScrumToPractice.Domain.Service
 {
-    public class ParametroService: IBaseService<Parametro>
+    public class ParametroService: IBaseService<Parametro>, IParametro 
     {
         private IBaseRepository<Parametro> repository;
 
@@ -68,6 +69,15 @@ namespace ScrumToPractice.Domain.Service
         public Parametro Find(int id)
         {
             return repository.Find(id);
+        }
+
+        public Parametro Find(string codigo)
+        {
+            if (!string.IsNullOrEmpty(codigo))
+	        {
+                return repository.Listar().Where(x => x.Codigo == codigo).FirstOrDefault();		 
+	        }
+            return null;
         }
     }
 }

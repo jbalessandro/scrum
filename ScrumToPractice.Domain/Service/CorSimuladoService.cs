@@ -5,16 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using ScrumToPractice.Domain.Models;
 using ScrumToPractice.Domain.Repository;
+using ScrumToPractice.Domain.Abstract;
 
 namespace ScrumToPractice.Domain.Service
 {
-    public class CorSimuladoService: IBaseService<CorSimulado>
+    public class CorSimuladoService: IBaseService<CorSimulado>, ICorSimulado
     {
         private IBaseRepository<CorSimulado> repository;
+        private IQuestao questao;
 
         public CorSimuladoService()
         {
             repository = new EFRepository<CorSimulado>();
+            questao = new QuestaoService();
         }
 
         public IQueryable<CorSimulado> Listar()
@@ -62,12 +65,13 @@ namespace ScrumToPractice.Domain.Service
             return repository.Find(id);
         }
 
-        public IEnumerable<CorSimulado> GetCorSimulado(int idCortesia)
+        public IEnumerable<CorSimulado> GetSimulados(int idCortesia)
         {
             // lista de questoes simuladas
-            var questoes = new QuestaoService().GetCortesia();
-           
-            foreach (var item in questoes)
+            IQuestao questao;
+            questao = new QuestaoService();
+
+            foreach (var item in questao.GetQuestoesCortesia(idCortesia))
             {
                 repository.Incluir(new CorSimulado
                 {

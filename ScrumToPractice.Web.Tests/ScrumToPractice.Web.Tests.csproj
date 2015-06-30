@@ -97,6 +97,7 @@
     <Compile Include="Services\Questoes.cs" />
     <Compile Include="Services\Respostas.cs" />
     <Compile Include="Services\Parametros.cs" />
+    <Compile Include="Services\Cortesias.cs" />
     <Compile Include="Services\Usuarios.cs" />
   </ItemGroup>
   <ItemGroup>

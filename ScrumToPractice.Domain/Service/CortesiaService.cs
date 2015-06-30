@@ -5,16 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using ScrumToPractice.Domain.Models;
 using ScrumToPractice.Domain.Repository;
+using ScrumToPractice.Domain.Abstract;
 
 namespace ScrumToPractice.Domain.Service
 {
-    public class CortesiaService: IBaseService<Cortesia>
+    public class CortesiaService: IBaseService<Cortesia>, ICortesia
     {
         private IBaseRepository<Cortesia> repository;
+        private ICorSimulado simulado;
 
         public CortesiaService()
         {
             repository = new EFRepository<Cortesia>();
+            simulado = new CorSimuladoService();
         }
 
         public IQueryable<Cortesia> Listar()
@@ -36,7 +39,7 @@ namespace ScrumToPractice.Domain.Service
 
             if (item.NumQuestoes == 0)
             {
-                throw new ArgumentException("Nenhuma questão selecionada para o simulado");
+                item.NumQuestoes = GetNumQuestoes();
             }
 
             // grava
@@ -45,6 +48,13 @@ namespace ScrumToPractice.Domain.Service
                 return repository.Incluir(item).Id;
             }
             return repository.Alterar(item).Id;
+        }
+
+        public int GetNumQuestoes()
+        {
+            IParametro service;
+            service = new ParametroService();
+            return Convert.ToInt32(service.Find("NUM_QUESTOES_CORTESIA").Valor);
         }
 
         public Cortesia Excluir(int id)
@@ -63,6 +73,21 @@ namespace ScrumToPractice.Domain.Service
         public Cortesia Find(int id)
         {
             return repository.Find(id);
+        }
+
+        public SimuladoCortesia GetSimulado()
+        {
+            // gera uma cortesia
+            var cortesia = Find(Gravar(new Cortesia()));
+
+            // questoes
+            var questoes = simulado.GetSimulados(cortesia.Id);
+
+            return new SimuladoCortesia
+            {
+                Cortesia = cortesia,
+                Questoes = questoes
+            };
         }
     }
 }
