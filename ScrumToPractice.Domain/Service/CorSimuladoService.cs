@@ -84,5 +84,13 @@ namespace ScrumToPractice.Domain.Service
 
             return repository.Listar().Where(x => x.IdCortesia == idCortesia).AsEnumerable();
         }
+
+        public CorSimulado Find(int idCortesia, int idQuestao)
+        {
+            return repository.Listar()
+                .Where(x => x.IdCortesia == idCortesia 
+                    && x.IdQuestao == idQuestao)
+                    .FirstOrDefault();
+        }
     }
 }

@@ -87,6 +87,7 @@
     <Compile Include="Models\Questao.cs" />
     <Compile Include="Models\QuestaoCortesia.cs" />
     <Compile Include="Models\Resposta.cs" />
+    <Compile Include="Models\RespostaUsuario.cs" />
     <Compile Include="Models\SimuladoCortesia.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
