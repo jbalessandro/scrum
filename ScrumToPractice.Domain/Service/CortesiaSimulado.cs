@@ -85,7 +85,9 @@ namespace ScrumToPractice.Domain.Service
 
         public QuestaoCortesia GetProximaQuestao(int idCortesia, int idQuestaoAtual = 0)
         {
-            throw new NotImplementedException();
+            // TODO: testar esta funcao
+
+            // simulado atual: parei aki
         }
 
         /// <summary>
