@@ -15,7 +15,8 @@ namespace ScrumToPractice.Domain.Abstract
         QuestaoCortesia GetProximaQuestao(int idCortesia, int idQuestaoAtual = 0);
         QuestaoCortesia GetQuestaoAnterior(int idCortesia, int idQuestaoAtual);        
         int GetNumQuestoes();
-
+        
+        // GravarRespostaUsuario(int idCortesia, int idQuestao)
         // GetResultado
     }
 }
