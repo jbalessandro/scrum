@@ -23,5 +23,19 @@ namespace ScrumToPractice.Web.Tests.Services
             // Assert
             Assert.IsTrue(simulado.QuestoesSimuladas.Count() > 0);
         }
+
+        [TestMethod]
+        public void GetSimulado()
+        {
+            // Arrange
+            ISimuladoCortesia simulado;
+            simulado = new CortesiaSimulado();
+
+            // Act
+            var questaoCortesia = simulado.GetQuestao(1, 1);
+            
+            // Assert
+            Assert.IsNotNull(questaoCortesia.RespostaUsuario);
+        }
     }
 }

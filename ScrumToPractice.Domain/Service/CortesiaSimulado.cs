@@ -20,6 +20,7 @@ namespace ScrumToPractice.Domain.Service
         {
             serviceCortesia = new CortesiaService();
             serviceResposta = new RespostaService();
+            serviceCorErrado = new CorErradoService();
             simuladoCor = new CorSimuladoService();
             parametro = new ParametroService();
         }
@@ -80,8 +81,8 @@ namespace ScrumToPractice.Domain.Service
 
             var questao = new QuestaoCortesia();
             questao.QuestaoUsuario = simuladoCor.Find(idCortesia, idQuestao);
-            questao.NumQuestoesTotal = simulados.Count();
-            questao.NumQuestaoAtual = simulados.ToList().IndexOf(questao.QuestaoUsuario);
+            questao.NumQuestoesTotal = simulados.Count() + 1;
+            questao.NumQuestaoAtual = simulados.ToList().IndexOf(questao.QuestaoUsuario) + 1;
             questao.RespostaUsuario = GetRespostaUsuario(questao.QuestaoUsuario);
             questao.PrimeiraQuestao = (questao.NumQuestaoAtual == 1);
             
@@ -116,7 +117,7 @@ namespace ScrumToPractice.Domain.Service
             }
 
             // verifica se esta resposta errada esta cadastradas em CorErrada
-            if (serviceCorErrado.Listar().Where(x => x.IdCorSimulado == corSimulado.Id).Count() > 0)
+            if (serviceCorErrado.Listar().Where(x => x.IdCorSimulado == corSimulado.Id).FirstOrDefault() != null)
             {
                 // o usuario selecionou esta RESPOSTA errada, mas selecionou
                 return true;
