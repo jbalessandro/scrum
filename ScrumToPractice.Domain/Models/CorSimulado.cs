@@ -22,31 +22,43 @@ namespace ScrumToPractice.Domain.Models
         [Required]
         public int IdArea { get; set; }
 
-        [Display(Name="Correct")]
+        [Display(Name = "Correct")]
         public bool Correto { get; set; }
 
-        [Display(Name="Answer Later")]
+        [Display(Name = "Answer Later")]
         public bool ResponderDepois { get; set; }
 
-        [Display(Name="Modify")]
+        [Display(Name = "Modify")]
         public DateTime AlteradoEm { get; set; }
 
         [NotMapped]
         public virtual Questao Questao
         {
-            get {
+            get
+            {
                 return new ScrumToPractice.Domain.Service.QuestaoService().Find(IdQuestao);
             }
             set { }
-        }        
+        }
 
         [NotMapped]
         public virtual Area Area
         {
-            get {
+            get
+            {
                 return new ScrumToPractice.Domain.Service.AreaService().Find(IdArea);
             }
             set { }
         }
+
+        [NotMapped]
+        public virtual IEnumerable<CorResposta> RespostasUsuario
+        {
+            get
+            {
+                return new ScrumToPractice.Domain.Service.CorRespostaService().Listar(Id);
+            }
+            set { }
+        }        
     }
 }

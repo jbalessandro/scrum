@@ -8,18 +8,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ScrumToPractice.Domain.Models
 {
-    public class CorErrado
+    public class CorResposta
     {
         [Key]
         public int Id { get; set; }
 
-        [Required]
         public int IdCorSimulado { get; set; }
-
-        [Required]
         public int IdResposta { get; set; }
-
-        [Required]
-        public bool Selecionado { get; set; }
+        public bool SelecaoUsuario { get; set; }
+        public bool SelecaoSistema { get; set; }
     }
 }

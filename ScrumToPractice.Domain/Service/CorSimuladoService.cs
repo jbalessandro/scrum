@@ -13,11 +13,15 @@ namespace ScrumToPractice.Domain.Service
     {
         private IBaseRepository<CorSimulado> repository;
         private IQuestao questao;
+        private IBaseRepository<CorResposta> serviceResposta;
+        private IBaseRepository<Questao> serviceQuestao;
 
         public CorSimuladoService()
         {
             repository = new EFRepository<CorSimulado>();
             questao = new QuestaoService();
+            serviceResposta = new EFRepository<CorResposta>();
+            serviceQuestao = new EFRepository<Questao>();
         }
 
         public IQueryable<CorSimulado> Listar()
@@ -71,18 +75,34 @@ namespace ScrumToPractice.Domain.Service
             IQuestao questao;
             questao = new QuestaoService();
 
+            var listaSimulados = new List<CorSimulado>();
+
             foreach (var item in questao.GetQuestoesCortesia(idCortesia))
             {
-                repository.Incluir(new CorSimulado
+                var simulado = repository.Incluir(new CorSimulado
                 {
                     AlteradoEm = DateTime.Now,
                     IdArea = item.IdArea,
                     IdCortesia = idCortesia,
                     IdQuestao = item.Id
                 });
+
+                // adiciona respostas para a questao
+                foreach (var resposta in serviceQuestao.Find(item.Id).Respostas.ToList())
+                {
+                    serviceResposta.Incluir(new CorResposta
+                    {
+                        IdCorSimulado = simulado.Id,
+                        SelecaoSistema = resposta.Correta,
+                        IdResposta = resposta.Id
+                    });
+                }
+
+                listaSimulados.Add(simulado);
             }
 
-            return repository.Listar().Where(x => x.IdCortesia == idCortesia).AsEnumerable();
+
+            return listaSimulados;
         }
 
         public CorSimulado Find(int idCortesia, int idQuestao)

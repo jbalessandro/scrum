@@ -77,10 +77,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\ICorResposta.cs" />
     <Compile Include="Abstract\ICorSimulado.cs" />
     <Compile Include="Abstract\IParametro.cs" />
     <Compile Include="Models\Area.cs" />
-    <Compile Include="Models\CorErrado.cs" />
+    <Compile Include="Models\CorResposta.cs" />
     <Compile Include="Models\CorSimulado.cs" />
     <Compile Include="Models\Cortesia.cs" />
     <Compile Include="Models\Parametro.cs" />
@@ -95,7 +96,7 @@
     <Compile Include="Repository\EFRepository.cs" />
     <Compile Include="Repository\IBaseRepository.cs" />
     <Compile Include="Service\AreaService.cs" />
-    <Compile Include="Service\CorErradoService.cs" />
+    <Compile Include="Service\CorRespostaService.cs" />
     <Compile Include="Service\CorSimuladoService.cs" />
     <Compile Include="Service\CortesiaManutencao.cs" />
     <Compile Include="Service\CortesiaService.cs" />

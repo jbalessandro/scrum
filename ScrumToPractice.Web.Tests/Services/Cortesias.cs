@@ -32,10 +32,10 @@ namespace ScrumToPractice.Web.Tests.Services
             simulado = new CortesiaSimulado();
 
             // Act
-            var questaoCortesia = simulado.GetQuestao(1, 1);
+            var questaoCortesia = simulado.GetQuestao(2, 1);
             
             // Assert
-            Assert.IsNotNull(questaoCortesia.RespostaUsuario);
+            Assert.AreEqual(questaoCortesia.RespostaUsuario.Count(), 4);
         }
     }
 }

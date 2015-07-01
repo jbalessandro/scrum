@@ -12,7 +12,7 @@ namespace ScrumToPractice.Domain.Service
     {
         private IBaseService<Cortesia> serviceCortesia;
         private IBaseService<Resposta> serviceResposta;
-        private IBaseService<CorErrado> serviceCorErrado;
+        private IBaseService<CorResposta> serviceCorResposta;
         private ICorSimulado simuladoCor;
         private IParametro parametro;
 
@@ -20,7 +20,7 @@ namespace ScrumToPractice.Domain.Service
         {
             serviceCortesia = new CortesiaService();
             serviceResposta = new RespostaService();
-            serviceCorErrado = new CorErradoService();
+            serviceCorResposta = new CorRespostaService();
             simuladoCor = new CorSimuladoService();
             parametro = new ParametroService();
         }
@@ -32,7 +32,7 @@ namespace ScrumToPractice.Domain.Service
         public int CriarSimulado()
         {
             // gera uma cortesia
-            return serviceCortesia.Gravar(new Cortesia());
+            return serviceCortesia.Gravar(new Cortesia()); // TODO: rever em funcao da CorResposta
         }
 
         /// <summary>
@@ -74,6 +74,7 @@ namespace ScrumToPractice.Domain.Service
             throw new NotImplementedException();
         }
 
+        // TODO: rever em funcao da CorResposta
         public QuestaoCortesia GetQuestao(int idCortesia, int idQuestao)
         {
             // simulados desta cortesia
@@ -89,6 +90,7 @@ namespace ScrumToPractice.Domain.Service
             return questao;
         }
 
+        // TODO: rever em funcao da CorResposta
         private IEnumerable<RespostaUsuario> GetRespostaUsuario(CorSimulado corSimulado)
         {
             // possiveis respostas para esta questao
@@ -102,29 +104,10 @@ namespace ScrumToPractice.Domain.Service
                 {
                     Descricao = item.Descricao,
                     IdResposta = item.Id,
-                    Selecionada = GetRespostaSelecionadaPeloUsuario(corSimulado, item)
+                    Selecionada = true
                 });
             }
             return lista;
-        }
-
-        private bool GetRespostaSelecionadaPeloUsuario(CorSimulado corSimulado, Resposta resposta)
-        {
-            if (corSimulado.Correto == true)
-            {
-                // o usuario selecionou a RESPOSTA para uma RESPOSTA correta
-                return true;
-            }
-
-            // verifica se esta resposta errada esta cadastradas em CorErrada
-            if (serviceCorErrado.Listar().Where(x => x.IdCorSimulado == corSimulado.Id).FirstOrDefault() != null)
-            {
-                // o usuario selecionou esta RESPOSTA errada, mas selecionou
-                return true;
-            }
-
-            // a resposta esta errada e o usuario nao selecionou esta opcao (resposta)
-            return false;
         }
     }
 }
