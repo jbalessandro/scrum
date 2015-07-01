@@ -13,6 +13,7 @@ namespace ScrumToPractice.Domain.Service
         private IBaseService<Cortesia> serviceCortesia;
         private IBaseService<Resposta> serviceResposta;
         private IBaseService<CorResposta> serviceCorResposta;
+        private IBaseService<CorSimulado> serviceSimulado;
         private ICorSimulado simuladoCor;
         private IParametro parametro;
 
@@ -21,6 +22,7 @@ namespace ScrumToPractice.Domain.Service
             serviceCortesia = new CortesiaService();
             serviceResposta = new RespostaService();
             serviceCorResposta = new CorRespostaService();
+            serviceSimulado = new CorSimuladoService();
             simuladoCor = new CorSimuladoService();
             parametro = new ParametroService();
         }
@@ -64,16 +66,107 @@ namespace ScrumToPractice.Domain.Service
             return 0;
         }
 
+        /// <summary>
+        /// Retorna proxima questao
+        /// </summary>
+        /// <param name="idSimulado"></param>
+        /// <returns></returns>
+        public QuestaoCortesia GetProximaQuestao(int idSimulado)
+        {
+            var simulado = serviceSimulado.Find(idSimulado);
+
+            if (simulado == null)
+            {
+                return null;
+            }
+
+            return GetProximaQuestao(simulado.IdCortesia, simulado.IdQuestao);
+        }
+
         public QuestaoCortesia GetProximaQuestao(int idCortesia, int idQuestaoAtual = 0)
         {
             throw new NotImplementedException();
         }
 
-        public QuestaoCortesia GetQuestaoAnterior(int idCortesia, int idQuestaoAtual)
+        /// <summary>
+        /// Retorna questao anterior
+        /// </summary>
+        /// <param name="idSimulado"></param>
+        /// <returns></returns>
+        public QuestaoCortesia GetQuestaoAnterior(int idSimulado)
         {
-            throw new NotImplementedException();
+            var simulado = serviceSimulado.Find(idSimulado);
+
+            if (simulado == null)
+            {
+                return null;
+            }
+
+            return GetQuestaoAnterior(simulado.IdCortesia, simulado.IdQuestao);
         }
 
+        /// <summary>
+        /// Retorna questao anterior
+        /// </summary>
+        /// <param name="idCortesia"></param>
+        /// <param name="idQuestaoAtual"></param>
+        /// <returns></returns>
+        public QuestaoCortesia GetQuestaoAnterior(int idCortesia, int idQuestaoAtual)
+        {
+            // TODO: testar esta funcao
+            
+            // simulado atual
+            var simulado = simuladoCor.Find(idCortesia, idQuestaoAtual);
+
+            if (simulado != null)
+            {
+                var questaoAtual = GetQuestao(simulado.Id);
+                if (questaoAtual != null)
+                {
+                    if (questaoAtual.PrimeiraQuestao == true)
+                    {
+                        throw new ArgumentException("This is the already first question!");
+                    }
+                    
+                    // lista de questoes
+                    var questoes = simuladoCor.GetSimulados(simulado.IdCortesia).OrderBy(x => x.Id).ToList();
+                    if (questoes.Count() > 0)
+                    {
+                        var posicaoAtual = questoes.IndexOf(questoes.Find(x => x.IdQuestao == questaoAtual.QuestaoUsuario.Id));
+                        if (posicaoAtual >=0 || posicaoAtual < questoes.Count())
+                        {
+                            return GetQuestao(questoes.ElementAt(posicaoAtual).Id);
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Retorna uma questao do simulado (CorSimulado)
+        /// </summary>
+        /// <param name="idSimulado"></param>
+        /// <returns></returns>
+        public QuestaoCortesia GetQuestao(int idSimulado)
+        {
+            var simulado = serviceSimulado.Find(idSimulado);
+
+            if (simulado == null)
+            {
+                return null;
+            }
+
+            return GetQuestao(simulado.IdCortesia, simulado.IdQuestao);
+        }
+
+        /// <summary>
+        /// Retorna uma questao do simulado (CorSimulado)
+        /// </summary>
+        /// <param name="idCortesia"></param>
+        /// <param name="idQuestao"></param>
+        /// <returns></returns>
         public QuestaoCortesia GetQuestao(int idCortesia, int idQuestao)
         {
             // simulados desta cortesia
@@ -89,5 +182,6 @@ namespace ScrumToPractice.Domain.Service
             
             return questao;
         }
+
     }
 }
