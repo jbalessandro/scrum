@@ -83,11 +83,49 @@ namespace ScrumToPractice.Domain.Service
             return GetProximaQuestao(simulado.IdCortesia, simulado.IdQuestao);
         }
 
+        /// <summary>
+        /// Retorna proxima questao
+        /// </summary>
+        /// <param name="idCortesia"></param>
+        /// <param name="idQuestaoAtual"></param>
+        /// <returns></returns>
         public QuestaoCortesia GetProximaQuestao(int idCortesia, int idQuestaoAtual = 0)
         {
             // TODO: testar esta funcao
 
-            // simulado atual: parei aki
+            // lista de questoes do simulado
+            var questoes = simuladoCor.GetSimulados(idCortesia).OrderBy(x => x.Id).ToList();
+
+            if (idQuestaoAtual == 0 && questoes.Count > 0)
+            {
+                // a questao atual nao foi informada, retorna a primeira questao do simulado
+                return GetQuestao(questoes.First().Id);
+            }
+            else
+            {
+                // simulado atual
+                var simulado = simuladoCor.Find(idCortesia, idQuestaoAtual);
+                if (simulado != null)
+                {
+                    var questaoAtual = GetQuestao(simulado.Id);
+                    if (questaoAtual != null)
+                    {
+                        if (questaoAtual.UltimaQuestao == true)
+                        {
+                            throw new ArgumentException("this is the already last question!");
+                        }
+
+                        var posicaoAtual = questoes.IndexOf(questoes.Find(x => x.IdQuestao == questaoAtual.QuestaoUsuario.Id));
+                        if (posicaoAtual >=0 || posicaoAtual < questoes.Count())
+                        {
+                            return GetQuestao(questoes.ElementAt(posicaoAtual).Id);
+                        }
+                    }
+                }
+            }
+
+
+            return null;
         }
 
         /// <summary>
