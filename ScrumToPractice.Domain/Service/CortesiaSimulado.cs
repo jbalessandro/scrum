@@ -32,7 +32,7 @@ namespace ScrumToPractice.Domain.Service
         public int CriarSimulado()
         {
             // gera uma cortesia
-            return serviceCortesia.Gravar(new Cortesia()); // TODO: rever em funcao da CorResposta
+            return serviceCortesia.Gravar(new Cortesia());
         }
 
         /// <summary>
@@ -74,40 +74,20 @@ namespace ScrumToPractice.Domain.Service
             throw new NotImplementedException();
         }
 
-        // TODO: rever em funcao da CorResposta
         public QuestaoCortesia GetQuestao(int idCortesia, int idQuestao)
         {
             // simulados desta cortesia
             var simulados = simuladoCor.GetSimulados(idCortesia);
+            var atual = simulados.Where(x => x.IdQuestao == idQuestao).FirstOrDefault();
 
             var questao = new QuestaoCortesia();
             questao.QuestaoUsuario = simuladoCor.Find(idCortesia, idQuestao);
-            questao.NumQuestoesTotal = simulados.Count() + 1;
-            questao.NumQuestaoAtual = simulados.ToList().IndexOf(questao.QuestaoUsuario) + 1;
-            questao.RespostaUsuario = GetRespostaUsuario(questao.QuestaoUsuario);
+            questao.NumQuestoesTotal = simulados.Count();
+            questao.NumQuestaoAtual = simulados.ToList().IndexOf(atual) + 1;
             questao.PrimeiraQuestao = (questao.NumQuestaoAtual == 1);
+            questao.UltimaQuestao = (questao.NumQuestaoAtual == questao.NumQuestoesTotal);
             
             return questao;
-        }
-
-        // TODO: rever em funcao da CorResposta
-        private IEnumerable<RespostaUsuario> GetRespostaUsuario(CorSimulado corSimulado)
-        {
-            // possiveis respostas para esta questao
-            var respostas = serviceResposta.Listar().Where(x => x.IdQuestao == corSimulado.IdQuestao).AsEnumerable();
-
-            // lista das respostas do usuario
-            var lista = new List<RespostaUsuario>();
-            foreach (var item in respostas)
-            {
-                lista.Add(new RespostaUsuario
-                {
-                    Descricao = item.Descricao,
-                    IdResposta = item.Id,
-                    Selecionada = true
-                });
-            }
-            return lista;
         }
     }
 }

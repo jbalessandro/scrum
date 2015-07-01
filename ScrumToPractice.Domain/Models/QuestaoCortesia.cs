@@ -9,7 +9,6 @@ namespace ScrumToPractice.Domain.Models
     public class QuestaoCortesia
     {
         public CorSimulado QuestaoUsuario { get; set; }
-        public IEnumerable<RespostaUsuario> RespostaUsuario { get; set; }
         public int NumQuestaoAtual { get; set; }
         public int NumQuestoesTotal { get; set; }
         public bool PrimeiraQuestao { get; set; }

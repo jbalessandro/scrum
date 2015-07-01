@@ -35,7 +35,7 @@ namespace ScrumToPractice.Web.Tests.Services
             var questaoCortesia = simulado.GetQuestao(2, 1);
             
             // Assert
-            Assert.AreEqual(questaoCortesia.RespostaUsuario.Count(), 4);
+            Assert.AreEqual(questaoCortesia.QuestaoUsuario.RespostasUsuario.Count(), 4);
         }
     }
 }
