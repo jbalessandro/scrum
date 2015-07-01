@@ -91,10 +91,8 @@ namespace ScrumToPractice.Domain.Service
         /// <returns></returns>
         public QuestaoCortesia GetProximaQuestao(int idCortesia, int idQuestaoAtual = 0)
         {
-            // TODO: testar esta funcao
-
             // lista de questoes do simulado
-            var questoes = simuladoCor.GetSimulados(idCortesia).OrderBy(x => x.Id).ToList();
+            var questoes =  serviceSimulado.Listar().Where(x => x.IdCortesia == idCortesia).OrderBy(x => x.Id).ToList();
 
             if (idQuestaoAtual == 0 && questoes.Count > 0)
             {
@@ -115,10 +113,10 @@ namespace ScrumToPractice.Domain.Service
                             throw new ArgumentException("this is the already last question!");
                         }
 
-                        var posicaoAtual = questoes.IndexOf(questoes.Find(x => x.IdQuestao == questaoAtual.QuestaoUsuario.Id));
+                        var posicaoAtual = questoes.IndexOf(questoes.Find(x => x.Id == questaoAtual.QuestaoUsuario.Id));
                         if (posicaoAtual >=0 || posicaoAtual < questoes.Count())
                         {
-                            return GetQuestao(questoes.ElementAt(posicaoAtual).Id);
+                            return GetQuestao(questoes.ElementAt(posicaoAtual + 1).Id);
                         }
                     }
                 }
@@ -153,8 +151,6 @@ namespace ScrumToPractice.Domain.Service
         /// <returns></returns>
         public QuestaoCortesia GetQuestaoAnterior(int idCortesia, int idQuestaoAtual)
         {
-            // TODO: testar esta funcao
-            
             // simulado atual
             var simulado = simuladoCor.Find(idCortesia, idQuestaoAtual);
 
@@ -169,13 +165,13 @@ namespace ScrumToPractice.Domain.Service
                     }
                     
                     // lista de questoes
-                    var questoes = simuladoCor.GetSimulados(simulado.IdCortesia).OrderBy(x => x.Id).ToList();
+                    var questoes = serviceSimulado.Listar().Where(x => x.IdCortesia == idCortesia).OrderBy(x => x.Id).ToList();
                     if (questoes.Count() > 0)
                     {
-                        var posicaoAtual = questoes.IndexOf(questoes.Find(x => x.IdQuestao == questaoAtual.QuestaoUsuario.Id));
-                        if (posicaoAtual >=0 || posicaoAtual < questoes.Count())
+                        var posicaoAtual = questoes.IndexOf(questoes.Find(x => x.Id == questaoAtual.QuestaoUsuario.Id));
+                        if (posicaoAtual >0 || posicaoAtual <= questoes.Count())
                         {
-                            return GetQuestao(questoes.ElementAt(posicaoAtual).Id);
+                            return GetQuestao(questoes.ElementAt(posicaoAtual-1).Id);
                         }
                     }
                 }
@@ -210,13 +206,20 @@ namespace ScrumToPractice.Domain.Service
         public QuestaoCortesia GetQuestao(int idCortesia, int idQuestao)
         {
             // simulados desta cortesia
-            var simulados = simuladoCor.GetSimulados(idCortesia);
+            List<CorSimulado> simulados;
+            simulados = serviceSimulado.Listar().Where(x => x.IdCortesia == idCortesia).OrderBy(x => x.Id).ToList();
+            if (simulados.Count() == 0)
+            {
+                // gera um novo simulado
+                simulados = simuladoCor.GetSimulados(idCortesia).OrderBy(x => x.Id).ToList();
+            }
+            
             var atual = simulados.Where(x => x.IdQuestao == idQuestao).FirstOrDefault();
 
             var questao = new QuestaoCortesia();
-            questao.QuestaoUsuario = simuladoCor.Find(idCortesia, idQuestao);
+            questao.QuestaoUsuario = atual;
             questao.NumQuestoesTotal = simulados.Count();
-            questao.NumQuestaoAtual = simulados.ToList().IndexOf(atual) + 1;
+            questao.NumQuestaoAtual = simulados.IndexOf(atual) + 1;
             questao.PrimeiraQuestao = (questao.NumQuestaoAtual == 1);
             questao.UltimaQuestao = (questao.NumQuestaoAtual == questao.NumQuestoesTotal);
             

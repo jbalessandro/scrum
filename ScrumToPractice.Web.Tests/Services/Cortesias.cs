@@ -32,10 +32,45 @@ namespace ScrumToPractice.Web.Tests.Services
             simulado = new CortesiaSimulado();
 
             // Act
-            var questaoCortesia = simulado.GetQuestao(2, 1);
+            var questaoCortesia = simulado.GetQuestao(6, 1);
+            var questaoCortesiaById = simulado.GetQuestao(81);
             
             // Assert
             Assert.AreEqual(questaoCortesia.QuestaoUsuario.RespostasUsuario.Count(), 4);
+            Assert.AreEqual(questaoCortesia.QuestaoUsuario.RespostasUsuario.Last().IdResposta, 4);
+            Assert.AreEqual(questaoCortesiaById.QuestaoUsuario.Id, 81);
+        }
+
+        [TestMethod]
+        public void GetProximaQuestao()
+        {
+            // Arrange
+            ISimuladoCortesia simulado;
+            simulado = new CortesiaSimulado();
+
+            // Act
+            var proximaQuestao = simulado.GetProximaQuestao(6, 2);
+            var proximaQuestaoById = simulado.GetProximaQuestao(80);
+
+            // Assert
+            Assert.AreEqual(proximaQuestao.QuestaoUsuario.Id, 81);
+            Assert.AreEqual(proximaQuestaoById.QuestaoUsuario.Id, 81);
+        }
+
+        [TestMethod]
+        public void GetQuestaoAnterior()
+        {
+            // Arrange
+            ISimuladoCortesia simulado;
+            simulado = new CortesiaSimulado();
+
+            // Act
+            var questaoAnterior = simulado.GetQuestaoAnterior(6, 1);
+            var questaoAnteriorById = simulado.GetQuestaoAnterior(81);
+
+            // Assert
+            Assert.AreEqual(questaoAnterior.QuestaoUsuario.Id, 80);
+            Assert.AreEqual(questaoAnteriorById.QuestaoUsuario.Id, 80);
         }
     }
 }
