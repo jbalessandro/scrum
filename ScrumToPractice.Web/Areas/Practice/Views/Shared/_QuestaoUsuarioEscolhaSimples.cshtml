@@ -1,0 +1,7 @@
+﻿@model IEnumerable<ScrumToPractice.Domain.Models.CorResposta>
+
+<hr />
+@foreach (ScrumToPractice.Domain.Models.CorResposta item in @Model)
+{
+    <p>@Html.RadioButtonFor(x => item.SelecaoUsuario, item.Id, new { id = "Alternativa", @class ="alternativa" }) @item.Resposta.Descricao</p>
+}

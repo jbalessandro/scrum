@@ -129,6 +129,8 @@
     <Compile Include="Areas\Administrativo\Models\AreaQuestao.cs" />
     <Compile Include="Areas\Administrativo\Models\AreaQuestoes.cs" />
     <Compile Include="Areas\Administrativo\Models\QuestaoRespostas.cs" />
+    <Compile Include="Areas\Practice\Controllers\PracticeController.cs" />
+    <Compile Include="Areas\Practice\PracticeAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -177,6 +179,12 @@
     <Content Include="Areas\Administrativo\Views\Parametro\Create.cshtml" />
     <Content Include="Areas\Administrativo\Views\Parametro\Edit.cshtml" />
     <Content Include="Areas\Administrativo\Views\Parametro\Delete.cshtml" />
+    <Content Include="Areas\Practice\Views\web.config" />
+    <Content Include="Areas\Practice\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Practice\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Practice\Views\Practice\Index.cshtml" />
+    <Content Include="Areas\Practice\Views\Shared\_QuestaoUsuarioEscolhaSimples.cshtml" />
+    <Content Include="Areas\Practice\Views\Shared\_QuestaoUsuarioEscolhaMultipla.cshtml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -209,6 +217,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Practice\Models\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

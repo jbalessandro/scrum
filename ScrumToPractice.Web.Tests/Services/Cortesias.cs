@@ -55,6 +55,7 @@ namespace ScrumToPractice.Web.Tests.Services
             // Assert
             Assert.AreEqual(proximaQuestao.QuestaoUsuario.Id, 81);
             Assert.AreEqual(proximaQuestaoById.QuestaoUsuario.Id, 81);
+
         }
 
         [TestMethod]

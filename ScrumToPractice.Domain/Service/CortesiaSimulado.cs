@@ -105,7 +105,7 @@ namespace ScrumToPractice.Domain.Service
                 var simulado = simuladoCor.Find(idCortesia, idQuestaoAtual);
                 if (simulado != null)
                 {
-                    var questaoAtual = GetQuestao(simulado.Id);
+                    var questaoAtual = GetQuestao(idCortesia, idQuestaoAtual);
                     if (questaoAtual != null)
                     {
                         if (questaoAtual.UltimaQuestao == true)
