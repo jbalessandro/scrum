@@ -48,8 +48,9 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
             return View(questao);
         }
 
+        //public ActionResult Proxima(IEnumerable<int> selecionadas, int idCortesia, int idQuestao)
         [HttpPost]
-        public ActionResult Proxima(IEnumerable<int> selecionadas, int idCortesia, int idQuestao)
+        public ActionResult Next(int idCortesia, int idQuestao, FormCollection collection)
         {
             var proximaQuestao = cortesia.GetProximaQuestao(idCortesia, idQuestao);
             // TODO: validar proxima questao....
