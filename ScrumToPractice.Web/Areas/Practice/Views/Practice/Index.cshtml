@@ -18,14 +18,37 @@
             var alternativas = [];
             $('.alternativa').each(function () {
                 if ($(this).is(':checked')) {
-                    alternativas.push($(this).val());
+                    alternativas.push(parseInt($(this).val()));
                 }
             });
 
             $.ajax({
+                traditional: true,
                 type: 'GET',
                 url: '/Practice/Practice/Proxima/',
-                data: { selecionadas: alternativas, idCortesia: @Model.QuestaoUsuario.IdCortesia, idQuestao: @Model.QuestaoUsuario.IdQuestao },
+                data: { selecionadas: alternativas, idCortesia: @Model.QuestaoUsuario.IdCortesia, idQuestao: @Model.QuestaoUsuario.Id },
+                success: function(data) {
+                    $('#simulado').html(data);
+                },
+                error: function (request, status, error) {
+                    alert(error);
+                }
+            });
+        });
+
+        $('#btnPrevious').click(function () {
+            var alternativas = [];
+            $('.alternativa').each(function () {
+                if ($(this).is(':checked')) {
+                    alternativas.push(parseInt($(this).val()));
+                }
+            });
+
+            $.ajax({
+                traditional: true,
+                type: 'GET',
+                url: '/Practice/Practice/Anterior/',
+                data: { selecionadas: alternativas, idCortesia: @Model.QuestaoUsuario.IdCortesia, idQuestao: @Model.QuestaoUsuario.Id },
                 success: function(data) {
                     $('#simulado').html(data);
                 },

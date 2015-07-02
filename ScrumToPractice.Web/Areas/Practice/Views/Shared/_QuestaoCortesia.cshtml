@@ -30,22 +30,24 @@
 <div class="container">
     <div class="row">
         @using (Html.BeginForm("Index", "Result", FormMethod.Post, new { id = @Model.QuestaoUsuario.IdCortesia }))
-        <div class="col-sm-6 col-md-2">
-            @if (Model.PrimeiraQuestao == false)
-            {
-                <input id="btnPrevious" type="button" value="Previous" class="btn btn-primary" />
-            }
-        </div>
-        <div class="col-sm-6 col-md-10 text-right">
-            @if (Model.UltimaQuestao == false)
-            {
-                <input id="btnAnswerLater" type="button" value="Answer later" class="btn btn-primary" />
-                <input id="btnNext" type="button" value="Next" class="btn btn-primary" />
-            }
-            else
-            {
-                <input type="submit" value="Finish exam" class="btn btn-primary" />
-            }
-        </div>
+        {
+            <div class="col-sm-6 col-md-2">
+                @if (Model.PrimeiraQuestao == false)
+                {
+                    <input id="btnPrevious" type="button" value="Previous" class="btn btn-primary" />
+                }
+            </div>
+            <div class="col-sm-6 col-md-10 text-right">
+                @if (Model.UltimaQuestao == false)
+                {
+                    <input id="btnAnswerLater" type="button" value="Answer later" class="btn btn-primary" />
+                    <input id="btnNext" type="button" value="Next" class="btn btn-primary" />
+                }
+                else
+                {
+                    <input type="submit" value="Finish exam" class="btn btn-primary" />
+                }
+            </div>
+        }
     </div>
 </div>

@@ -57,6 +57,15 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
             return PartialView("_QuestaoCortesia", (ScrumToPractice.Domain.Models.QuestaoCortesia)proximaQuestao);
         }
 
+        public ActionResult Anterior(IEnumerable<int> selecionadas, int idCortesia, int idQuestao)
+        {
+            // grava resposta usuario para a questao
+            GravarResposta(idQuestao, selecionadas);
+
+            var questaoAnterior = cortesia.GetQuestaoAnterior(idCortesia, idQuestao);
+            return PartialView("_QuestaoCortesia", (ScrumToPractice.Domain.Models.QuestaoCortesia)questaoAnterior);
+        }
+
         private void GravarResposta(int idQuestao, IEnumerable<int> selecionadas)
         {
             cortesia.GravarRespostaUsuario(idQuestao, selecionadas);
