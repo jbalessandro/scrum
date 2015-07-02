@@ -5,54 +5,13 @@
 }
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<div id="simulado" class="container">
-    <div class="row">
-        <div class="col-sm-12 col-md-12">
-            <h4>
-                @Model.NumQuestaoAtual - @Model.QuestaoUsuario.Questao.Descricao
-            </h4>
-        </div>
-    </div>
-
-    <div class="row top20">
-        <div class="col-sm-12 col-md-12">
-            @Html.HiddenFor(model => Model.QuestaoUsuario.Id)
-
-            @if (@Model.QuestaoUsuario.Questao.MultiplaEscolha)
-            {
-                @:(Multiple-choice)
-                @Html.Partial("_QuestaoUsuarioEscolhaMultipla", (IEnumerable<ScrumToPractice.Domain.Models.CorResposta>)@Model.QuestaoUsuario.RespostasUsuario)
-            }
-            else
-            {
-                @:(Select one)
-                @Html.Partial("_QuestaoUsuarioEscolhaSimples", (IEnumerable<ScrumToPractice.Domain.Models.CorResposta>)@Model.QuestaoUsuario.RespostasUsuario)
-            }
-            <hr />
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6 col-md-2">
-                        <input id="btnPrevious" type="button" value="Previous" class="btn btn-primary" />
-                    </div>
-                    <div class="col-sm-6 col-md-9 text-right">
-                        @using(Html.BeginForm("ResponderDepois", "Practice", FormMethod.Post)){
-                            <input id="btnAnswerLater" type="button" value="Answer later" class="btn btn-primary" />
-                        }
-                    </div>
-                    <div class="col-sm-6 col-md-1 text-right">
-                        @using (Html.BeginForm("Next", "Practice", FormMethod.Post))
-                        {
-                            @Html.Hidden("idQuestao", (int)@Model.QuestaoUsuario.IdQuestao);
-                            @Html.Hidden("idCortesia", (int)@Model.QuestaoUsuario.IdCortesia);
-                            <input id="btnNext" type="submit" value="Next" class="btn btn-primary" />
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+@Html.Hidden("idQuestao", (int)@Model.QuestaoUsuario.IdQuestao)
+@Html.Hidden("idCortesia", (int)@Model.QuestaoUsuario.IdCortesia)
+<div id="simulado">
+    @Html.Partial("_QuestaoCortesia", (ScrumToPractice.Domain.Models.QuestaoCortesia)@Model)
 </div>
-@*<script type="text/javascript">
+
+<script type="text/javascript">
     $(document).ready(function () {
 
         $('#btnNext').click(function () {
@@ -64,14 +23,17 @@
             });
 
             $.ajax({
+                type: 'GET',
                 url: '/Practice/Practice/Proxima/',
-                type: 'POST',
-                dataType: 'json',
-                data: { selecionadas: alternativas, idCortesia : @Model.QuestaoUsuario.IdCortesia, idQuestao : @Model.QuestaoUsuario.IdQuestao },
+                data: { selecionadas: alternativas, idCortesia: @Model.QuestaoUsuario.IdCortesia, idQuestao: @Model.QuestaoUsuario.IdQuestao },
                 success: function(data) {
-                    //$('#simulado').html(data);
+                    $('#simulado').html(data);
+                },
+                error: function (request, status, error) {
+                    alert(error);
                 }
             });
         });
+
     });
-</script>*@
+</script>

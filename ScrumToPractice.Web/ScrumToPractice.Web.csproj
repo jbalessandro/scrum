@@ -185,6 +185,7 @@
     <Content Include="Areas\Practice\Views\Practice\Index.cshtml" />
     <Content Include="Areas\Practice\Views\Shared\_QuestaoUsuarioEscolhaSimples.cshtml" />
     <Content Include="Areas\Practice\Views\Shared\_QuestaoUsuarioEscolhaMultipla.cshtml" />
+    <Content Include="Areas\Practice\Views\Shared\_QuestaoCortesia.cshtml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

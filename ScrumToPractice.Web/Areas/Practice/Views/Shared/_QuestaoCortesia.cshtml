@@ -1,0 +1,50 @@
+﻿@model  ScrumToPractice.Domain.Models.QuestaoCortesia
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <h4>
+                @Model.NumQuestaoAtual - @Model.QuestaoUsuario.Questao.Descricao
+            </h4>
+        </div>
+    </div>
+
+    <div class="row top20">
+        <div class="col-sm-12 col-md-12">
+
+            @if (@Model.QuestaoUsuario.Questao.MultiplaEscolha)
+            {
+                @:(Multiple-choice)
+                @Html.Partial("_QuestaoUsuarioEscolhaMultipla", (IEnumerable<ScrumToPractice.Domain.Models.CorResposta>)@Model.QuestaoUsuario.RespostasUsuario)
+            }
+            else
+            {
+                @:(Select one)
+                @Html.Partial("_QuestaoUsuarioEscolhaSimples", (IEnumerable<ScrumToPractice.Domain.Models.CorResposta>)@Model.QuestaoUsuario.RespostasUsuario)
+            }
+            <hr />
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-2">
+            @if (Model.PrimeiraQuestao == false)
+            {
+                <input id="btnPrevious" type="button" value="Previous" class="btn btn-primary" />
+            }
+        </div>
+        <div class="col-sm-6 col-md-10 text-right">
+            @if (Model.UltimaQuestao == false)
+            {
+                <input id="btnAnswerLater" type="button" value="Answer later" class="btn btn-primary" />
+                <input id="btnNext" type="button" value="Next" class="btn btn-primary" />
+            }
+            else
+            {
+                <input type="submit" value="Finish exam" class="btn btn-primary" />
+            }
+        </div>
+    </div>
+</div>
