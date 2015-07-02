@@ -226,5 +226,21 @@ namespace ScrumToPractice.Domain.Service
             return questao;
         }
 
+        /// <summary>
+        /// Grava resposta assinalada pelo usuario
+        /// </summary>
+        /// <param name="idCorSimulado"></param>
+        /// <param name="selecionadas"></param>
+        public void GravarRespostaUsuario(int idCorSimulado, IEnumerable<int> selecionadas)
+        {
+            // lista de respostas para este simulado
+            var respostas = serviceCorResposta.Listar().Where(x => x.IdCorSimulado == idCorSimulado).ToList();
+
+            for (int i = 0; i < respostas.Count; i++)
+            {
+                respostas[i].SelecaoUsuario = (selecionadas.Contains(respostas[i].Id));
+                serviceCorResposta.Gravar(respostas[i]);
+            }
+        }
     }
 }

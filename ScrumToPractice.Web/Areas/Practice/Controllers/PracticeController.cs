@@ -47,14 +47,19 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
             // retorna view com a primeira questao
             return View(questao);
         }
-
-        //public PartialViewResult Next(int idCortesia, int idQuestao, FormCollection collection)
+        
         public ActionResult Proxima(IEnumerable<int> selecionadas, int idCortesia, int idQuestao)
         {
+            // grava resposta usuario para a questao
+            GravarResposta(idQuestao, selecionadas);            
+
             var proximaQuestao = cortesia.GetProximaQuestao(idCortesia, idQuestao);
-            // TODO: validar proxima questao....
-            // add model error
             return PartialView("_QuestaoCortesia", (ScrumToPractice.Domain.Models.QuestaoCortesia)proximaQuestao);
+        }
+
+        private void GravarResposta(int idQuestao, IEnumerable<int> selecionadas)
+        {
+            cortesia.GravarRespostaUsuario(idQuestao, selecionadas);
         }
     }
 }

@@ -29,6 +29,7 @@
 
 <div class="container">
     <div class="row">
+        @using (Html.BeginForm("Index", "Result", FormMethod.Post, new { id = @Model.QuestaoUsuario.IdCortesia }))
         <div class="col-sm-6 col-md-2">
             @if (Model.PrimeiraQuestao == false)
             {

@@ -130,6 +130,7 @@
     <Compile Include="Areas\Administrativo\Models\AreaQuestoes.cs" />
     <Compile Include="Areas\Administrativo\Models\QuestaoRespostas.cs" />
     <Compile Include="Areas\Practice\Controllers\PracticeController.cs" />
+    <Compile Include="Areas\Practice\Controllers\ResultController.cs" />
     <Compile Include="Areas\Practice\PracticeAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -186,6 +187,7 @@
     <Content Include="Areas\Practice\Views\Shared\_QuestaoUsuarioEscolhaSimples.cshtml" />
     <Content Include="Areas\Practice\Views\Shared\_QuestaoUsuarioEscolhaMultipla.cshtml" />
     <Content Include="Areas\Practice\Views\Shared\_QuestaoCortesia.cshtml" />
+    <Content Include="Areas\Practice\Views\Result\Index.cshtml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
