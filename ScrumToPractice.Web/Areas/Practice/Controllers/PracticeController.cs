@@ -22,7 +22,7 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
         // GET: Practice/Practice
         public ActionResult Index(int? idSimulado, QuestaoCortesia questaoCortesia)
         {
-            if (questaoCortesia == null)
+            if (questaoCortesia.NumQuestoesTotal > 0)
             {
                 return View(questaoCortesia);
             }
@@ -34,9 +34,9 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
                 // TODO: voltar aqui
                 // cria um novo simulado
                 var simulado = cortesia.GetSimulado(cortesia.CriarSimulado());
-                var cortesiaSimulado = cortesia.GetSimulado(simulado.Cortesia.Id);
+                //var cortesiaSimulado = cortesia.GetSimulado(simulado.Cortesia.Id);
                 //questao = cortesia.GetQuestao(cortesiaSimulado.QuestoesSimuladas.ToList().OrderBy(x => x.Id).First().Id);
-                var alternativa = cortesiaSimulado.QuestoesSimuladas.ToList().OrderBy(x => x.Id).First();
+                var alternativa = simulado.QuestoesSimuladas.ToList().OrderBy(x => x.Id).First();
                 questao = cortesia.GetQuestao(alternativa.IdCortesia, alternativa.IdQuestao);
             }
             else
@@ -66,6 +66,11 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
             return PartialView("_QuestaoCortesia", (ScrumToPractice.Domain.Models.QuestaoCortesia)questaoAnterior);
         }
 
+        /// <summary>
+        /// Grava resposta conforme selecao do usuario
+        /// </summary>
+        /// <param name="idQuestao"></param>
+        /// <param name="selecionadas"></param>
         private void GravarResposta(int idQuestao, IEnumerable<int> selecionadas)
         {
             cortesia.GravarRespostaUsuario(idQuestao, selecionadas);

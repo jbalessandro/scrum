@@ -5,8 +5,9 @@
 }
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-@Html.Hidden("idQuestao", (int)@Model.QuestaoUsuario.IdQuestao)
 @Html.Hidden("idCortesia", (int)@Model.QuestaoUsuario.IdCortesia)
+@Html.Hidden("idQuestao", (int)@Model.QuestaoUsuario.Id)
+
 <div id="simulado">
     @Html.Partial("_QuestaoCortesia", (ScrumToPractice.Domain.Models.QuestaoCortesia)@Model)
 </div>
@@ -16,6 +17,9 @@
 
         $('#btnNext').click(function () {
             var alternativas = [];
+            var idCortesia = parseInt($('#idCortesia').val());
+            var idQuestao = parseInt($(this).data("questao"));
+
             $('.alternativa').each(function () {
                 if ($(this).is(':checked')) {
                     alternativas.push(parseInt($(this).val()));
@@ -26,7 +30,7 @@
                 traditional: true,
                 type: 'GET',
                 url: '/Practice/Practice/Proxima/',
-                data: { selecionadas: alternativas, idCortesia: @Model.QuestaoUsuario.IdCortesia, idQuestao: @Model.QuestaoUsuario.Id },
+                data: { selecionadas: alternativas, idCortesia: idCortesia, idQuestao: idQuestao },
                 success: function(data) {
                     $('#simulado').html(data);
                 },
@@ -36,8 +40,12 @@
             });
         });
 
+
         $('#btnPrevious').click(function () {
             var alternativas = [];
+            var idCortesia = parseInt($('#idCortesia').val());
+            var idQuestao = parseInt($(this).data("questao"));
+
             $('.alternativa').each(function () {
                 if ($(this).is(':checked')) {
                     alternativas.push(parseInt($(this).val()));
@@ -48,7 +56,7 @@
                 traditional: true,
                 type: 'GET',
                 url: '/Practice/Practice/Anterior/',
-                data: { selecionadas: alternativas, idCortesia: @Model.QuestaoUsuario.IdCortesia, idQuestao: @Model.QuestaoUsuario.Id },
+                data: { selecionadas: alternativas, idCortesia: idCortesia, idQuestao: idQuestao },
                 success: function(data) {
                     $('#simulado').html(data);
                 },
@@ -57,6 +65,7 @@
                 }
             });
         });
+
 
     });
 </script>

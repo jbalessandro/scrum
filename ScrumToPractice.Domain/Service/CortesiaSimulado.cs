@@ -101,29 +101,15 @@ namespace ScrumToPractice.Domain.Service
             }
             else
             {
-                // simulado atual
-                var simulado = simuladoCor.Find(idCortesia, idQuestaoAtual);
-                if (simulado != null)
+                // questao atual
+                var questaoAtual = questoes.Where(x => x.Id == idQuestaoAtual).FirstOrDefault();
+                var posicao = questoes.IndexOf(questaoAtual);
+                if (posicao == questoes.Count - 1)
                 {
-                    var questaoAtual = GetQuestao(idCortesia, idQuestaoAtual);
-                    if (questaoAtual != null)
-                    {
-                        if (questaoAtual.UltimaQuestao == true)
-                        {
-                            throw new ArgumentException("this is the already last question!");
-                        }
-
-                        var posicaoAtual = questoes.IndexOf(questoes.Find(x => x.Id == questaoAtual.QuestaoUsuario.Id));
-                        if (posicaoAtual >=0 || posicaoAtual < questoes.Count())
-                        {
-                            return GetQuestao(questoes.ElementAt(posicaoAtual + 1).Id);
-                        }
-                    }
+                    throw new ArgumentException("This is already last question!");
                 }
+                return GetQuestao(questoes[posicao + 1].Id);
             }
-
-
-            return null;
         }
 
         /// <summary>
@@ -151,33 +137,17 @@ namespace ScrumToPractice.Domain.Service
         /// <returns></returns>
         public QuestaoCortesia GetQuestaoAnterior(int idCortesia, int idQuestaoAtual)
         {
-            // simulado atual
-            var simulado = simuladoCor.Find(idCortesia, idQuestaoAtual);
+            // lista de questoes do simulado
+            var questoes = serviceSimulado.Listar().Where(x => x.IdCortesia == idCortesia).OrderBy(x => x.Id).ToList();
 
-            if (simulado != null)
+            // questao atual
+            var questaoAtual = questoes.Where(x => x.Id == idQuestaoAtual).FirstOrDefault();
+            var posicao = questoes.IndexOf(questaoAtual);
+            if (posicao == 0)
             {
-                var questaoAtual = GetQuestao(simulado.Id);
-                if (questaoAtual != null)
-                {
-                    if (questaoAtual.PrimeiraQuestao == true)
-                    {
-                        throw new ArgumentException("This is the already first question!");
-                    }
-                    
-                    // lista de questoes
-                    var questoes = serviceSimulado.Listar().Where(x => x.IdCortesia == idCortesia).OrderBy(x => x.Id).ToList();
-                    if (questoes.Count() > 0)
-                    {
-                        var posicaoAtual = questoes.IndexOf(questoes.Find(x => x.Id == questaoAtual.QuestaoUsuario.Id));
-                        if (posicaoAtual >0 || posicaoAtual <= questoes.Count())
-                        {
-                            return GetQuestao(questoes.ElementAt(posicaoAtual-1).Id);
-                        }
-                    }
-                }
+                throw new ArgumentException("This is already first question!");
             }
-
-            return null;
+            return GetQuestao(questoes[posicao - 1].Id);
         }
 
         /// <summary>
