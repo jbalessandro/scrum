@@ -13,10 +13,12 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
     public class PracticeController : Controller
     {
         private ISimuladoCortesia cortesia;
+        private IBaseService<CorSimulado> serviceSimulado;
 
         public PracticeController()
         {
             cortesia = new CortesiaSimulado();
+            serviceSimulado = new CorSimuladoService();
         }
 
         // GET: Practice/Practice
@@ -61,7 +63,7 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
             GravarResposta(idQuestao, selecionadas);            
 
             var proximaQuestao = cortesia.GetProximaQuestao(idCortesia, idQuestao);
-            return PartialView("_QuestaoCortesia", (ScrumToPractice.Domain.Models.QuestaoCortesia)proximaQuestao);
+            return PartialView("_QuestaoCortesia", (QuestaoCortesia)proximaQuestao);
         }
 
         /// <summary>
@@ -77,7 +79,53 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
             GravarResposta(idQuestao, selecionadas);
 
             var questaoAnterior = cortesia.GetQuestaoAnterior(idCortesia, idQuestao);
-            return PartialView("_QuestaoCortesia", (ScrumToPractice.Domain.Models.QuestaoCortesia)questaoAnterior);
+            return PartialView("_QuestaoCortesia", (QuestaoCortesia)questaoAnterior);
+        }
+
+        /// <summary>
+        /// Define que esta questao sera respondida depois
+        /// </summary>
+        /// <param name="idCortesia"></param>
+        /// <param name="idQuestao"></param>
+        /// <returns>Proxima questao a ser respondida, se nao houver retorna a anterior</returns>
+        public ActionResult ResponderDepois(int idCortesia, int idQuestao)
+        {
+            var simulado = serviceSimulado.Listar().Where(x => x.IdCortesia == idCortesia && x.IdQuestao == idQuestao).FirstOrDefault();
+
+            if (simulado == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            // definque que esta questao sera respondida posteriormente
+            simulado.ResponderDepois = true;
+            serviceSimulado.Gravar(simulado);
+
+            // questao a ser retornada para o usuario
+            QuestaoCortesia questaoRetorno;
+
+            // viabilidade de responder a proxima questao
+            try
+            {
+                questaoRetorno = cortesia.GetProximaQuestao(idCortesia, idQuestao);            
+            }
+            catch (Exception)
+            {
+                questaoRetorno = cortesia.GetQuestaoAnterior(idCortesia, idQuestao);
+            }
+
+            return PartialView("_QuestaoCortesia", (QuestaoCortesia)questaoRetorno);
+        }
+
+        /// <summary>
+        /// Exibe uma determinada questao
+        /// </summary>
+        /// <param name="idQuestao"></param>
+        /// <returns></returns>
+        public ActionResult ExibirQuestao(int idCortesia, int idQuestao)
+        {
+            var questao = cortesia.GetQuestao(idCortesia, idQuestao);
+            return PartialView(questao);
         }
 
         /// <summary>

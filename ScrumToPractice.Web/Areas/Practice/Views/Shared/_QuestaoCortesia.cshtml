@@ -1,4 +1,5 @@
-﻿@model  ScrumToPractice.Domain.Models.QuestaoCortesia
+﻿@using ScrumToPractice.Domain.Models;
+@model  QuestaoCortesia
 
 @Html.Hidden("idCortesia", (int)@Model.QuestaoUsuario.IdCortesia)
 @Html.Hidden("idQuestao", (int)@Model.QuestaoUsuario.Id)
@@ -46,6 +47,22 @@
     </div>
 </div>
 
+@if (@Model.QuestoesNaoRespondidas.Count() > 0)
+{
+    <hr />
+    <div class="container">
+        <div class="row">
+            <h4>Marked for answer latter</h4>
+            <div class="col-sm-12 col-md-12">
+                @foreach (CorSimulado item in Model.QuestoesNaoRespondidas)
+                {
+                    <p><button type="button" data-id="@item.Id" class="btn btn-primary btn-xs answer">Answer</button></p>
+                }
+            </div>
+        </div>
+    </div>
+}
+
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -74,7 +91,6 @@
                 }
             });
         });
-
 
         $('#btnPrevious').click(function () {
             var alternativas = [];
@@ -120,6 +136,28 @@
                 }
                 else if (response.result == 'Redirect') {
                     window.location = response.url;
+                }
+            });
+        });
+
+        $('#btnAnswerLater').click(function () {
+            var idCortesia = parseInt($(this).data("id"));
+        });
+
+        $('.answer').click(function () {
+            var idCortesia = parseInt($('#idCortesia').val());
+            var idQuestao = parseInt($(this).data('id'));
+
+            $.ajax({
+                traditional: true,
+                type: 'GET',
+                url: '/Practice/Practice/ExibirQuestao',
+                data: { idCortesia: idCortesia, idQuestao: idQuestao },
+                success: function (data) {
+                    $('#simulado').html(data);
+                },
+                error: function (request, status, error) {
+                    alert(error);
                 }
             });
         });

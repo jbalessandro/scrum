@@ -192,6 +192,7 @@ namespace ScrumToPractice.Domain.Service
             questao.NumQuestaoAtual = simulados.IndexOf(atual) + 1;
             questao.PrimeiraQuestao = (questao.NumQuestaoAtual == 1);
             questao.UltimaQuestao = (questao.NumQuestaoAtual == questao.NumQuestoesTotal);
+            questao.QuestoesNaoRespondidas = simulados.Where(x => x.ResponderDepois == true).OrderBy(x => x.Id).AsEnumerable();
             
             return questao;
         }
@@ -211,6 +212,11 @@ namespace ScrumToPractice.Domain.Service
                 respostas[i].SelecaoUsuario = (selecionadas.Contains(respostas[i].Id));
                 serviceCorResposta.Gravar(respostas[i]);
             }
+
+            // define situacao da resposta do simulado
+            var simulado = serviceSimulado.Find(idCorSimulado);
+            simulado.ResponderDepois = (selecionadas.Count() == 0);
+            serviceSimulado.Gravar(simulado);
         }
 
         /// <summary>
