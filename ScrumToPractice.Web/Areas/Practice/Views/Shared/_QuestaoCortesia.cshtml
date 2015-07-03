@@ -33,18 +33,15 @@
 
     <div class="container">
         <div class="row">
-            @using (Html.BeginForm("Index", "Result", FormMethod.Post))
-            {
-                @Html.Hidden("idCortesia", (int)Model.QuestaoUsuario.IdCortesia)
-                <div class="col-sm-6 col-md-2">
-                    <input id="btnPrevious" type="button" value="Previous" data-questao="@Model.QuestaoUsuario.Id" style='@(Model.PrimeiraQuestao ? "visibility:hidden" : "visibility:visible")' class="btn btn-primary" />
-                </div>
-                <div class="col-sm-6 col-md-10 text-right">
-                    <input id="btnAnswerLater" type="button" value="Answer later" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
-                    <input id="btnNext" type="button" value="Next" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
-                    <input type="submit" value="Finish exam" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:visible" : "visibility:hidden")' />
-                </div>
-            }
+            @Html.Hidden("idCortesia", (int)Model.QuestaoUsuario.IdCortesia)
+            <div class="col-sm-6 col-md-2">
+                <input id="btnPrevious" type="button" value="Previous" data-questao="@Model.QuestaoUsuario.Id" style='@(Model.PrimeiraQuestao ? "visibility:hidden" : "visibility:visible")' class="btn btn-primary" />
+            </div>
+            <div class="col-sm-6 col-md-10 text-right">
+                <input id="btnAnswerLater" type="button" value="Answer later" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
+                <input id="btnNext" type="button" value="Next" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
+                <input id="btnFinish" type="button" value="Finish exam" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:visible" : "visibility:hidden")' />
+            </div>
         </div>
     </div>
 </div>
@@ -69,7 +66,7 @@
                 type: 'GET',
                 url: '/Practice/Practice/Proxima/',
                 data: { selecionadas: alternativas, idCortesia: idCortesia, idQuestao: idQuestao },
-                success: function(data) {
+                success: function (data) {
                     $('#simulado').html(data);
                 },
                 error: function (request, status, error) {
@@ -95,7 +92,7 @@
                 type: 'GET',
                 url: '/Practice/Practice/Anterior/',
                 data: { selecionadas: alternativas, idCortesia: idCortesia, idQuestao: idQuestao },
-                success: function(data) {
+                success: function (data) {
                     $('#simulado').html(data);
                 },
                 error: function (request, status, error) {
@@ -104,6 +101,28 @@
             });
         });
 
+        $('#btnFinish').click(function () {
+            var alternativas = [];
+            $('.alternativa').each(function () {
+                if ($(this).is(':checked')) {
+                    alternativas.push(parseInt($(this).val()));
+                }
+            });
+
+            var idCortesia = parseInt($('#idCortesia').val());
+            var idQuestao = parseInt($(this).data("questao"));
+            var data = { selecionadas: alternativas, idCortesia: idCortesia, idQuestao: idQuestao };
+            var url = '/Practice/Practice/Finish/';
+
+            $.post(url, data, function (response) {
+                if (response.result == 'Error') {
+                    alert("Fail");
+                }
+                else if (response.result == 'Redirect') {
+                    window.location = response.url;
+                }
+            });
+        });
 
     });
 </script>

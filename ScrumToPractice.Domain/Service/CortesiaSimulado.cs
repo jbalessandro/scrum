@@ -235,6 +235,11 @@ namespace ScrumToPractice.Domain.Service
             return null;
         }
 
+        /// <summary>
+        /// Corrige o simulado e retorna o resultado
+        /// </summary>
+        /// <param name="questoes"></param>
+        /// <returns></returns>
         private decimal GetCorrecao(List<CorSimulado> questoes)
         {
             for (int i = 0; i < questoes.Count; i++)
@@ -243,7 +248,9 @@ namespace ScrumToPractice.Domain.Service
                 serviceSimulado.Gravar(questoes[i]);
             }
 
-            return ((questoes.Count(x => x.Correto == true) / questoes.Count) * 100);
+            Decimal questoesCorretas = Convert.ToDecimal(questoes.Where(x => x.Correto == true).Count());
+            Decimal resultado = ((questoesCorretas / Convert.ToDecimal(questoes.Count)) * 100);
+            return (resultado);
         }
     }
 }

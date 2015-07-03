@@ -48,6 +48,13 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
             return View(questao);
         }
         
+        /// <summary>
+        /// Grava a resposta e retorna a proxima
+        /// </summary>
+        /// <param name="selecionadas"></param>
+        /// <param name="idCortesia"></param>
+        /// <param name="idQuestao"></param>
+        /// <returns></returns>
         public ActionResult Proxima(IEnumerable<int> selecionadas, int idCortesia, int idQuestao)
         {
             // grava resposta usuario para a questao
@@ -57,6 +64,13 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
             return PartialView("_QuestaoCortesia", (ScrumToPractice.Domain.Models.QuestaoCortesia)proximaQuestao);
         }
 
+        /// <summary>
+        /// Grava resposta e retorna a anterior
+        /// </summary>
+        /// <param name="selecionadas"></param>
+        /// <param name="idCortesia"></param>
+        /// <param name="idQuestao"></param>
+        /// <returns></returns>
         public ActionResult Anterior(IEnumerable<int> selecionadas, int idCortesia, int idQuestao)
         {
             // grava resposta usuario para a questao
@@ -64,6 +78,22 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
 
             var questaoAnterior = cortesia.GetQuestaoAnterior(idCortesia, idQuestao);
             return PartialView("_QuestaoCortesia", (ScrumToPractice.Domain.Models.QuestaoCortesia)questaoAnterior);
+        }
+
+        /// <summary>
+        /// Grava a ultima resposta e redireciona para o controller do resultado
+        /// </summary>
+        /// <param name="selecionadas"></param>
+        /// <param name="idCortesia"></param>
+        /// <param name="idQuestao"></param>
+        /// <returns></returns>
+        public ActionResult Finish(IEnumerable<int> selecionadas, int idCortesia, int idQuestao)
+        {
+            // grava resposta usuario para a questao
+            GravarResposta(idQuestao, selecionadas);
+
+            // redireciona para o controller do resultado
+            return Json(new { result = "Redirect", url = Url.Action("Index", "Result", new { idCortesia = idCortesia }) });
         }
 
         /// <summary>

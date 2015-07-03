@@ -20,7 +20,6 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
         }
 
         // GET: Practice/Result
-        [HttpPost]
         public ActionResult Index(int idCortesia)
         {
             // obtem a cortesia
