@@ -212,5 +212,38 @@ namespace ScrumToPractice.Domain.Service
                 serviceCorResposta.Gravar(respostas[i]);
             }
         }
+
+        /// <summary>
+        /// Resultado do simulado
+        /// </summary>
+        /// <param name="idCortesia"></param>
+        /// <returns></returns>
+        public CortesiaResultado GetResultado(int idCortesia)
+        {
+            // simulado
+            var cortesia = serviceCortesia.Find(idCortesia);
+
+            if (cortesia != null)
+            {
+                var resultado = new CortesiaResultado();
+                resultado.Cortesia = cortesia;
+                resultado.Questoes = serviceSimulado.Listar().Where(x => x.IdCortesia == idCortesia).AsEnumerable();
+                resultado.Resultado = GetCorrecao(resultado.Questoes.ToList());
+                return resultado;
+            }
+
+            return null;
+        }
+
+        private decimal GetCorrecao(List<CorSimulado> questoes)
+        {
+            for (int i = 0; i < questoes.Count; i++)
+            {
+                questoes[i].Correto = (questoes[i].RespostasUsuario.Where(x => x.SelecaoUsuario != x.SelecaoSistema).Count() == 0);
+                serviceSimulado.Gravar(questoes[i]);
+            }
+
+            return ((questoes.Count(x => x.Correto == true) / questoes.Count) * 100);
+        }
     }
 }

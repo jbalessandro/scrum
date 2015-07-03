@@ -1,45 +1,109 @@
 ﻿@model  ScrumToPractice.Domain.Models.QuestaoCortesia
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12 col-md-12">
-            <h4>
-                @Model.NumQuestaoAtual - @Model.QuestaoUsuario.Questao.Descricao
-            </h4>
+@Html.Hidden("idCortesia", (int)@Model.QuestaoUsuario.IdCortesia)
+@Html.Hidden("idQuestao", (int)@Model.QuestaoUsuario.Id)
+
+<div id="simulado">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <h4>
+                    @Model.NumQuestaoAtual - @Model.QuestaoUsuario.Questao.Descricao
+                </h4>
+            </div>
+        </div>
+
+        <div class="row top20">
+            <div class="col-sm-12 col-md-12">
+
+                @if (@Model.QuestaoUsuario.Questao.MultiplaEscolha)
+                {
+                    @:(Multiple-choice)
+                    @Html.Partial("_QuestaoUsuarioEscolhaMultipla", (IEnumerable<ScrumToPractice.Domain.Models.CorResposta>)@Model.QuestaoUsuario.RespostasUsuario)
+                }
+                else
+                {
+                    @:(Select one)
+                    @Html.Partial("_QuestaoUsuarioEscolhaSimples", (IEnumerable<ScrumToPractice.Domain.Models.CorResposta>)@Model.QuestaoUsuario.RespostasUsuario)
+                }
+                <hr />
+            </div>
         </div>
     </div>
 
-    <div class="row top20">
-        <div class="col-sm-12 col-md-12">
-
-            @if (@Model.QuestaoUsuario.Questao.MultiplaEscolha)
+    <div class="container">
+        <div class="row">
+            @using (Html.BeginForm("Index", "Result", FormMethod.Post))
             {
-                @:(Multiple-choice)
-                @Html.Partial("_QuestaoUsuarioEscolhaMultipla", (IEnumerable<ScrumToPractice.Domain.Models.CorResposta>)@Model.QuestaoUsuario.RespostasUsuario)
+                @Html.Hidden("idCortesia", (int)Model.QuestaoUsuario.IdCortesia)
+                <div class="col-sm-6 col-md-2">
+                    <input id="btnPrevious" type="button" value="Previous" data-questao="@Model.QuestaoUsuario.Id" style='@(Model.PrimeiraQuestao ? "visibility:hidden" : "visibility:visible")' class="btn btn-primary" />
+                </div>
+                <div class="col-sm-6 col-md-10 text-right">
+                    <input id="btnAnswerLater" type="button" value="Answer later" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
+                    <input id="btnNext" type="button" value="Next" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
+                    <input type="submit" value="Finish exam" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:visible" : "visibility:hidden")' />
+                </div>
             }
-            else
-            {
-                @:(Select one)
-                @Html.Partial("_QuestaoUsuarioEscolhaSimples", (IEnumerable<ScrumToPractice.Domain.Models.CorResposta>)@Model.QuestaoUsuario.RespostasUsuario)
-            }
-            <hr />
         </div>
     </div>
 </div>
 
-<div class="container">
-    <div class="row">
-        @using (Html.BeginForm("Index", "Result", FormMethod.Post, new { id = @Model.QuestaoUsuario.IdCortesia }))
-        {
-            <div class="col-sm-6 col-md-2">
-                @*<input id="btnPrevious" type="button" value="Previous" data-questao="@Model.QuestaoUsuario.Id" style='@(Model.PrimeiraQuestao ? "visibility:hidden" : "visibility:visible")' class="btn btn-primary" />*@
-                <input id="btnPrevious" type="button" value="Previous" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" />
-            </div>
-            <div class="col-sm-6 col-md-10 text-right">
-                <input id="btnAnswerLater" type="button" value="Answer later" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
-                <input id="btnNext" type="button" value="Next" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
-                <input type="submit" value="Finish exam" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:visible" : "visibility:hidden")' />
-            </div>
-        }
-    </div>
-</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#btnNext').click(function () {
+            var alternativas = [];
+            var idCortesia = parseInt($('#idCortesia').val());
+            var idQuestao = parseInt($(this).data("questao"));
+
+            $('.alternativa').each(function () {
+                if ($(this).is(':checked')) {
+                    alternativas.push(parseInt($(this).val()));
+                }
+            });
+
+            $.ajax({
+                traditional: true,
+                type: 'GET',
+                url: '/Practice/Practice/Proxima/',
+                data: { selecionadas: alternativas, idCortesia: idCortesia, idQuestao: idQuestao },
+                success: function(data) {
+                    $('#simulado').html(data);
+                },
+                error: function (request, status, error) {
+                    alert(error);
+                }
+            });
+        });
+
+
+        $('#btnPrevious').click(function () {
+            var alternativas = [];
+            var idCortesia = parseInt($('#idCortesia').val());
+            var idQuestao = parseInt($(this).data("questao"));
+
+            $('.alternativa').each(function () {
+                if ($(this).is(':checked')) {
+                    alternativas.push(parseInt($(this).val()));
+                }
+            });
+
+            $.ajax({
+                traditional: true,
+                type: 'GET',
+                url: '/Practice/Practice/Anterior/',
+                data: { selecionadas: alternativas, idCortesia: idCortesia, idQuestao: idQuestao },
+                success: function(data) {
+                    $('#simulado').html(data);
+                },
+                error: function (request, status, error) {
+                    alert(error);
+                }
+            });
+        });
+
+
+    });
+</script>

@@ -25,6 +25,6 @@ namespace ScrumToPractice.Domain.Abstract
         
         void GravarRespostaUsuario(int idCorSimulado, IEnumerable<int> selecionadas);
 
-        // GetResultado
+        CortesiaResultado GetResultado(int idCortesia);
     }
 }

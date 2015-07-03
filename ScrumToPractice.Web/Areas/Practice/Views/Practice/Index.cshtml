@@ -1,71 +1,7 @@
 ﻿@model ScrumToPractice.Domain.Models.QuestaoCortesia
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Practice";
 }
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-@Html.Hidden("idCortesia", (int)@Model.QuestaoUsuario.IdCortesia)
-@Html.Hidden("idQuestao", (int)@Model.QuestaoUsuario.Id)
-
-<div id="simulado">
-    @Html.Partial("_QuestaoCortesia", (ScrumToPractice.Domain.Models.QuestaoCortesia)@Model)
-</div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        $('#btnNext').click(function () {
-            var alternativas = [];
-            var idCortesia = parseInt($('#idCortesia').val());
-            var idQuestao = parseInt($(this).data("questao"));
-
-            $('.alternativa').each(function () {
-                if ($(this).is(':checked')) {
-                    alternativas.push(parseInt($(this).val()));
-                }
-            });
-
-            $.ajax({
-                traditional: true,
-                type: 'GET',
-                url: '/Practice/Practice/Proxima/',
-                data: { selecionadas: alternativas, idCortesia: idCortesia, idQuestao: idQuestao },
-                success: function(data) {
-                    $('#simulado').html(data);
-                },
-                error: function (request, status, error) {
-                    alert(error);
-                }
-            });
-        });
-
-
-        $('#btnPrevious').click(function () {
-            var alternativas = [];
-            var idCortesia = parseInt($('#idCortesia').val());
-            var idQuestao = parseInt($(this).data("questao"));
-
-            $('.alternativa').each(function () {
-                if ($(this).is(':checked')) {
-                    alternativas.push(parseInt($(this).val()));
-                }
-            });
-
-            $.ajax({
-                traditional: true,
-                type: 'GET',
-                url: '/Practice/Practice/Anterior/',
-                data: { selecionadas: alternativas, idCortesia: idCortesia, idQuestao: idQuestao },
-                success: function(data) {
-                    $('#simulado').html(data);
-                },
-                error: function (request, status, error) {
-                    alert(error);
-                }
-            });
-        });
-
-
-    });
-</script>
+@Html.Partial("_QuestaoCortesia", (ScrumToPractice.Domain.Models.QuestaoCortesia)@Model)
