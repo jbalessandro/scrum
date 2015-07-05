@@ -220,6 +220,34 @@ namespace ScrumToPractice.Domain.Service
         }
 
         /// <summary>
+        /// Assinala a questao atual para ser respondida depois e retorna a proxima questao (ou anterior)
+        /// </summary>
+        /// <param name="idCortesia"></param>
+        /// <param name="idQuestao"></param>
+        /// <returns></returns>
+        public QuestaoCortesia ResponderDepois(int idCortesia, int idQuestao)
+        {
+            var questao = GetQuestao(idCortesia, idQuestao);
+
+            if (questao != null)
+            {
+                questao.QuestaoUsuario.ResponderDepois = true;
+                serviceSimulado.Gravar(questao.QuestaoUsuario);
+            }
+
+            if (questao.UltimaQuestao == false)
+            {
+                // se nao for a ultima questao retorna a proxima
+                return GetProximaQuestao(questao.QuestaoUsuario.IdCortesia, questao.QuestaoUsuario.IdQuestao);
+            }
+            else
+            {
+                // retorna a questao anterior
+                return GetQuestaoAnterior(questao.QuestaoUsuario.IdCortesia, questao.QuestaoUsuario.IdQuestao);
+            }
+        }
+
+        /// <summary>
         /// Resultado do simulado
         /// </summary>
         /// <param name="idCortesia"></param>

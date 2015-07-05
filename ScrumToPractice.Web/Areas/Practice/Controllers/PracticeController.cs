@@ -90,31 +90,9 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
         /// <returns>Proxima questao a ser respondida, se nao houver retorna a anterior</returns>
         public ActionResult ResponderDepois(int idCortesia, int idQuestao)
         {
-            var simulado = serviceSimulado.Listar().Where(x => x.IdCortesia == idCortesia && x.IdQuestao == idQuestao).FirstOrDefault();
+            var questao = cortesia.ResponderDepois(idCortesia, idQuestao);
 
-            if (simulado == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            
-            // definque que esta questao sera respondida posteriormente
-            simulado.ResponderDepois = true;
-            serviceSimulado.Gravar(simulado);
-
-            // questao a ser retornada para o usuario
-            QuestaoCortesia questaoRetorno;
-
-            // viabilidade de responder a proxima questao
-            try
-            {
-                questaoRetorno = cortesia.GetProximaQuestao(idCortesia, idQuestao);            
-            }
-            catch (Exception)
-            {
-                questaoRetorno = cortesia.GetQuestaoAnterior(idCortesia, idQuestao);
-            }
-
-            return PartialView("_QuestaoCortesia", (QuestaoCortesia)questaoRetorno);
+            return PartialView("_QuestaoCortesia", (QuestaoCortesia)questao);
         }
 
         /// <summary>

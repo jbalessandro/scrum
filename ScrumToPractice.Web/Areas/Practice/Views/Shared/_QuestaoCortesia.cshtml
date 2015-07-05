@@ -39,7 +39,7 @@
                 <input id="btnPrevious" type="button" value="Previous" data-questao="@Model.QuestaoUsuario.Id" style='@(Model.PrimeiraQuestao ? "visibility:hidden" : "visibility:visible")' class="btn btn-primary" />
             </div>
             <div class="col-sm-6 col-md-10 text-right">
-                <input id="btnAnswerLater" type="button" value="Answer later" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
+                <input id="btnAnswerLater" type="button" value="Answer later" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
                 <input id="btnNext" type="button" value="Next" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
                 <input id="btnFinish" type="button" value="Finish exam" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:visible" : "visibility:hidden")' />
             </div>
@@ -67,6 +67,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
+        // grava atual e exibe proxima questao
         $('#btnNext').click(function () {
             var alternativas = [];
             var idCortesia = parseInt($('#idCortesia').val());
@@ -92,6 +93,7 @@
             });
         });
 
+        // grava atual e exibe questao anterior
         $('#btnPrevious').click(function () {
             var alternativas = [];
             var idCortesia = parseInt($('#idCortesia').val());
@@ -117,6 +119,7 @@
             });
         });
 
+        // grava atual e finaliza o simulado e redireciona para resultado
         $('#btnFinish').click(function () {
             var alternativas = [];
             $('.alternativa').each(function () {
@@ -140,11 +143,27 @@
             });
         });
 
+        // assinala esta questao para ser respondida depois
         $('#btnAnswerLater').click(function () {
-            var idCortesia = parseInt($(this).data("id"));
+            var idCortesia = parseInt($('#idCortesia').val());
+            var idQuestao = parseInt($(this).data(questao));
+
+            $.ajax({
+                traditional: true,
+                type: 'GET',
+                url: '/Practice/Practice/ResponderDepois',
+                data: { idCortesia: idCortesia, idQuestao: idQuestao },
+                success: function (data) {
+                    $('#simulado').html(data);
+                },
+                error: function(request, status, error){
+                    alert(error);
+                }
+            });
         });
 
-        $('.answer').click(function () {
+        // exibe uma questao que estava assinalada para ser respondida depois
+        $('.answer').click(function () {            
             var idCortesia = parseInt($('#idCortesia').val());
             var idQuestao = parseInt($(this).data('id'));
 

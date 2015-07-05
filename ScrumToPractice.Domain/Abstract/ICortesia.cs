@@ -21,6 +21,8 @@ namespace ScrumToPractice.Domain.Abstract
         QuestaoCortesia GetQuestaoAnterior(int idSimulado);
         QuestaoCortesia GetQuestaoAnterior(int idCortesia, int idQuestaoAtual);
 
+        QuestaoCortesia ResponderDepois(int idCortesia, int idQuestao);
+
         int GetNumQuestoes();        
         
         void GravarRespostaUsuario(int idCorSimulado, IEnumerable<int> selecionadas);
