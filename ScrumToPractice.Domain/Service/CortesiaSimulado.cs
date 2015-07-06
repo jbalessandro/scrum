@@ -207,15 +207,18 @@ namespace ScrumToPractice.Domain.Service
             // lista de respostas para este simulado
             var respostas = serviceCorResposta.Listar().Where(x => x.IdCorSimulado == idCorSimulado).ToList();
 
-            for (int i = 0; i < respostas.Count; i++)
+            if (selecionadas != null)
             {
-                respostas[i].SelecaoUsuario = (selecionadas.Contains(respostas[i].Id));
-                serviceCorResposta.Gravar(respostas[i]);
+                for (int i = 0; i < respostas.Count; i++)
+                {
+                    respostas[i].SelecaoUsuario = (selecionadas.Contains(respostas[i].Id));
+                    serviceCorResposta.Gravar(respostas[i]);
+                }                
             }
 
             // define situacao da resposta do simulado
             var simulado = serviceSimulado.Find(idCorSimulado);
-            simulado.ResponderDepois = (selecionadas.Count() == 0);
+            simulado.ResponderDepois = (selecionadas == null);
             serviceSimulado.Gravar(simulado);
         }
 

@@ -103,7 +103,7 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
         public ActionResult ExibirQuestao(int idCortesia, int idQuestao)
         {
             var questao = cortesia.GetQuestao(idCortesia, idQuestao);
-            return PartialView(questao);
+            return PartialView("_QuestaoCortesia", (QuestaoCortesia)questao);
         }
 
         /// <summary>
