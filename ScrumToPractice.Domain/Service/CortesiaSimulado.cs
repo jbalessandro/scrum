@@ -230,7 +230,10 @@ namespace ScrumToPractice.Domain.Service
         /// <returns></returns>
         public QuestaoCortesia ResponderDepois(int idCortesia, int idQuestao)
         {
-            var questao = GetQuestao(idCortesia, idQuestao);
+            //var questao = GetQuestao(idCortesia, idQuestao);
+            var questaoAtual = serviceSimulado.Listar().Where(x => x.Id == idQuestao).FirstOrDefault();
+
+            var questao = GetQuestao(idCortesia, questaoAtual.IdQuestao);
 
             if (questao != null)
             {
