@@ -1,12 +1,9 @@
-﻿using System;
+﻿using ScrumToPractice.Domain.Abstract;
+using ScrumToPractice.Domain.Models;
+using ScrumToPractice.Domain.Service;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using ScrumToPractice.Domain.Models;
-using ScrumToPractice.Domain.Abstract;
-using ScrumToPractice.Domain.Service;
-using System.Net;
 
 namespace ScrumToPractice.Web.Areas.Practice.Controllers
 {
@@ -33,11 +30,8 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
 
             if (idSimulado == null)
             {
-                // TODO: voltar aqui
                 // cria um novo simulado
                 var simulado = cortesia.GetSimulado(cortesia.CriarSimulado());
-                //var cortesiaSimulado = cortesia.GetSimulado(simulado.Cortesia.Id);
-                //questao = cortesia.GetQuestao(cortesiaSimulado.QuestoesSimuladas.ToList().OrderBy(x => x.Id).First().Id);
                 var alternativa = simulado.QuestoesSimuladas.ToList().OrderBy(x => x.Id).First();
                 questao = cortesia.GetQuestao(alternativa.IdCortesia, alternativa.IdQuestao);
             }

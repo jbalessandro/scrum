@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ScrumToPractice.Domain.Repository;
+﻿using ScrumToPractice.Domain.Abstract;
 using ScrumToPractice.Domain.Models;
-using ScrumToPractice.Domain.Abstract;
+using ScrumToPractice.Domain.Repository;
+using System;
+using System.Linq;
 
 namespace ScrumToPractice.Domain.Service
 {
@@ -83,11 +80,23 @@ namespace ScrumToPractice.Domain.Service
         {
             if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(senha))
             {
-                var usuario = repository.Listar().Where(x => x.Login == login && x.Senha == senha).FirstOrDefault();
+                var usuario = repository.Listar().Where(x => x.Ativo == true && x.Login == login && x.Senha == senha).FirstOrDefault();
                 return (usuario != null);
             }
 
             return false;
+        }
+
+        public int GetIdUsuario(string login)
+        {
+            var usuario = repository.Listar().Where(x => x.Ativo == true && x.Login == login).FirstOrDefault();
+
+            if (usuario != null)
+            {
+                return usuario.Id;
+            }
+
+            return 0;
         }
     }
 }

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ScrumToPractice.Domain.Models;
+﻿using ScrumToPractice.Domain.Models;
 using ScrumToPractice.Domain.Repository;
+using System;
+using System.Linq;
 
 namespace ScrumToPractice.Domain.Service
 {

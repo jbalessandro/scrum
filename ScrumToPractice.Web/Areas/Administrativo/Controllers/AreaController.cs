@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using ScrumToPractice.Domain.Abstract;
 using ScrumToPractice.Domain.Models;
 using ScrumToPractice.Domain.Service;
+using System;
+using System.Linq;
 using System.Net;
+using System.Web.Mvc;
 
 namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 {
@@ -13,10 +12,12 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
     public class AreaController : Controller
     {
         private IBaseService<Area> service;
+        private ILogin login;
 
         public AreaController()
         {
             service = new AreaService();
+            login = new UsuarioService();
         }
 
         // GET: Administrativo/Area
@@ -57,7 +58,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
             try
             {
                 area.AlteradoEm = DateTime.Now;
-                area.AlteradoPor = 1; // TODO: usuario atualmente logado no sistema
+                area.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
 
                 if (ModelState.IsValid)
 	            {
@@ -99,7 +100,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
         {
             try
             {
-                area.AlteradoPor = 1; // TODO: usuario
+                area.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 area.AlteradoEm = DateTime.Now;
 
                 if (ModelState.IsValid)

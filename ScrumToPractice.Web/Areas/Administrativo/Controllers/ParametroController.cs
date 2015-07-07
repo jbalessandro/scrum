@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using ScrumToPractice.Domain.Abstract;
 using ScrumToPractice.Domain.Models;
 using ScrumToPractice.Domain.Service;
+using System;
+using System.Linq;
 using System.Net;
+using System.Web.Mvc;
 
 namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 {
@@ -13,10 +12,12 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
     public class ParametroController : Controller
     {
         private IBaseService<Parametro> service;
+        private ILogin login;
 
         public ParametroController()
         {
             service = new ParametroService();
+            login = new UsuarioService();
         }
 
         // GET: Administrativo/Parametro
@@ -56,7 +57,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
             {
                 parametro.Ativo = true;
                 parametro.AlteradoEm = DateTime.Now;
-                parametro.AlteradoPor = 1; // TODO: usuario
+                parametro.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(parametro);
 
                 if (ModelState.IsValid)
@@ -97,7 +98,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
             try
             {
                 parametro.AlteradoEm = DateTime.Now;
-                parametro.AlteradoPor = 1; // TODO: usuario
+                parametro.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(parametro);
 
                 if (ModelState.IsValid)

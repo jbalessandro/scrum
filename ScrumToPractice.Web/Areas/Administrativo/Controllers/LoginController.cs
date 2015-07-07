@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using ScrumToPractice.Domain.Abstract;
+using ScrumToPractice.Domain.Service;
+using ScrumToPractice.Web.Areas.Administrativo.Models;
 using System.Web.Mvc;
 using System.Web.Security;
-using ScrumToPractice.Web.Areas.Administrativo.Models;
-using ScrumToPractice.Domain.Abstract;
-using ScrumToPractice.Domain.Service;
 
 namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 {
     public class LoginController : Controller
     {
+        private ILogin _login;
+
+        public LoginController()
+        {
+            _login = new UsuarioService();
+        }
+
         // GET: Administrativo/Login
         public ActionResult Index(string returnUrl)
         {
@@ -24,9 +27,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
         {
             if (ModelState.IsValid)
             {
-                ILogin login;
-                login = new UsuarioService();
-                if (login.ValidaLogin(loginUsuario.Login, loginUsuario.Senha))
+                if (_login.ValidaLogin(loginUsuario.Login, loginUsuario.Senha))
                 {
                     FormsAuthentication.SetAuthCookie(loginUsuario.Login, false);
                     if (Url.IsLocalUrl(returnUrl)
@@ -37,6 +38,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
                     {
                         return Redirect(returnUrl);
                     }
+                    return RedirectToAction("Index", "HomeAdm");
                 }
                 else
                 {
@@ -45,6 +47,12 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
             }
 
             return View(loginUsuario);
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index");
         }
     }
 }

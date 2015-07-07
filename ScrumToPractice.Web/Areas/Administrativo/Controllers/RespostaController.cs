@@ -1,13 +1,12 @@
-﻿using System;
+﻿using ScrumToPractice.Domain.Abstract;
+using ScrumToPractice.Domain.Models;
+using ScrumToPractice.Domain.Service;
+using ScrumToPractice.Web.Areas.Administrativo.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using ScrumToPractice.Domain.Models;
-using ScrumToPractice.Domain.Repository;
-using ScrumToPractice.Web.Areas.Administrativo.Models;
-using ScrumToPractice.Domain.Service;
 
 namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 {
@@ -15,10 +14,12 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
     public class RespostaController : Controller
     {
         IBaseService<Resposta> service;
+        ILogin login;
 
         public RespostaController()
         {
             service = new RespostaService();
+            login = new UsuarioService();
         }
 
         // GET: Administrativo/Resposta
@@ -77,7 +78,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
             try
             {
                 resposta.AlteradoEm = DateTime.Now;
-                resposta.AlteradoPor = 1; // TODO: alterado por
+                resposta.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 resposta.Ativo = true;
                 TryUpdateModel(resposta);
 
@@ -118,7 +119,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
             try
             {
                 resposta.AlteradoEm = DateTime.Now;
-                resposta.AlteradoPor = 1; // TODO: usuario
+                resposta.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(resposta);
 
                 if (ModelState.IsValid)

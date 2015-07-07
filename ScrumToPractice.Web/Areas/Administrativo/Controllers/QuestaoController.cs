@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using ScrumToPractice.Domain.Abstract;
 using ScrumToPractice.Domain.Models;
 using ScrumToPractice.Domain.Service;
 using ScrumToPractice.Web.Areas.Administrativo.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Web.Mvc;
 
 namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 {
@@ -14,10 +14,12 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
     public class QuestaoController : Controller
     {
         private IBaseService<Questao> service;
+        private ILogin login;
 
         public QuestaoController()
         {
             service = new QuestaoService();
+            login = new UsuarioService();
         }
 
         // GET: Administrativo/Questao
@@ -90,7 +92,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
                 questao.IdArea = int.Parse(Request.Form["Areas"]);
                 questao.AlteradoEm = DateTime.Now;
                 questao.Ativo = true;
-                questao.AlteradoPor = 1; // TODO
+                questao.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(questao);
 
                 if (ModelState.IsValid)
@@ -143,7 +145,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
             try
             {
                 questao.AlteradoEm = DateTime.Now;
-                questao.AlteradoPor = 1; // TODO
+                questao.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(questao);
 
                 if (ModelState.IsValid)

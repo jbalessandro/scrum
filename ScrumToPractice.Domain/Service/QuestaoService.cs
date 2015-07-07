@@ -1,10 +1,8 @@
-﻿using System;
+﻿using ScrumToPractice.Domain.Models;
+using ScrumToPractice.Domain.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ScrumToPractice.Domain.Models;
-using ScrumToPractice.Domain.Repository;
 
 namespace ScrumToPractice.Domain.Service
 {
@@ -26,7 +24,7 @@ namespace ScrumToPractice.Domain.Service
         {
             // formata
             item.AlteradoEm = DateTime.Now;
-            item.Descricao = item.Descricao.ToUpper().Trim();
+            item.Descricao = item.Descricao.Trim();
 
             // valida
             if (repository.Listar().Where(x => x.Descricao == item.Descricao && x.Id != item.Id).Count() > 0)

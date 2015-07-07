@@ -16,7 +16,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Scrum to practice", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Scrum To Practice", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -25,6 +25,14 @@
                     <li><a href="/Administrativo/Usuario">Usuários</a></li>
                     <li><a href="/Administrativo/Parametro">Parâmetros</a></li>
                 </ul>
+                <div class="navbar-nav navbar-right top15">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <ul class="navbar-right">
+                            <li class="text-right"><a href="/Administrativo/Login/Logout">Sair</a></li>                            
+                        </ul>
+                    }
+                </div>
             </div>
         </div>
     </div>
@@ -33,7 +41,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - creativebr.com</p>
+            <p>&copy; @DateTime.Now.Year - ScrumToPractice.com</p>
         </footer>
     </div>
 
