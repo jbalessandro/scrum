@@ -106,9 +106,23 @@ namespace ScrumToPractice.Domain.Service
                 var posicao = questoes.IndexOf(questaoAtual);
                 if (posicao == questoes.Count - 1)
                 {
+                    // ja eh a ultima questao, nao ha como ir para a proxima
                     throw new ArgumentException("This is already last question!");
                 }
-                return GetQuestao(questoes[posicao + 1].Id);
+
+                var proximaQuestao = GetQuestao(questoes[posicao + 1].Id);
+
+                // se a questao for a ultima do simulado, assinala flag que o simulado pode ser concluido
+                if (proximaQuestao.UltimaQuestao == true)
+                {
+                    // o sistema assinala flag permitindo a partir de agora que o simulado seja concluido a qualquer momento                    
+                    var cortesia = serviceCortesia.Find(idCortesia);
+                    cortesia.Concluir = true;
+                    serviceCortesia.Gravar(cortesia);
+                    proximaQuestao.Concluir = true;
+                }
+
+                return proximaQuestao;
             }
         }
 
@@ -193,6 +207,7 @@ namespace ScrumToPractice.Domain.Service
             questao.PrimeiraQuestao = (questao.NumQuestaoAtual == 1);
             questao.UltimaQuestao = (questao.NumQuestaoAtual == questao.NumQuestoesTotal);
             questao.QuestoesNaoRespondidas = simulados.Where(x => x.ResponderDepois == true).OrderBy(x => x.Id).AsEnumerable();
+            questao.Concluir = serviceCortesia.Find(idCortesia).Concluir;
             
             return questao;
         }
@@ -244,12 +259,12 @@ namespace ScrumToPractice.Domain.Service
             if (questao.UltimaQuestao == false)
             {
                 // se nao for a ultima questao retorna a proxima
-                return GetProximaQuestao(questao.QuestaoUsuario.IdCortesia, questao.QuestaoUsuario.IdQuestao);
+                return GetProximaQuestao(questao.QuestaoUsuario.IdCortesia, questao.QuestaoUsuario.Id );
             }
             else
             {
                 // retorna a questao anterior
-                return GetQuestaoAnterior(questao.QuestaoUsuario.IdCortesia, questao.QuestaoUsuario.IdQuestao);
+                return GetQuestaoAnterior(questao.QuestaoUsuario.IdCortesia, questao.QuestaoUsuario.Id);
             }
         }
 

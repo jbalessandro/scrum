@@ -41,7 +41,7 @@
             <div class="col-sm-6 col-md-10 text-right">
                 <input id="btnAnswerLater" type="button" value="Answer later" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
                 <input id="btnNext" type="button" value="Next" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
-                <input id="btnFinish" type="button" value="Finish exam" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:visible" : "visibility:hidden")' />
+                <input id="btnFinish" type="button" value="Finish exam" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.Concluir ? "visibility:visible" : "visibility:hidden")' />
             </div>
         </div>
     </div>

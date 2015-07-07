@@ -21,5 +21,8 @@ namespace ScrumToPractice.Domain.Models
 
         [Display(Name="Finished")]
         public bool Concluido { get; set; }
+
+        [Display(Name="Passível de conclusão")]
+        public bool Concluir { get; set; }
     }
 }

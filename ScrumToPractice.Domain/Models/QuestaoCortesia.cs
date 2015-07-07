@@ -14,5 +14,6 @@ namespace ScrumToPractice.Domain.Models
         public int NumQuestoesTotal { get; set; }
         public bool PrimeiraQuestao { get; set; }
         public bool UltimaQuestao { get; set; }
+        public bool Concluir { get; set; }
     }
 }
