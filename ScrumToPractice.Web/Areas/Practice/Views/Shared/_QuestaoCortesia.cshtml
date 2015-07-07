@@ -164,14 +164,23 @@
 
         // exibe uma questao que estava assinalada para ser respondida depois
         $('.answer').click(function () {
+            // grava tb a questao atual
+            var alternativas = [];
+            $('.alternativa').each(function () {
+                if ($(this).is(':checked')) {
+                    alternativas.push(parseInt($(this).val()));
+                }
+            });
+
             var idCortesia = parseInt($('#idCortesia').val());
             var idQuestao = parseInt($(this).data('questao'));
+            var idQuestaoAtual = parseInt($('#btnNext').data("questao"));
 
             $.ajax({
                 traditional: true,
                 type: 'GET',
                 url: '/Practice/Practice/ExibirQuestao',
-                data: { idCortesia: idCortesia, idQuestao: idQuestao },
+                data: { selecionadas: alternativas, idCortesia: idCortesia, idQuestao: idQuestao, idQuestaoAtual: idQuestaoAtual },
                 success: function (data) {
                     $('#simulado').html(data);
                 },

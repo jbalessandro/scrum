@@ -100,8 +100,11 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
         /// </summary>
         /// <param name="idQuestao"></param>
         /// <returns></returns>
-        public ActionResult ExibirQuestao(int idCortesia, int idQuestao)
+        public ActionResult ExibirQuestao(IEnumerable<int> selecionadas, int idCortesia, int idQuestao, int idQuestaoAtual)
         {
+            // grava resposta usuario para a questao
+            GravarResposta(idQuestaoAtual, selecionadas);
+
             var questao = cortesia.GetQuestao(idCortesia, idQuestao);
             return PartialView("_QuestaoCortesia", (QuestaoCortesia)questao);
         }
