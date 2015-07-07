@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using ScrumToPractice.Domain.Repository;
 using ScrumToPractice.Domain.Models;
+using ScrumToPractice.Domain.Abstract;
 
 namespace ScrumToPractice.Domain.Service
 {
-    public class UsuarioService: IBaseService<Usuario>
+    public class UsuarioService: IBaseService<Usuario>, ILogin
     {
         private IBaseRepository<Usuario> repository;
 
@@ -76,6 +77,17 @@ namespace ScrumToPractice.Domain.Service
         public Usuario Find(int id)
         {
             return repository.Find(id);
+        }
+
+        public bool ValidaLogin(string login, string senha)
+        {
+            if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(senha))
+            {
+                var usuario = repository.Listar().Where(x => x.Login == login && x.Senha == senha).FirstOrDefault();
+                return (usuario != null);
+            }
+
+            return false;
         }
     }
 }

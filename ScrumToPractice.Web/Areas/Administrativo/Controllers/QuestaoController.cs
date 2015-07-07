@@ -10,6 +10,7 @@ using System.Net;
 
 namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 {
+    [Authorize]
     public class QuestaoController : Controller
     {
         private IBaseService<Questao> service;

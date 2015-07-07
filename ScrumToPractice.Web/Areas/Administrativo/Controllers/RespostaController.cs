@@ -11,6 +11,7 @@ using ScrumToPractice.Domain.Service;
 
 namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
 {
+    [Authorize]
     public class RespostaController : Controller
     {
         IBaseService<Resposta> service;
