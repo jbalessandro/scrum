@@ -27,9 +27,11 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_login.ValidaLogin(loginUsuario.Login, loginUsuario.Senha))
+                var usuario = _login.ValidaLogin(loginUsuario.Login, loginUsuario.Senha);
+                if (usuario != null)
                 {
                     FormsAuthentication.SetAuthCookie(loginUsuario.Login, false);
+
                     if (Url.IsLocalUrl(returnUrl)
                         && returnUrl.Length > 1
                         && returnUrl.StartsWith("/")

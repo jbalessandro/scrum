@@ -101,6 +101,7 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
             try
             {
                 area.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                //area.AlteradoPor = Convert.ToInt32(FormsAuthentication.Decrypt(System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName].Value).UserData);
                 area.AlteradoEm = DateTime.Now;
 
                 if (ModelState.IsValid)

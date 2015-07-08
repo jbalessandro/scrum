@@ -76,15 +76,18 @@ namespace ScrumToPractice.Domain.Service
             return repository.Find(id);
         }
 
-        public bool ValidaLogin(string login, string senha)
+        public Usuario ValidaLogin(string login, string senha)
         {
             if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(senha))
             {
                 var usuario = repository.Listar().Where(x => x.Ativo == true && x.Login == login && x.Senha == senha).FirstOrDefault();
-                return (usuario != null);
+                if (usuario != null)
+                {
+                    return usuario;
+                }
             }
 
-            return false;
+            return null;
         }
 
         public int GetIdUsuario(string login)
