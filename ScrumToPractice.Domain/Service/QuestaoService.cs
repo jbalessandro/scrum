@@ -84,7 +84,10 @@ namespace ScrumToPractice.Domain.Service
 
         public IEnumerable<Questao> GetQuestoesSimulado(int idSimulado)
         {
-            throw new NotImplementedException();
+            return repository.Listar()
+                .Where(x => x.Ativo == true)
+                .OrderBy(x => Guid.NewGuid())
+                .AsEnumerable();
         }
     }
 }

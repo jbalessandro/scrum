@@ -21,12 +21,16 @@ namespace ScrumToPractice.Domain.Repository
 
         // DbSets
         public DbSet<Area> Area { get; set; }
+        public DbSet<Cliente> Cliente { get; set; }
         public DbSet<CorResposta> CorErrado { get; set; }
         public DbSet<CorSimulado> CorSimulado { get; set; }
         public DbSet<Cortesia> Cortesia { get; set; }
         public DbSet<Parametro> Parametro { get; set; }
         public DbSet<Questao> Questao { get; set; }
         public DbSet<Resposta> Resposta { get; set; }
+        public DbSet<SimResposta> SimResposta { get; set; }
+        public DbSet<SimQuestao> SimQuestao { get; set; }
+        public DbSet<Simulado> Simulado { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
 
     }    

@@ -77,11 +77,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\ICliente.cs" />
     <Compile Include="Abstract\ICorResposta.cs" />
     <Compile Include="Abstract\ICorSimulado.cs" />
     <Compile Include="Abstract\ILogin.cs" />
     <Compile Include="Abstract\IParametro.cs" />
+    <Compile Include="Abstract\ISimResposta.cs" />
+    <Compile Include="Abstract\ISimQuestao.cs" />
+    <Compile Include="Abstract\ISimulado.cs" />
     <Compile Include="Models\Area.cs" />
+    <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\CorResposta.cs" />
     <Compile Include="Models\CorSimulado.cs" />
     <Compile Include="Models\Cortesia.cs" />
@@ -89,14 +94,20 @@
     <Compile Include="Models\Parametro.cs" />
     <Compile Include="Models\Questao.cs" />
     <Compile Include="Models\QuestaoCortesia.cs" />
+    <Compile Include="Models\QuestaoSimulado.cs" />
     <Compile Include="Models\Resposta.cs" />
+    <Compile Include="Models\SimQuestao.cs" />
+    <Compile Include="Models\SimResposta.cs" />
+    <Compile Include="Models\Simulado.cs" />
     <Compile Include="Models\SimuladoCortesia.cs" />
+    <Compile Include="Models\SimuladoResultado.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\EFDbContext.cs" />
     <Compile Include="Repository\EFRepository.cs" />
     <Compile Include="Repository\IBaseRepository.cs" />
     <Compile Include="Service\AreaService.cs" />
+    <Compile Include="Service\ClienteService.cs" />
     <Compile Include="Service\CorRespostaService.cs" />
     <Compile Include="Service\CorSimuladoService.cs" />
     <Compile Include="Service\CortesiaManutencao.cs" />
@@ -108,6 +119,9 @@
     <Compile Include="Service\ParametroService.cs" />
     <Compile Include="Service\QuestaoService.cs" />
     <Compile Include="Service\RespostaService.cs" />
+    <Compile Include="Service\SimQuestaoService.cs" />
+    <Compile Include="Service\SimRespostaService.cs" />
+    <Compile Include="Service\SimuladoService.cs" />
     <Compile Include="Service\UsuarioService.cs" />
   </ItemGroup>
   <ItemGroup>

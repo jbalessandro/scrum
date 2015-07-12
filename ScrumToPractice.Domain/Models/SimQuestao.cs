@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ScrumToPractice.Domain.Models
 {
-    public class CorSimulado
+    public class SimQuestao
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        public int IdCortesia { get; set; }
+        public int IdSimulado { get; set; }
 
         [Required]
         public int IdQuestao { get; set; }
@@ -19,13 +22,13 @@ namespace ScrumToPractice.Domain.Models
         [Required]
         public int IdArea { get; set; }
 
-        [Display(Name = "Correct")]
+        [Display(Name="Correct")]
         public bool Correto { get; set; }
 
-        [Display(Name = "Answer later")]
+        [Display(Name="Answer later")]
         public bool ResponderDepois { get; set; }
 
-        [Display(Name = "Modify")]
+        [Display(Name="Modify")]
         public DateTime AlteradoEm { get; set; }
 
         [NotMapped]
@@ -49,13 +52,13 @@ namespace ScrumToPractice.Domain.Models
         }
 
         [NotMapped]
-        public virtual IEnumerable<CorResposta> RespostasUsuario
+        public virtual IEnumerable<SimResposta> RespostasUsuario
         {
             get
             {
-                return new ScrumToPractice.Domain.Service.CorRespostaService().Listar(Id);
+                return new ScrumToPractice.Domain.Service.SimRespostaService().Listar(Id);
             }
             set { }
-        }        
+        }   
     }
 }

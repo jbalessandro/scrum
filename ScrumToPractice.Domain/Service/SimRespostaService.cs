@@ -7,24 +7,24 @@ using System.Linq;
 
 namespace ScrumToPractice.Domain.Service
 {
-    public class CorRespostaService: IBaseService<CorResposta>, ICorResposta
+    public class SimRespostaService: ISimResposta
     {
-        private IBaseRepository<CorResposta> repository;
+        private IBaseRepository<SimResposta> repository;
 
-        public CorRespostaService()
+        public SimRespostaService()
         {
-            repository = new EFRepository<CorResposta>();
+            repository = new EFRepository<SimResposta>();
         }
 
-        public IQueryable<CorResposta> Listar()
+        public IQueryable<SimResposta> Listar()
         {
             return repository.Listar();
         }
 
-        public int Gravar(CorResposta item)
+        public int Gravar(SimResposta item)
         {
             // valida
-            if (item.IdCorSimulado <= 0)
+            if (item.IdSimQuestao <= 0)
             {
                 throw new ArgumentException("Simulado inválido");
             }
@@ -43,35 +43,35 @@ namespace ScrumToPractice.Domain.Service
             return repository.Alterar(item).Id;
         }
 
-        public CorResposta Excluir(int id)
+        public SimResposta Excluir(int id)
         {
             return repository.Excluir(id);
         }
 
-        public CorResposta Find(int id)
+        public SimResposta Find(int id)
         {
             return repository.Find(id);
         }
 
-        public CorResposta Find(int idCorSimulado, int idReposta)
+        public SimResposta Find(int idSimQuestao, int idResposta)
         {
             return repository.Listar()
-                .Where(x => x.IdCorSimulado == idCorSimulado
-                && x.IdResposta == idReposta).FirstOrDefault();
+                .Where(x => x.IdSimQuestao == idSimQuestao
+                && x.IdResposta == idResposta).FirstOrDefault();
         }
 
-        public IEnumerable<CorResposta> Listar(int idCorSimulado)
+        public IEnumerable<SimResposta> Listar(int idSimQuestao)
         {
             return repository.Listar()
-                .Where(x => x.IdCorSimulado == idCorSimulado)
+                .Where(x => x.IdSimQuestao == idSimQuestao)
                 .AsEnumerable();
         }
 
-        public bool RespostasCorretas(int idCorSimulado)
+        public bool RespostasCorretas(int idSimQuestao)
         {
             // lista respostas do usuario para esta questao
             var respostas = repository.Listar()
-                .Where(x => x.IdCorSimulado == idCorSimulado)
+                .Where(x => x.IdSimQuestao == idSimQuestao)
                 .ToList();
 
             if (respostas.Count > 0)
@@ -87,7 +87,7 @@ namespace ScrumToPractice.Domain.Service
             }
             else
             {
-                // nenhuma resposta para esta questao
+                // nenhuma resposta para esta questao assinalada pelo usuario
                 return false;
             }
 
