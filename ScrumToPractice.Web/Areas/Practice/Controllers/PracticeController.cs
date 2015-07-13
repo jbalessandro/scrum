@@ -85,7 +85,6 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
         public ActionResult ResponderDepois(int idCortesia, int idQuestao)
         {
             var questao = cortesia.ResponderDepois(idCortesia, idQuestao);
-
             return PartialView("_QuestaoCortesia", (QuestaoCortesia)questao);
         }
 

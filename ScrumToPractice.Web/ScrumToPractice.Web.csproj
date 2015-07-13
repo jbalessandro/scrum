@@ -131,6 +131,8 @@
     <Compile Include="Areas\Administrativo\Models\AreaQuestoes.cs" />
     <Compile Include="Areas\Administrativo\Models\LoginUsuario.cs" />
     <Compile Include="Areas\Administrativo\Models\QuestaoRespostas.cs" />
+    <Compile Include="Areas\Exam\Controllers\ExamController.cs" />
+    <Compile Include="Areas\Exam\ExamAreaRegistration.cs" />
     <Compile Include="Areas\Practice\Controllers\PracticeController.cs" />
     <Compile Include="Areas\Practice\Controllers\ResultController.cs" />
     <Compile Include="Areas\Practice\PracticeAreaRegistration.cs" />
@@ -192,6 +194,7 @@
     <Content Include="Areas\Practice\Views\Shared\_QuestaoCortesia.cshtml" />
     <Content Include="Areas\Practice\Views\Result\Index.cshtml" />
     <Content Include="Areas\Administrativo\Views\Login\Index.cshtml" />
+    <Content Include="Areas\Exam\Views\web.config" />
     <None Include="Properties\PublishProfiles\scrumtopractice - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -224,6 +227,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Exam\Models\" />
+    <Folder Include="Areas\Exam\Views\Exam\" />
+    <Folder Include="Areas\Exam\Views\Shared\" />
     <Folder Include="Areas\Practice\Models\" />
     <Folder Include="Models\" />
   </ItemGroup>

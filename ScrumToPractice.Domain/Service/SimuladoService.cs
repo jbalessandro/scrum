@@ -41,6 +41,12 @@ namespace ScrumToPractice.Domain.Service
             return Find(id);
         }
 
+        public QuestaoSimulado GetQuestao(int idSimulado)
+        {
+            // retorna a primeira questao deste simulado
+            return GetProximaQuestao(idSimulado);
+        }
+
         public QuestaoSimulado GetQuestao(int idSimulado, int idQuestao)
         {
             // questoes deste simulado

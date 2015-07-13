@@ -6,8 +6,9 @@ namespace ScrumToPractice.Domain.Abstract
 {
     public interface ISimulado: IBaseService<Simulado>
     {
-        Simulado GetNovoSimulado(int idCliente);        
+        Simulado GetNovoSimulado(int idCliente);
 
+        QuestaoSimulado GetQuestao(int idSimulado);
         QuestaoSimulado GetQuestao(int idSimulado, int idQuestao);
         QuestaoSimulado GetProximaQuestao(int idSimulado, int idQuestaoAtual = 0);
         QuestaoSimulado GetQuestaoAnterior(int idSimulado, int idQuestaoAtual);
