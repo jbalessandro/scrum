@@ -75,7 +75,7 @@ namespace ScrumToPractice.Domain.Service
 
             var listaSimulados = new List<CorSimulado>();
 
-            foreach (var item in questao.GetQuestoesCortesia(idCortesia))
+            foreach (var item in questao.GetQuestoesCortesia())
             {
                 var simulado = repository.Incluir(new CorSimulado
                 {

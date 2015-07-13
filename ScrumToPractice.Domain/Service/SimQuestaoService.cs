@@ -28,7 +28,7 @@ namespace ScrumToPractice.Domain.Service
 
             var listaQuestoes = new List<SimQuestao>();
 
-            foreach (var item in questao.GetQuestoesSimulado(idSimulado))
+            foreach (var item in questao.GetQuestoesSimulado())
             {
                 // adiciona questao ao simulado
                 var questaoSimulada = repository.Incluir(new SimQuestao

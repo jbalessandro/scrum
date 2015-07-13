@@ -72,7 +72,7 @@ namespace ScrumToPractice.Domain.Service
             return repository.Find(id);
         }
 
-        public IEnumerable<Questao> GetQuestoesCortesia(int idCortesia)
+        public IEnumerable<Questao> GetQuestoesCortesia()
         {
             return repository.Listar()
                 .Where(x => x.Ativo == true
@@ -82,7 +82,7 @@ namespace ScrumToPractice.Domain.Service
                     .AsEnumerable(); 
         }
 
-        public IEnumerable<Questao> GetQuestoesSimulado(int idSimulado)
+        public IEnumerable<Questao> GetQuestoesSimulado()
         {
             return repository.Listar()
                 .Where(x => x.Ativo == true)
