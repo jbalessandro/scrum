@@ -81,7 +81,7 @@ namespace ScrumToPractice.Web.Areas.Exam.Controllers
             GravarResposta(idQuestao, selecionadas);
 
             // redireciona para o controller do resultado
-            return Json(new { result = "Redirect", url = Url.Action("Index", "Result", new { idSimulado = idSimulado}});
+            return Json(new { result = "Redirect", url = Url.Action("Index", "Result", new { idSimulado = idSimulado }) });
         }
 
         private void GravarResposta(int idQuestao, IEnumerable<int> selecionadas)

@@ -195,6 +195,12 @@
     <Content Include="Areas\Practice\Views\Result\Index.cshtml" />
     <Content Include="Areas\Administrativo\Views\Login\Index.cshtml" />
     <Content Include="Areas\Exam\Views\web.config" />
+    <Content Include="Areas\Exam\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Exam\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Exam\Views\Exam\Index.cshtml" />
+    <Content Include="Areas\Exam\Views\Shared\_QuestaoSimulado.cshtml" />
+    <Content Include="Areas\Exam\Views\Shared\_QuestaoUsuarioEscolhaMultipla.cshtml" />
+    <Content Include="Areas\Exam\Views\Shared\_QuestaoUsuarioEscolhaSimples.cshtml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -228,8 +234,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Exam\Models\" />
-    <Folder Include="Areas\Exam\Views\Exam\" />
-    <Folder Include="Areas\Exam\Views\Shared\" />
     <Folder Include="Areas\Practice\Models\" />
     <Folder Include="Models\" />
   </ItemGroup>

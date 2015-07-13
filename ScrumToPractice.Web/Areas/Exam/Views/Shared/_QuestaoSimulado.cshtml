@@ -1,0 +1,47 @@
+﻿@using ScrumToPractice.Domain.Models;
+@model QuestaoSimulado
+
+@Html.Hidden("idSimulado", (int)@Model.QuestaoUsuario.IdSimulado)
+@Html.Hidden("idQuestao", (int)@Model.QuestaoUsuario.Id)
+
+<div id="simulado">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <h4>
+                    @Model.NumQuestaoAtual - @Model.QuestaoUsuario.Questao.Descricao
+                </h4>
+            </div>
+        </div>
+
+        <div class="row top20">
+            <div class="col-sm-12 col-md-12">
+
+                @if (@Model.QuestaoUsuario.Questao.MultiplaEscolha)
+                {
+                    @:(Multiple-choice)
+                    @Html.Partial("_QuestaoUsuarioEscolhaMultipla", (IEnumerable<SimResposta>)@Model.QuestaoUsuario.RespostasUsuario.ToList())
+                }
+                else
+                { 
+                    @:(Select one)
+                    @Html.Partial("_QuestaoUsuarioEscolhaSimples", (IEnumerable<SimResposta>)@Model.QuestaoUsuario.RespostasUsuario.ToList())
+                }
+                <hr />                    
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            @Html.Hidden("idSimulado", (int)Model.QuestaoUsuario.IdSimulado)
+            <div class="col-sm-6 col-md-2">
+                <input id="btnPrevious" type="button" value="Previous" data-questao="@Model.QuestaoUsuario.Id" style='@(Model.PrimeiraQuestao ? "visibility:hidden" : "visibility:visible")' class="btn btn-primary" />
+            </div>
+            <div class="col-sm-6 col-md-10 text-right">
+                <input id="btnAnswerLater" type="button" value="Answer later" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
+                <input id="btnNext" type="button" value="Next" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
+                <input id="btnFinish" type="button" value="Finish exam" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.Concluir ? "visibility:visible" : "visibility:hidden")' />
+            </div>
+        </div>
+    </div>
+</div>
