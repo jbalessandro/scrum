@@ -4,12 +4,53 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Results:</h2>
-
-Correct answers: @Model.Resultado.ToString("N2")%
+<h2>Result Test</h2>
 
 <hr />
 
-Wrong answers:
+<div class="alert alert-info" role="alert">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6 col-md-2">
+                <p>Total question</p>
+                <p>Correct answers</p>
+                <p>Incorrect answers</p>
+                <p>Passing Score</p>
+                <p><strong>Your Score</strong></p>
+                <p><strong>Conclusion</strong></p>
+            </div>
+            <div class="col-xs-6 col-md-10">
+                <p>@Model.TotalQuestoes</p>
+                <p>@Model.RespostasCorretas</p>
+                <p>@Model.RespostasErradas</p>
+                <p>@Model.NotaMinima.ToString("N1") %</p>
+                <p><strong>@Model.ResultadoAluno.ToString("N1") %</strong></p>
+                <p>
+                    <strong>
+                        @if (Model.Resultado)
+                        {
+                            @:Pass
+                        }
+                        else
+                        {
+                            @:Fail
+                        }
+                    </strong>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 
-@Html.ActionLink("Try again", "Index", "Exam")
+<div class="container">
+    <div class="row text-center">
+        <div class="col-xs-12 col-md-12">
+            @Html.ActionLink("Try again", "Index", "Exam", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+</div>
+
+@if (Model.RespostasErradas > 0)
+{
+    @Html.Partial("_Correcao", (IEnumerable<ScrumToPractice.Domain.Models.QuestaoCorrigidaSimulado>)@Model.Correcao)
+}

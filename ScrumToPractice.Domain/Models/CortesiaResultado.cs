@@ -15,11 +15,7 @@ namespace ScrumToPractice.Domain.Models
         }
 
         public Cortesia Cortesia { get; set; }
-
-        [Display(Name = "Score")]
         public decimal ResultadoAluno { get; set; }
-
-        [Display(Name = "Passing Score")]
         public virtual decimal NotaMinima
         {
             get
@@ -28,8 +24,6 @@ namespace ScrumToPractice.Domain.Models
             }
             set { }
         }
-
-        [Display(Name = "Result")]
         public virtual bool Resultado
         {
             get
@@ -40,7 +34,6 @@ namespace ScrumToPractice.Domain.Models
         }
 
         public IEnumerable<QuestaoCorrigida> Correcao { get; set; }
-
         public int RespostasCorretas { get; set; }
         public int RespostasErradas { get; set; }
         public int TotalQuestoes { get; set; }

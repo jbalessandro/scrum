@@ -182,36 +182,6 @@ namespace ScrumToPractice.Domain.Service
             simQuestaoService.Gravar(questao);
         }
 
-        public SimuladoResultado GetResultado(int idSimulado)
-        {
-            // simulado
-            var simulado = repository.Find(idSimulado);
-
-            if (simulado != null)
-            {
-                var resultado = new SimuladoResultado();
-                resultado.Simulado = simulado;
-                resultado.Questoes = simQuestaoService.Listar().Where(x => x.IdSimulado == idSimulado).AsEnumerable();
-                resultado.Resultado = GetCorrecao(resultado.Questoes.ToList());
-                return resultado;
-            }
-
-            return null;
-        }
-
-        private decimal GetCorrecao(List<SimQuestao> questoes)
-        {
-            for (int i = 0; i < questoes.Count; i++)
-            {
-                questoes[i].Correto = (questoes[i].RespostasUsuario.Where(x => x.SelecaoUsuario != x.SelecaoSistema).Count() == 0);
-                simQuestaoService.Gravar(questoes[i]);
-            }
-
-            decimal questoesCorretas = Convert.ToDecimal(questoes.Where(x => x.Correto == true).Count());
-            decimal resultado = ((questoesCorretas / Convert.ToDecimal(questoes.Count)) * 100);
-            return resultado;
-        }
-
         public IQueryable<Simulado> Listar()
         {
             return repository.Listar();
@@ -290,6 +260,70 @@ namespace ScrumToPractice.Domain.Service
         public Simulado Find(int id)
         {
             return repository.Find(id);
+        }
+
+        public SimuladoResultado GetResultado(int idSimulado)
+        {
+            // simulado
+            var simulado = repository.Find(idSimulado);
+
+            if (simulado != null)
+            {
+                // corrige o simulado
+                var questoesCorrigidas = CorrigirSimulado(idSimulado);
+
+                var resultado = new SimuladoResultado();
+                resultado.Simulado = simulado;
+                resultado.ResultadoAluno = GetResultadoAluno(questoesCorrigidas);
+                resultado.Correcao = GetCorrecao(questoesCorrigidas);
+                resultado.TotalQuestoes = resultado.Correcao.Count();
+                resultado.RespostasCorretas = resultado.Correcao.Where(x => x.Questao.Correto == true).Count();
+                resultado.RespostasErradas = resultado.Correcao.Where(x => x.Questao.Correto == false).Count();
+
+                return resultado;
+            }
+
+            return null;
+        }
+
+        private List<SimQuestao> CorrigirSimulado(int idSimulado)
+        {
+            // questoes do simulado
+            var questoes = simQuestaoService.Listar().Where(x => x.IdSimulado == idSimulado).ToList();
+
+            // corrige o simulado
+            for (int i = 0; i < questoes.Count; i++)
+            {
+                questoes[i].Correto = (questoes[i].RespostasUsuario.Where(x => x.SelecaoUsuario != x.SelecaoSistema).Count() == 0);
+                simQuestaoService.Gravar(questoes[i]);
+            }
+
+            return questoes;
+        }
+
+        private decimal GetResultadoAluno(List<SimQuestao> questoes)
+        {
+            // retorna o resultado
+            decimal questoesCorretas = Convert.ToDecimal(questoes.Where(x => x.Correto == true).Count());
+            decimal resultado = ((questoesCorretas / Convert.ToDecimal(questoes.Count)) * 100);
+            return resultado;
+        }
+
+        private IEnumerable<QuestaoCorrigidaSimulado> GetCorrecao(List<SimQuestao> questoesCorridigas)
+        {
+            var lista = new List<QuestaoCorrigidaSimulado>();
+
+            foreach (var item in questoesCorridigas.OrderBy(x => x.Area.Descricao))
+            {
+                lista.Add(new QuestaoCorrigidaSimulado
+                {
+                    Questao = item,
+                    SelecaoAluno = item.RespostasUsuario.Where(x => x.SelecaoUsuario == true),
+                    SelecaoSistema = item.RespostasUsuario.Where(x => x.SelecaoSistema == true)
+                });
+            }
+
+            return lista;
         }
     }
 }
