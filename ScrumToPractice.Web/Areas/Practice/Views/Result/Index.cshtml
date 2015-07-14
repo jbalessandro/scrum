@@ -23,8 +23,8 @@
                 <p>@Model.TotalQuestoes</p>
                 <p>@Model.RespostasCorretas</p>
                 <p>@Model.RespostasErradas</p>
-                <p>@Model.NotaMinima %</p>
-                <p><strong>@Model.ResultadoAluno %</strong></p>
+                <p>@Model.NotaMinima.ToString("N1") %</p>
+                <p><strong>@Model.ResultadoAluno.ToString("N1") %</strong></p>
                 <p>
                     <strong>
                         @if (Model.Resultado)
