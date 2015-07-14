@@ -171,7 +171,7 @@ namespace ScrumToPractice.Domain.Service
             {
                 for (int i = 0; i < respostas.Count; i++)
                 {
-                    respostas[i].SelecaoUsuario = (selecionadas.Contains(respostas[i].IdResposta));
+                    respostas[i].SelecaoUsuario = (selecionadas.Contains(respostas[i].Id));
                     simRespostaService.Gravar(respostas[i]);
                 }
             }

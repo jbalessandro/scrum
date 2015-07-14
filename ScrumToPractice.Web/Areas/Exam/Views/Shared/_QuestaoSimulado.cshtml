@@ -38,10 +38,29 @@
                 <input id="btnPrevious" type="button" value="Previous" data-questao="@Model.QuestaoUsuario.Id" style='@(Model.PrimeiraQuestao ? "visibility:hidden" : "visibility:visible")' class="btn btn-primary" />
             </div>
             <div class="col-sm-6 col-md-10 text-right">
-                <input id="btnAnswerLater" type="button" value="Answer later" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
+                <input id="btnAnswerLater" type="button" value="Answer later" data-questao="@Model.QuestaoUsuario.IdQuestao" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
                 <input id="btnNext" type="button" value="Next" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
                 <input id="btnFinish" type="button" value="Finish exam" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.Concluir ? "visibility:visible" : "visibility:hidden")' />
             </div>
         </div>
     </div>
 </div>
+
+@if (@Model.QuestoesNaoRespondidas.Count() > 0)
+{
+    <hr />
+    <div class="container">
+        <div class="row">
+            <h4>Marked for answer later</h4>
+            <div class="col-sm-12 col-md-12">
+                @foreach (SimQuestao item in Model.QuestoesNaoRespondidas)
+                {
+                    <p><button type="button" data-questao="@item.IdQuestao" class="btn btn-primary btn-xs answer">Answer</button> @item.Questao.Descricao</p>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Areas/Practice/Scripts/QuestaoSimulado.js"></script>

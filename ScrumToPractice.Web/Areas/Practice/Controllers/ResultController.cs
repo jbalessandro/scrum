@@ -17,7 +17,7 @@ namespace ScrumToPractice.Web.Areas.Practice.Controllers
         // GET: Practice/Result
         public ActionResult Index(int idCortesia)
         {
-            // obtem a cortesia
+            // obtem o resultado
             var resultado = cortesia.GetResultado(idCortesia);
 
             if (resultado == null)

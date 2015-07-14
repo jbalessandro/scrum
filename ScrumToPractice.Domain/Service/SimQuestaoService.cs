@@ -48,8 +48,8 @@ namespace ScrumToPractice.Domain.Service
                         SelecaoSistema = resposta.Correta,
                         IdResposta = resposta.Id
                     });
-                    listaQuestoes.Add(questaoSimulada);
                 }
+                listaQuestoes.Add(questaoSimulada);
             }
 
             return listaQuestoes;

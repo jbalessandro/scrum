@@ -1,0 +1,13 @@
+﻿@model ScrumToPractice.Domain.Models.SimuladoResultado
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Results:</h2>
+
+Correct answers: @Model.Resultado.ToString("N2")%
+
+<hr />
+
+@Html.ActionLink("Try again", "Index", "Exam")
