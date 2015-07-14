@@ -9,17 +9,27 @@ namespace ScrumToPractice.Domain.Service
     public class ParametroService: IBaseService<Parametro>, IParametro 
     {
         private IBaseRepository<Parametro> repository;
+        private const string notaMinima = "NOTA_MINIMA";
 
         public ParametroService()
         {
             repository = new EFRepository<Parametro>();
         }
 
+        /// <summary>
+        /// Lista parametros
+        /// </summary>
+        /// <returns></returns>
         public IQueryable<Parametro> Listar()
         {
             return repository.Listar();
         }
 
+        /// <summary>
+        /// Grava parametro
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public int Gravar(Parametro item)
         {
             // formata
@@ -42,6 +52,11 @@ namespace ScrumToPractice.Domain.Service
             return repository.Alterar(item).Id;
         }
 
+        /// <summary>
+        /// Exclui um parametro
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Parametro Excluir(int id)
         {
             try
@@ -63,11 +78,21 @@ namespace ScrumToPractice.Domain.Service
             }
         }
 
+        /// <summary>
+        /// Retorna uma parametro a partir do ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Parametro Find(int id)
         {
             return repository.Find(id);
         }
 
+        /// <summary>
+        /// Retorna um parametro a partir do codigo
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
         public Parametro Find(string codigo)
         {
             if (!string.IsNullOrEmpty(codigo))
@@ -75,6 +100,22 @@ namespace ScrumToPractice.Domain.Service
                 return repository.Listar().Where(x => x.Codigo == codigo).FirstOrDefault();		 
 	        }
             return null;
+        }
+
+        /// <summary>
+        /// Nota minima para passar no exame
+        /// </summary>
+        /// <returns></returns>
+        public decimal GetNotaMinima()
+        {
+            var parametro = repository.Listar().Where(x => x.Codigo == notaMinima).FirstOrDefault();
+            
+            if (parametro != null)
+            {
+                return Convert.ToDecimal(parametro.Valor);   
+            }
+
+            return 0M;
         }
     }
 }

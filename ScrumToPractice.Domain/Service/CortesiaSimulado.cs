@@ -277,10 +277,14 @@ namespace ScrumToPractice.Domain.Service
 
             if (cortesia != null)
             {
+                // corrige o simulado
+                var questoesCorrigidas = CorrigirSimulado(idCortesia);
+
                 var resultado = new CortesiaResultado();
                 resultado.Cortesia = cortesia;
-                resultado.Questoes = serviceSimulado.Listar().Where(x => x.IdCortesia == idCortesia).AsEnumerable();
-                resultado.Resultado = GetCorrecao(resultado.Questoes.ToList());
+                resultado.ResultadoAluno = GetResultadoAluno(questoesCorrigidas);
+                resultado.Correcao = GetCorrecao(questoesCorrigidas);
+                
                 return resultado;
             }
 
@@ -288,21 +292,59 @@ namespace ScrumToPractice.Domain.Service
         }
 
         /// <summary>
-        /// Corrige o simulado e retorna o resultado
+        /// Corrige o simulado
         /// </summary>
-        /// <param name="questoes"></param>
+        /// <param name="idCortesia"></param>
         /// <returns></returns>
-        private decimal GetCorrecao(List<CorSimulado> questoes)
+        private List<CorSimulado> CorrigirSimulado(int idCortesia)
         {
+            // questoes do simulado
+            var questoes = serviceSimulado.Listar().Where(x => x.IdCortesia == idCortesia).ToList();
+
+            // corrige o simulado
             for (int i = 0; i < questoes.Count; i++)
             {
                 questoes[i].Correto = (questoes[i].RespostasUsuario.Where(x => x.SelecaoUsuario != x.SelecaoSistema).Count() == 0);
                 serviceSimulado.Gravar(questoes[i]);
             }
 
+            return questoes;
+        }
+
+        /// <summary>
+        /// Retorna o resultado
+        /// </summary>
+        /// <param name="questoes"></param>
+        /// <returns></returns>
+        private decimal GetResultadoAluno(List<CorSimulado> questoes)
+        {
+            // retorna o resultado
             Decimal questoesCorretas = Convert.ToDecimal(questoes.Where(x => x.Correto == true).Count());
             Decimal resultado = ((questoesCorretas / Convert.ToDecimal(questoes.Count)) * 100);
             return resultado;
         }
+
+        /// <summary>
+        /// Lista das questoes corrigidas com respostas SelecaoUsuario / SelecaoSistema
+        /// </summary>
+        /// <param name="questoesCorrigidas"></param>
+        /// <returns></returns>
+        private IEnumerable<QuestaoCorrigida> GetCorrecao(List<CorSimulado> questoesCorrigidas)
+        {
+            var lista = new List<QuestaoCorrigida>();
+
+            foreach (var item in questoesCorrigidas.OrderBy(x => x.Area.Descricao))
+            {
+                lista.Add(new QuestaoCorrigida
+                {
+                    Questao = item,
+                    SelecaoAluno = item.RespostasUsuario.Where(x => x.SelecaoUsuario == true),
+                    SelecaoSistema = item.RespostasUsuario.Where(x => x.SelecaoSistema == true)
+                });
+            }
+
+            return lista;
+        }
+
     }
 }

@@ -5,5 +5,6 @@ namespace ScrumToPractice.Domain.Abstract
     public interface IParametro
     {
         Parametro Find(string codigo);
+        decimal GetNotaMinima();
     }
 }
