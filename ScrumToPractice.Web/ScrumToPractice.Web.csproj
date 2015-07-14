@@ -204,7 +204,9 @@
     <Content Include="Areas\Exam\Views\Shared\_QuestaoUsuarioEscolhaMultipla.cshtml" />
     <Content Include="Areas\Exam\Views\Shared\_QuestaoUsuarioEscolhaSimples.cshtml" />
     <Content Include="Areas\Exam\Views\Result\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\scrumtopractice - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\scrumtopractice - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

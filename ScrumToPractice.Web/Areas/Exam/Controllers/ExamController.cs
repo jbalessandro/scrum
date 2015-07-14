@@ -31,7 +31,7 @@ namespace ScrumToPractice.Web.Areas.Exam.Controllers
             if (idSimulado == null)
             {
                 // cria um novo simulado
-                questao = _simulado.GetQuestao(_simulado.GetNovoSimulado(1).Id); // TODO: autenticacao do cliente
+                questao = _simulado.GetQuestao(_simulado.GetNovoSimulado(5).Id); // TODO: autenticacao do cliente
             }
             else
             {
