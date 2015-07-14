@@ -22,7 +22,7 @@ namespace ScrumToPractice.Domain.Models
         [Display(Name = "Passing Score")]
         public virtual decimal NotaMinima
         {
-            get 
+            get
             {
                 return _parametro.GetNotaMinima();
             }
@@ -30,7 +30,8 @@ namespace ScrumToPractice.Domain.Models
         }
 
         [Display(Name = "Result")]
-        public virtual bool Resultado {
+        public virtual bool Resultado
+        {
             get
             {
                 return (ResultadoAluno >= NotaMinima);
@@ -39,6 +40,10 @@ namespace ScrumToPractice.Domain.Models
         }
 
         public IEnumerable<QuestaoCorrigida> Correcao { get; set; }
+
+        public int RespostasCorretas { get; set; }
+        public int RespostasErradas { get; set; }
+        public int TotalQuestoes { get; set; }
     }
 
     public class QuestaoCorrigida

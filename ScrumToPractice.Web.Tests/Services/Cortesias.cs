@@ -73,5 +73,22 @@ namespace ScrumToPractice.Web.Tests.Services
             Assert.AreEqual(questaoAnterior.QuestaoUsuario.Id, 80);
             Assert.AreEqual(questaoAnteriorById.QuestaoUsuario.Id, 80);
         }
+
+        [TestMethod]
+        public void GetCorrecaoCortesia()
+        {
+            // Arrange
+            ISimuladoCortesia simulado;
+            simulado = new CortesiaSimulado();
+
+            // Act
+            var resultado = simulado.GetResultado(135);
+
+            // Assert
+            Assert.AreEqual(2, resultado.Correcao.Count());
+            Assert.AreNotEqual(null, resultado.Correcao.First().Questao);
+            Assert.IsTrue(resultado.Correcao.First().SelecaoAluno.Count() > 0);
+            Assert.IsTrue(resultado.Correcao.First().SelecaoSistema.Count() > 0);
+        }
     }
 }

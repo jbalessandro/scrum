@@ -284,6 +284,9 @@ namespace ScrumToPractice.Domain.Service
                 resultado.Cortesia = cortesia;
                 resultado.ResultadoAluno = GetResultadoAluno(questoesCorrigidas);
                 resultado.Correcao = GetCorrecao(questoesCorrigidas);
+                resultado.TotalQuestoes = resultado.Correcao.Count();
+                resultado.RespostasCorretas = resultado.Correcao.Where(x => x.Questao.Correto == true).Count();
+                resultado.RespostasErradas = resultado.Correcao.Where(x => x.Questao.Correto == false).Count();
                 
                 return resultado;
             }

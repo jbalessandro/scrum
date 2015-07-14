@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ScrumToPractice.Domain.Models.QuestaoCorrigida>
+
+<h3 class="text-danger">Incorrect Answers:</h3>
+
+@foreach (var questao in Model.Where(x => x.Questao.Correto == false))
+{
+    <hr class="top40" />
+    <h4>@questao.Questao.Questao.Descricao</h4>
+
+    <div class="table-responsive top30">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Result</th>
+                    <th>Your Answer</th>
+                    <th>Correct Answer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">
+                        @if (questao.Questao.Correto)
+                        {
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        }
+                        else
+                        {
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        }                              
+                    </th>
+                    <td>
+                        @foreach (var respostaAluno in questao.SelecaoAluno)
+                        {
+                            @respostaAluno.Resposta.Descricao
+                        }
+                    </td>
+                    <td>
+                        @foreach (var respostaSistema in questao.SelecaoSistema)
+                        {
+                            @respostaSistema.Resposta.Descricao
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>    
+}
+<div class="container">
+    <div class="row text-center">
+        <div class="col-xs-12 col-md-12">
+            @Html.ActionLink("Try again", "Index", "Practice", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+</div>
