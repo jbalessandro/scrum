@@ -146,8 +146,12 @@
   <ItemGroup>
     <Content Include="Areas\Practice\Scripts\QuestaoSimulado.js" />
     <Content Include="Areas\Practice\Scripts\QuestaoCortesia.js" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -206,6 +210,8 @@
     <Content Include="Areas\Exam\Views\Result\Index.cshtml" />
     <Content Include="Areas\Practice\Views\Shared\_Correcao.cshtml" />
     <Content Include="Areas\Exam\Views\Shared\_Correcao.cshtml" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\scrumtopractice - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - Web Deploy %282%29.pubxml" />

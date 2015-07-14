@@ -12,30 +12,26 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Result</th>
                     <th>Your Answer</th>
                     <th>Correct Answer</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th scope="row">
-                        @if (questao.Questao.Correto)
+                    <td class="w50">
+                        @if (questao.SelecaoAluno.Count() > 0)
                         {
-                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            foreach (var respostaAluno in questao.SelecaoAluno)
+                            {
+                                @respostaAluno.Resposta.Descricao
+                            }
                         }
                         else
                         {
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        }
-                    </th>
-                    <td>
-                        @foreach (var respostaAluno in questao.SelecaoAluno)
-                        {
-                            @respostaAluno.Resposta.Descricao
+                            @:You do not answered this question
                         }
                     </td>
-                    <td>
+                    <td class="w50">
                         @foreach (var respostaSistema in questao.SelecaoSistema)
                         {
                             @respostaSistema.Resposta.Descricao
@@ -46,7 +42,7 @@
         </table>
     </div>
 }
-<div class="container">
+<div class="container top40">
     <div class="row text-center">
         <div class="col-xs-12 col-md-12">
             @Html.ActionLink("Try again", "Index", "Exam", null, new { @class = "btn btn-primary" })
