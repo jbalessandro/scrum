@@ -1,0 +1,13 @@
+﻿@model ScrumToPractice.Domain.Models.Payment
+
+@{
+    ViewBag.Title = "Thanks";
+}
+
+<h2>Thanks</h2>
+
+<p class="top60">Thanks</p>
+<p class="top20">@Model.FirstName, now you can take a full access for 30 days.</p>
+<p>A full link access was sent to @Model.PayerEmail</p>
+<p class="top20">Your ID: @Model.IdCliente</p>
+<p>Price: @Model.McGross.ToString("C")</p>

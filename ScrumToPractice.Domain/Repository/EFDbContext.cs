@@ -26,6 +26,7 @@ namespace ScrumToPractice.Domain.Repository
         public DbSet<CorSimulado> CorSimulado { get; set; }
         public DbSet<Cortesia> Cortesia { get; set; }
         public DbSet<Parametro> Parametro { get; set; }
+        public DbSet<Payment> Payment { get; set; }
         public DbSet<Questao> Questao { get; set; }
         public DbSet<Resposta> Resposta { get; set; }
         public DbSet<SimResposta> SimResposta { get; set; }

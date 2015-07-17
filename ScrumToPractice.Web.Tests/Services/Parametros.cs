@@ -36,17 +36,27 @@ namespace ScrumToPractice.Web.Tests.Services
                 Valor = "85"
             };
 
+            var parametro4 = new Parametro
+            {
+                AlteradoEm = DateTime.Now,
+                AlteradoPor = 1,
+                Codigo = "PRAZO_ACESSO_PAGO",
+                Valor = "1"
+            };
+
             var service = new ParametroService();
             
             // Act
             parametro1.Id = service.Gravar(parametro1);
             parametro2.Id = service.Gravar(parametro2);
             parametro3.Id = service.Gravar(parametro3);
+            parametro4.Id = service.Gravar(parametro4);
 
             // Assert
             Assert.AreEqual(1, parametro1.Id);
             Assert.AreEqual(2, parametro2.Id);
             Assert.AreEqual(3, parametro3.Id);
+            Assert.AreEqual(4, parametro4.Id);
         }
     }
 }

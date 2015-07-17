@@ -6,5 +6,6 @@ namespace ScrumToPractice.Domain.Abstract
     {
         Parametro Find(string codigo);
         decimal GetNotaMinima();
+        int GetPrazoAcessoPago();
     }
 }

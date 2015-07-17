@@ -42,8 +42,17 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="PayPal">
+      <HintPath>..\packages\PayPal.Helper.1.0.1\lib\PayPal.dll</HintPath>
+    </Reference>
+    <Reference Include="paypal_base">
+      <HintPath>..\packages\PayPal.Helper.1.0.1\lib\paypal_base.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -104,9 +113,34 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
+    <Content Include="PayPalHelper\Docs\startHere.htm" />
+    <Content Include="PayPalHelper\Docs\startHere.html\html\DocSet_default.html" />
+    <Content Include="PayPalHelper\Docs\startHere.html\html\images\19fb5f20-19a2-4d76-a2b0-fd753895da1e.png" />
+    <Content Include="PayPalHelper\Docs\startHere.html\html\images\45d9257f-f452-491c-a16e-20d3cd1370db.png" />
+    <Content Include="PayPalHelper\Docs\startHere.html\html\images\8b52f348-d854-4a8f-9132-863e0fce5da9.png" />
+    <Content Include="PayPalHelper\Docs\startHere.html\html\images\c3431829-bc93-4403-921f-b35745aedb75.png" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\Classic.css" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\collall.gif" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\collapse_all.gif" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\copycode.gif" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\copycodeHighlight.gif" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\Dropdown.js" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\drpdown.gif" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\drpdown_orange.gif" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\EventUtilities.js" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\exp.gif" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\expall.gif" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\expand_all.gif" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\note.gif" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\samples.js" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\script.js" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\script_chm.js" />
+    <Content Include="PayPalHelper\Docs\startHere.html\local\SplitScreen.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="PayPalHelper\Docs\startHere.docx" />
+    <None Include="PayPalHelper\Docs\startHere.pdf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScrumToPractice.Domain\ScrumToPractice.Domain.csproj">

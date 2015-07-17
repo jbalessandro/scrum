@@ -39,7 +39,7 @@ namespace ScrumToPractice.Domain.Service
                 // redirecione o cliente para o pagamento
             }
 
-            if (item.PagoEm == DateTime.MinValue || item.PagoEm > DateTime.Today.Date)
+            if (item.PagoEm == DateTime.MinValue || item.PagoEm > DateTime.Now)
             {
                 throw new ArgumentException("Date of payment invalid");
             }

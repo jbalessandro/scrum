@@ -10,6 +10,7 @@ namespace ScrumToPractice.Domain.Service
     {
         private IBaseRepository<Parametro> repository;
         private const string notaMinima = "NOTA_MINIMA";
+        private const string prazoAcessoPago = "PRAZO_ACESSO_PAGO";
 
         public ParametroService()
         {
@@ -116,6 +117,22 @@ namespace ScrumToPractice.Domain.Service
             }
 
             return 0M;
+        }
+
+        /// <summary>
+        /// Prazo de acesso pago em mes
+        /// </summary>
+        /// <returns></returns>
+        public int GetPrazoAcessoPago()
+        {
+            var parametro = repository.Listar().Where(x => x.Codigo == prazoAcessoPago).FirstOrDefault();
+
+            if (parametro != null)
+            {
+                return Convert.ToInt32(parametro.Valor);
+            }
+
+            return 1;
         }
     }
 }

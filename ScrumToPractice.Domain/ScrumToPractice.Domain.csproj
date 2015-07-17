@@ -81,6 +81,7 @@
     <Compile Include="Abstract\ICorResposta.cs" />
     <Compile Include="Abstract\ICorSimulado.cs" />
     <Compile Include="Abstract\ILogin.cs" />
+    <Compile Include="Abstract\IPagamento.cs" />
     <Compile Include="Abstract\IParametro.cs" />
     <Compile Include="Abstract\ISimResposta.cs" />
     <Compile Include="Abstract\ISimQuestao.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Models\Cortesia.cs" />
     <Compile Include="Models\CortesiaResultado.cs" />
     <Compile Include="Models\Parametro.cs" />
+    <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Questao.cs" />
     <Compile Include="Models\QuestaoCortesia.cs" />
     <Compile Include="Models\QuestaoSimulado.cs" />
@@ -116,7 +118,9 @@
     <Compile Include="Service\IBaseService.cs" />
     <Compile Include="Abstract\ICortesia.cs" />
     <Compile Include="Abstract\IQuestao.cs" />
+    <Compile Include="Service\Pagamento.cs" />
     <Compile Include="Service\ParametroService.cs" />
+    <Compile Include="Service\PaymentService.cs" />
     <Compile Include="Service\QuestaoService.cs" />
     <Compile Include="Service\RespostaService.cs" />
     <Compile Include="Service\SimQuestaoService.cs" />
