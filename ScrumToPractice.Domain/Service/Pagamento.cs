@@ -9,6 +9,7 @@ namespace ScrumToPractice.Domain.Service
         private IBaseService<Cliente> serviceCliente;
         private IBaseService<Payment> servicePayment;
         private IParametro serviceParametro;
+        private IEmailPayment serviceEmail;
         private Payment _payment;
 
         public Pagamento()
@@ -16,6 +17,7 @@ namespace ScrumToPractice.Domain.Service
             serviceCliente = new ClienteService();
             servicePayment = new PaymentService();
             serviceParametro = new ParametroService();
+            serviceEmail = new EmailPayment();
         }
 
         /// <summary>
@@ -34,18 +36,22 @@ namespace ScrumToPractice.Domain.Service
             _payment = payment;
 
             // grava um novo cliente
-            _payment.IdCliente = IncluirCliente();
+            var cliente = IncluirCliente();
+            _payment.IdCliente = cliente.Id;
 
             // grava informacoes do pagamento
             _payment.Id = servicePayment.Gravar(_payment);
+
+            // envia e-mail ao cliente
+            serviceEmail.EnviarEmail(cliente);
 
             // retorna ID do cliente
             return _payment.IdCliente;
         }
 
-        private int IncluirCliente()
+        private Cliente IncluirCliente()
         {
-            return serviceCliente.Gravar(new Cliente
+            var idCliente = serviceCliente.Gravar(new Cliente
             {
                 Ativo = true,
                 CriadoEm = DateTime.Now,
@@ -54,8 +60,11 @@ namespace ScrumToPractice.Domain.Service
                 Nome = _payment.FirstName,
                 Observacao = "PAYPAL",
                 PagoEm = DateTime.Now,
-                ValorPago = _payment.McGross
+                ValorPago = _payment.McGross,
+                Chave = Guid.NewGuid().ToString("N")
             });
+
+            return serviceCliente.Find(idCliente);
         }
     }
 }

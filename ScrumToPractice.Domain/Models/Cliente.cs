@@ -42,5 +42,9 @@ namespace ScrumToPractice.Domain.Models
 
         [Display(Name="Notes")]
         public string Observacao { get; set; }
+
+        [Display(Name="Cliente Key")]
+        [Required]
+        public string Chave { get; set; }
     }
 }

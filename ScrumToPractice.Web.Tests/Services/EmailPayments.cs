@@ -13,10 +13,10 @@ namespace ScrumToPractice.Web.Tests.Services
         {
             // Arrange
             var sendEmail = new EmailPayment();
-            var payment = new Payment();
+            var cliente = new Cliente { Email = "jb.alessandro@gmail.com", ExpiraEm = DateTime.Today.Date.AddMonths(1).AddDays(1) };
 
             // Act
-            var status = sendEmail.EnviarEmail(payment);
+            var status = sendEmail.EnviarEmail(cliente);
 
             // Assert
             Assert.AreEqual(EmailPayment.StatusEmail.Enviado, status);

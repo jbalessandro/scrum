@@ -117,7 +117,13 @@ namespace ScrumToPractice.Web.Controllers
             pagamento = new Pagamento();
             payment.IdCliente = pagamento.NovoPagamento(payment);
 
-            return View("Thanks", (Payment)payment);
+            var confirmacaoPagamento = new ConfirmacaoPagamento
+            {
+                Cliente = GetCliente(payment.IdCliente),
+                Payment = payment
+            };
+
+            return View("Thanks", (ConfirmacaoPagamento)confirmacaoPagamento);
         }
 
         public ActionResult CancelFromPayPal()
@@ -128,6 +134,13 @@ namespace ScrumToPractice.Web.Controllers
         public ActionResult NotifyFromPayPal()
         {
             return View();
+        }
+
+        private Cliente GetCliente(int idCliente)
+        {
+            ICliente cliente;
+            cliente = new ClienteService();
+            return cliente.Find(idCliente);
         }
     }
 }
