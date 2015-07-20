@@ -35,9 +35,8 @@ namespace ScrumToPractice.Web.Controllers
         [HttpPost]
         public ActionResult PostToPaypal()
         {
-            Paypal paypal = new Paypal();
-            paypal.cmd = "_xclick";
-            paypal.business = ConfigurationManager.AppSettings["BusinessAccountKey"];
+            IPreco preco;
+            preco = new PaypalPreco();
 
             bool useSandbox = Convert.ToBoolean(ConfigurationManager.AppSettings["UseSandBox"]);
             if (useSandbox)
@@ -49,13 +48,15 @@ namespace ScrumToPractice.Web.Controllers
                 ViewBag.ActionUrl = "https://www.paypal.com/cgi-bin/webscr";
             }
 
+            Paypal paypal = new Paypal();
+            paypal.cmd = "_xclick";
+            paypal.business = ConfigurationManager.AppSettings["BusinessAccountKey"];
             paypal.cancel_return = ConfigurationManager.AppSettings["CancelURL"];
             paypal.@return = ConfigurationManager.AppSettings["ReturnURL"]; // + "&PaymentId=1"; can append order Id here
             paypal.notify_url = ConfigurationManager.AppSettings["NotifyURL"]; // +"?PaymentId=1"; to maintain database logic
             paypal.currency_code = ConfigurationManager.AppSettings["CurrencyCode"];
             paypal.item_name = ConfigurationManager.AppSettings["ItemName"];
-            // TODO: preco em parametro
-            paypal.amount = "30.00";
+            paypal.amount = preco.GetPrecoMensal().ToString("N2");
 
             return View(paypal);            
         }

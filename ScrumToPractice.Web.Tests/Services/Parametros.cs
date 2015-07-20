@@ -44,6 +44,14 @@ namespace ScrumToPractice.Web.Tests.Services
                 Valor = "1"
             };
 
+            var parametro5 = new Parametro
+            {
+                AlteradoEm = DateTime.Now,
+                AlteradoPor = 1,
+                Codigo = "PAYPAL_PRICE_30D",
+                Valor = "30.00"
+            };
+
             var service = new ParametroService();
             
             // Act

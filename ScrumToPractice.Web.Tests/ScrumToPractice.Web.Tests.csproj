@@ -110,6 +110,7 @@
     <Compile Include="Services\Simulados\ClienteTest.cs" />
     <Compile Include="Services\Simulados\SimuladoTest.cs" />
     <Compile Include="Services\EmailPayments.cs" />
+    <Compile Include="Services\Precos.cs" />
     <Compile Include="Services\Usuarios.cs" />
   </ItemGroup>
   <ItemGroup>

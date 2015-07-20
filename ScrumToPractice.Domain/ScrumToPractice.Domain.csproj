@@ -84,6 +84,7 @@
     <Compile Include="Abstract\ILogin.cs" />
     <Compile Include="Abstract\IPagamento.cs" />
     <Compile Include="Abstract\IParametro.cs" />
+    <Compile Include="Abstract\IPreco.cs" />
     <Compile Include="Abstract\ISimResposta.cs" />
     <Compile Include="Abstract\ISimQuestao.cs" />
     <Compile Include="Abstract\ISimulado.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Service\Pagamento.cs" />
     <Compile Include="Service\ParametroService.cs" />
     <Compile Include="Service\PaymentService.cs" />
+    <Compile Include="Service\PaypalPreco.cs" />
     <Compile Include="Service\QuestaoService.cs" />
     <Compile Include="Service\RespostaService.cs" />
     <Compile Include="Service\SimQuestaoService.cs" />
