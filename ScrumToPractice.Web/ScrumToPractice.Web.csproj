@@ -250,6 +250,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Thanks.cshtml" />
     <Content Include="Views\Home\PostToPaypal.cshtml" />
+    <Content Include="Views\Home\InvalidPayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

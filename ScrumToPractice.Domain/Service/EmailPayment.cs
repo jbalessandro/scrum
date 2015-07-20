@@ -58,12 +58,11 @@ namespace ScrumToPractice.Domain.Service
 
         private string getMessage()
         {
-            // TODO: incluir a chave de acesso do usuario
             return new StringBuilder()
             .Append("<h3>Welcome to ScrumToPractice</h3>")
             .Append("<br /><br />")
             .Append("This is the link for your practices: ")
-            .Append("<a href='http://www.scrumtopractice.com/Exam/Exam'>www.scrumtopractice.com/Exam/Exam</a>")
+            .Append(string.Format("<a href='http://www.scrumtopractice.com/Exam/{0}'>www.scrumtopractice.com/Exam/{0}</a>", _cliente.Chave))
             .Append("<br /><br />")
             .Append("Your access goes will be valid until ")
             .Append(_cliente.ExpiraEm.ToShortDateString())

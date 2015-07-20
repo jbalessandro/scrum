@@ -18,5 +18,6 @@ namespace ScrumToPractice.Domain.Abstract
         void GravarRespostasUsuario(int idSimQuestao, IEnumerable<int> selecionadas);
 
         SimuladoResultado GetResultado(int idSimulado);
+        Cliente GetCliente(string chave);
     }
 }

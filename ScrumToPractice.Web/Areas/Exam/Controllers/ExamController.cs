@@ -12,14 +12,19 @@ namespace ScrumToPractice.Web.Areas.Exam.Controllers
     public class ExamController : Controller
     {
         private ISimulado _simulado;
-
+         
         public ExamController()
         {
             _simulado = new SimuladoService();
         }
 
+        public ActionResult Index(string chave)
+        {
+            return RedirectToAction("Index", new { idSumulado = 0, questaoSimulado = new QuestaoSimulado(), idCliente = _simulado.GetCliente(chave) });
+        }
+
         // GET: Exam/Exam
-        public ActionResult Index(int? idSimulado, QuestaoSimulado questaoSimulado)
+        public ActionResult Index(int? idSimulado, QuestaoSimulado questaoSimulado, int? idCliente = 0)
         {
             if (questaoSimulado.NumQuestoesTotal > 0)
             {
@@ -31,7 +36,7 @@ namespace ScrumToPractice.Web.Areas.Exam.Controllers
             if (idSimulado == null)
             {
                 // cria um novo simulado
-                questao = _simulado.GetQuestao(_simulado.GetNovoSimulado(5).Id); // TODO: autenticacao do cliente
+                questao = _simulado.GetQuestao(_simulado.GetNovoSimulado((int)idCliente).Id); // TODO: autenticacao do cliente
             }
             else
             {

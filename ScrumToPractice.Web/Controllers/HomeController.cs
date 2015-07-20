@@ -2,6 +2,7 @@
 using ScrumToPractice.Domain.Models;
 using ScrumToPractice.Web.Models;
 using ScrumToPractice.Domain.Service;
+using ScrumToPractice.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -113,18 +114,33 @@ namespace ScrumToPractice.Web.Controllers
             payment.McGross = Convert.ToDecimal(Request.Form["Mc_Gross"]);
             payment.TxnId = Request.Form["Txn_Id"].ToString();
 
-            // inclui pagamento e cliente
-            IPagamento pagamento;
-            pagamento = new Pagamento();
-            payment.IdCliente = pagamento.NovoPagamento(payment);
-
-            var confirmacaoPagamento = new ConfirmacaoPagamento
+            try
             {
-                Cliente = GetCliente(payment.IdCliente),
-                Payment = payment
-            };
+                // inclui pagamento e cliente
+                IPagamento pagamento;
+                pagamento = new Pagamento();
+                payment.IdCliente = pagamento.NovoPagamento(payment);
 
-            return View("Thanks", (ConfirmacaoPagamento)confirmacaoPagamento);
+                var confirmacaoPagamento = new ConfirmacaoPagamento
+                {
+                    Cliente = GetCliente(payment.IdCliente),
+                    Payment = payment
+                };
+
+                return View("Thanks", (ConfirmacaoPagamento)confirmacaoPagamento);
+            }
+            catch (InvalidPaymentException)
+            {
+                // pagamento invalido (valor = 0)
+                ViewBag.Message = "Invalid value payment.";
+                return View("InvalidPayment");
+            }
+            catch (Exception)
+            {
+                // TODO: criar rotina basica que envia e-mail alertando sobre estes problemas
+                ViewBag.Message = "<p>Some problems with you payment. Check your paypal account.</p><p>If necessary, contat your suppot: <strong>contatc@scrumtopractice.com</strong></p>";
+                return View("InvalidPayment");
+            }
         }
 
         public ActionResult CancelFromPayPal()

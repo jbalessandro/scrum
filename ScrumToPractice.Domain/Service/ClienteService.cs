@@ -3,6 +3,7 @@ using ScrumToPractice.Domain.Models;
 using ScrumToPractice.Domain.Repository;
 using System;
 using System.Linq;
+using ScrumToPractice.Domain.Exceptions;
 
 namespace ScrumToPractice.Domain.Service
 {
@@ -31,9 +32,7 @@ namespace ScrumToPractice.Domain.Service
 
             if (item.ValorPago <= 0)
             {
-                // TODO: implementar exception de pagamento nao efetuado
-                // de forma que o metodo que chamou este metodo
-                // redirecione o cliente para o pagamento
+                throw new InvalidPaymentException();
             }
 
             if (item.PagoEm == DateTime.MinValue || item.PagoEm > DateTime.Now)

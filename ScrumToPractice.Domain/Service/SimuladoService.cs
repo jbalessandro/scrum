@@ -10,6 +10,7 @@ namespace ScrumToPractice.Domain.Service
     public class SimuladoService: ISimulado
     {
         private IBaseRepository<Simulado> repository;
+        private IBaseService<Cliente> clienteService;
         private IQuestao questaoService;
         private ISimQuestao simQuestaoService;
         private ISimResposta simRespostaService;
@@ -20,6 +21,7 @@ namespace ScrumToPractice.Domain.Service
             questaoService = new QuestaoService();
             simQuestaoService = new SimQuestaoService();
             simRespostaService = new SimRespostaService();
+            clienteService = new ClienteService();
         }
 
         public Simulado GetNovoSimulado(int idCliente)
@@ -324,6 +326,11 @@ namespace ScrumToPractice.Domain.Service
             }
 
             return lista;
+        }
+
+        public Cliente GetCliente(string chave)
+        {
+            return clienteService.Listar().Where(x => x.Chave == chave).FirstOrDefault();
         }
     }
 }
