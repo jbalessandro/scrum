@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace ScrumToPractice.Domain.Service
 {   
+    /// <summary>
+    /// Preco para pagamento via Paypal
+    /// </summary>
     public class PaypalPreco: IPreco
     {
         private const string _codigoParametro = "PAYPAL_PRICE_30D";
@@ -15,11 +18,20 @@ namespace ScrumToPractice.Domain.Service
             _parametro = new ParametroService();
         }
 
+        /// <summary>
+        /// Preco para assinatura de 30 dias
+        /// </summary>
+        /// <returns></returns>
         public decimal GetPrecoMensal()
         {
             return Convert.ToDecimal(getParametro().Valor);
         }
 
+        /// <summary>
+        /// Define o preco para 30 dias de uso
+        /// </summary>
+        /// <param name="valor"></param>
+        /// <param name="idUsuario"></param>
         public void SetPrecoMensal(decimal valor, int idUsuario)
         {
             // valida

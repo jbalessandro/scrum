@@ -124,12 +124,14 @@
     <Compile Include="Areas\Administrativo\Controllers\HomeAdmController.cs" />
     <Compile Include="Areas\Administrativo\Controllers\LoginController.cs" />
     <Compile Include="Areas\Administrativo\Controllers\ParametroController.cs" />
+    <Compile Include="Areas\Administrativo\Controllers\PaypalController.cs" />
     <Compile Include="Areas\Administrativo\Controllers\QuestaoController.cs" />
     <Compile Include="Areas\Administrativo\Controllers\RespostaController.cs" />
     <Compile Include="Areas\Administrativo\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\Administrativo\Models\AreaQuestao.cs" />
     <Compile Include="Areas\Administrativo\Models\AreaQuestoes.cs" />
     <Compile Include="Areas\Administrativo\Models\LoginUsuario.cs" />
+    <Compile Include="Areas\Administrativo\Models\Preco.cs" />
     <Compile Include="Areas\Administrativo\Models\QuestaoRespostas.cs" />
     <Compile Include="Areas\Exam\Controllers\ExamController.cs" />
     <Compile Include="Areas\Exam\Controllers\ResultController.cs" />
@@ -214,6 +216,7 @@
     <Content Include="Areas\Exam\Views\Shared\_Correcao.cshtml" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Areas\Administrativo\Views\Paypal\ValorAssinaturaMensal.cshtml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - Web Deploy %282%29.pubxml" />
