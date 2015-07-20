@@ -6,8 +6,9 @@ namespace ScrumToPractice.Web.Areas.Administrativo.Controllers
     public class HomeAdmController : Controller
     {
         // GET: Administrativo/HomeAdm
-        public ActionResult Index()
+        public ActionResult Index(string message ="")
         {
+            ViewBag.Message = message;
             return View();
         }
     }
