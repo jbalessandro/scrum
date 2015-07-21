@@ -1,5 +1,6 @@
 ﻿using ScrumToPractice.Domain.Abstract;
 using ScrumToPractice.Domain.Models;
+using System.Linq;
 using System;
 
 namespace ScrumToPractice.Domain.Service
@@ -30,6 +31,14 @@ namespace ScrumToPractice.Domain.Service
             if (payment == null)
             {
                 throw new ArgumentException("Invalid payment");
+            }
+
+            // verifica se este pagamento ja esta cadastrado no sistema TxnId
+            var pagamentoAnterior =servicePayment.Listar().Where(x => x.TxnId == _payment.TxnId).FirstOrDefault();
+            if (pagamentoAnterior != null)
+            {
+                // o usuario fez retorno a tela do Paypal e redirecionou novamente ao sistema
+                return pagamentoAnterior.IdCliente;
             }
 
             // variavel da classe
