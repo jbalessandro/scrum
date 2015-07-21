@@ -80,6 +80,7 @@
     <Compile Include="Abstract\ICliente.cs" />
     <Compile Include="Abstract\ICorResposta.cs" />
     <Compile Include="Abstract\ICorSimulado.cs" />
+    <Compile Include="Abstract\IEmail.cs" />
     <Compile Include="Abstract\IEmailPayment.cs" />
     <Compile Include="Abstract\ILogin.cs" />
     <Compile Include="Abstract\IPagamento.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Exceptions\InvalidPaymentException.cs" />
     <Compile Include="Models\Area.cs" />
     <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\Contato.cs" />
     <Compile Include="Models\CorResposta.cs" />
     <Compile Include="Models\CorSimulado.cs" />
     <Compile Include="Models\Cortesia.cs" />
@@ -120,6 +122,7 @@
     <Compile Include="Service\CortesiaService.cs" />
     <Compile Include="Service\CortesiaSimulado.cs" />
     <Compile Include="Service\EmailPayment.cs" />
+    <Compile Include="Service\EnviarEmail.cs" />
     <Compile Include="Service\IBaseService.cs" />
     <Compile Include="Abstract\ICortesia.cs" />
     <Compile Include="Abstract\IQuestao.cs" />

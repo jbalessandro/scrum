@@ -28,9 +28,34 @@ namespace ScrumToPractice.Web.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            return View(new Contato());
+        }
 
-            return View();
+        [HttpPost]
+        public ActionResult Contact(Contato contato)
+        {
+            if (ModelState.IsValid)
+            {
+                // envia e-mail
+                IEmail email;
+                email = new EnviarEmail();
+
+                try
+                {
+                    if (email.Enviar(contato))
+                    {
+                        // return view
+                        return View("ContactThanks", (Contato)contato);
+                    }
+                }
+                catch (Exception)
+                {
+                    // TODO: log
+                }                
+            }
+            
+            ModelState.AddModelError(string.Empty, "Fail to send e-mail. Please contact us alternatively by contact@scrumtopractice.com");
+            return View(contato);
         }
 
         [HttpPost]
