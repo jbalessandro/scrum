@@ -2,17 +2,17 @@
 
 namespace ScrumToPractice.Web.Areas.Exam
 {
-    public class ExamAreaRegistration : AreaRegistration 
+    public class ExamAreaRegistration : AreaRegistration
     {
-        public override string AreaName 
+        public override string AreaName
         {
-            get 
+            get
             {
                 return "Exam";
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
                 "Exam_default",
@@ -20,6 +20,14 @@ namespace ScrumToPractice.Web.Areas.Exam
                 new { action = "Index", id = UrlParameter.Optional },
                 new[] { "ScrumToPractice.Web.Areas.Exam.Controllers" }
             );
+
+            context.MapRoute(
+                "Exam",
+                "Exam/{chave}",
+                new { controller = "Exam", action = "Index", chave = @"\d+" },
+                new[] { "ScrumToPractice.Web.Areas.Exam.Controllers" }
+            );
+
         }
     }
 }

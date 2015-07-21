@@ -3,6 +3,7 @@ using ScrumToPractice.Domain.Service;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace ScrumToPractice.Domain.Models
@@ -34,6 +35,7 @@ namespace ScrumToPractice.Domain.Models
         [Display(Name="Current question")]
         public int QuestaoAtual { get; set; }
 
+        [NotMapped]
         public virtual IEnumerable<SimQuestao> Questoes 
         { 
             get
@@ -41,6 +43,18 @@ namespace ScrumToPractice.Domain.Models
                 return simQuestaoService.Listar()
                     .Where(x => x.IdSimulado == Id)
                     .AsEnumerable();                    
+            }
+            set { }
+        }
+
+        [NotMapped]
+        public virtual Cliente Cliente
+        {
+            get
+            {
+                ICliente cliente;
+                cliente = new ClienteService();
+                return cliente.Find(IdCliente);
             }
             set { }
         }

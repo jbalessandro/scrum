@@ -26,7 +26,7 @@
 <div class="container">
     <div class="row text-center">
         <div class="col-xs-12 col-md-12">
-            @Html.ActionLink("Try again", "Index", "Exam", null, new { @class = "btn btn-primary" })
+            <a href="/Exam/Exam/?chave=@Model.Simulado.Cliente.Chave" class="btn btn-primary">Try again</a>
         </div>
     </div>
 </div>
@@ -34,4 +34,11 @@
 @if (Model.RespostasErradas > 0)
 {
     @Html.Partial("_Correcao", (IEnumerable<ScrumToPractice.Domain.Models.QuestaoCorrigidaSimulado>)@Model.Correcao)
+    <div class="container top40">
+        <div class="row text-center">
+            <div class="col-xs-12 col-md-12">
+                <a href="/Exam/Exam/?chave=@Model.Simulado.Cliente.Chave" class="btn btn-primary">Try again</a>
+            </div>
+        </div>
+    </div>
 }

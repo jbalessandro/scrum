@@ -8,12 +8,12 @@
     <h3>Thanks</h3>
     <p class="top40">Now you can take a full access for 30 days.</p>
     <p>A link access was send to @Model.Payment.PayerEmail</p>
-    <p class="top20">To start your first exam access any time @Html.ActionLink("www.scrumtopractice.com/Exam/" + @Model.Cliente.Chave, "Index", "Exam/Exam", new { chave = @Model.Cliente.Chave })</p>
+    <p class="top20">To start your first exam access any time <a href="/Exam/Exam/?chave=@Model.Cliente.Chave">www.scrumtopractice.com/Exam/@Model.Cliente.Chave</a></p>
     <p class="top20"></p>
 </div>
 <p class="top40">
     @using (Html.BeginForm("Index", "/Exam/Exam"))
     {
-        @Html.ActionLink("Start now", "Index", "Exam/Exam", new { chave = @Model.Cliente.Chave, @class = "btn btn-primary" })
+        <a href="/Exam/Exam/?chave=@Model.Cliente.Chave" class="btn btn-primary">Start now</a>
     }
 </p>

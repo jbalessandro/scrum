@@ -34,7 +34,7 @@ namespace ScrumToPractice.Domain.Service
             }
 
             // verifica se este pagamento ja esta cadastrado no sistema TxnId
-            var pagamentoAnterior =servicePayment.Listar().Where(x => x.TxnId == _payment.TxnId).FirstOrDefault();
+            var pagamentoAnterior = servicePayment.Listar().Where(x => x.TxnId == payment.TxnId).FirstOrDefault();
             if (pagamentoAnterior != null)
             {
                 // o usuario fez retorno a tela do Paypal e redirecionou novamente ao sistema

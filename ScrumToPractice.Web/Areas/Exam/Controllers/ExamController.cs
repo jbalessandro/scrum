@@ -18,13 +18,8 @@ namespace ScrumToPractice.Web.Areas.Exam.Controllers
             _simulado = new SimuladoService();
         }
 
-        public ActionResult Index(string chave)
-        {
-            return RedirectToAction("Index", new { idSumulado = 0, questaoSimulado = new QuestaoSimulado(), idCliente = _simulado.GetCliente(chave) });
-        }
-
         // GET: Exam/Exam
-        public ActionResult Index(int? idSimulado, QuestaoSimulado questaoSimulado, int? idCliente = 0)
+        public ActionResult Index(int? idSimulado, QuestaoSimulado questaoSimulado, int? idCliente = 0, string chave = "")
         {
             if (questaoSimulado.NumQuestoesTotal > 0)
             {
@@ -33,10 +28,14 @@ namespace ScrumToPractice.Web.Areas.Exam.Controllers
 
             QuestaoSimulado questao;
 
-            if (idSimulado == null)
+            if (idSimulado == null && !string.IsNullOrEmpty(chave))
+            {
+                questao = _simulado.GetQuestao(_simulado.GetNovoSimulado(_simulado.GetCliente(chave).Id).Id);
+            }
+            else if (idSimulado == null)
             {
                 // cria um novo simulado
-                questao = _simulado.GetQuestao(_simulado.GetNovoSimulado((int)idCliente).Id); // TODO: autenticacao do cliente
+                questao = _simulado.GetQuestao(_simulado.GetNovoSimulado((int)idCliente).Id);
             }
             else
             {

@@ -138,7 +138,7 @@ namespace ScrumToPractice.Web.Controllers
             catch (Exception)
             {
                 // TODO: criar rotina basica que envia e-mail alertando sobre estes problemas
-                ViewBag.Message = "<p>Some problems with you payment. Check your paypal account.</p><p>If necessary, contat your suppot: <strong>contatc@scrumtopractice.com</strong></p>";
+                ViewBag.Message = "Some problems with you payment. Check your paypal account. If necessary, contat your suppot: contatc@scrumtopractice.com";
                 return View("InvalidPayment");
             }
         }
