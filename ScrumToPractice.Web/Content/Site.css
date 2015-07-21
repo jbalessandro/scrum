@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 140px;
     padding-bottom: 20px;
 }
 
@@ -80,3 +80,10 @@ textarea {
 /* width */
 .w50 { width: 50% }
 
+/* logo */
+.logo-top {
+    width: 40px;
+    overflow: hidden;
+    padding:0;
+    margin: 5px 0 0 0;
+}
