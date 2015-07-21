@@ -1,13 +1,10 @@
 ﻿using ScrumToPractice.Domain.Abstract;
-using ScrumToPractice.Domain.Models;
-using ScrumToPractice.Web.Models;
-using ScrumToPractice.Domain.Service;
 using ScrumToPractice.Domain.Exceptions;
+using ScrumToPractice.Domain.Models;
+using ScrumToPractice.Domain.Service;
+using ScrumToPractice.Web.Models;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ScrumToPractice.Web.Controllers
