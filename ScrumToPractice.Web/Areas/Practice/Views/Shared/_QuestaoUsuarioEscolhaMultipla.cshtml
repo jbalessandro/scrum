@@ -3,5 +3,5 @@
 <hr />
 @foreach (ScrumToPractice.Domain.Models.CorResposta item in @Model)
 {
-    <p>@Html.CheckBox("alternativa", item.SelecaoUsuario, new { id = "Alternativa", @class = "alternativa" }) @item.Resposta.Descricao</p>
+    <p>@Html.CheckBox("alternativa", item.SelecaoUsuario, new { id = "Alternativa", @class = "alternativa", value=@item.Id }) @item.Resposta.Descricao</p>
 }
