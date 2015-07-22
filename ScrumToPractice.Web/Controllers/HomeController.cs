@@ -79,8 +79,9 @@ namespace ScrumToPractice.Web.Controllers
             paypal.notify_url = ConfigurationManager.AppSettings["NotifyURL"]; // +"?PaymentId=1"; to maintain database logic
             paypal.currency_code = ConfigurationManager.AppSettings["CurrencyCode"];
             paypal.item_name = ConfigurationManager.AppSettings["ItemName"];
+            //paypal.lc = ConfigurationManager.AppSettings["Lc"];
+            //paypal.country = ConfigurationManager.AppSettings["Country"];
             paypal.amount = preco.GetPrecoMensal().ToString("N2");
-
             return View(paypal);            
         }
 

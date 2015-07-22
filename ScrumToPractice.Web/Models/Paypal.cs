@@ -16,5 +16,7 @@ namespace ScrumToPractice.Web.Models
         public string currency_code { get; set; }
         public string item_name { get; set; }
         public string amount { get; set; }
+        //public string lc { get; set; }
+        //public string country { get; set; }
     }
 }

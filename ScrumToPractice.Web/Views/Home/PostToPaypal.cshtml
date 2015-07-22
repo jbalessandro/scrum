@@ -23,9 +23,13 @@
         @Html.HiddenFor(model => model.currency_code)
         @Html.HiddenFor(model => model.item_name)
         @Html.HiddenFor(model => model.amount)
+        @*@Html.HiddenFor(model => model.lc)
+        @Html.HiddenFor(model => model.country)*@
     </form>
-    <p>
-        <h4>Redirecting to Paypal...</h4>
+    <p>       
+        <div class="alert alertinfo" role="alert">
+            <h4>Redirecting to Paypal...</h4>
+        </div>
     </p>
 </body>
 </html>
