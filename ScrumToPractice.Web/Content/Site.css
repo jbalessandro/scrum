@@ -55,6 +55,11 @@ textarea {
     max-width: 280px;
 }
 
+/* home - hight of the blocks */
+.bloco-home {
+    min-height:90px;
+}
+
 /* tops */
 .top5 { margin-top: 5px; }
 .top10 { margin-top: 10px; }
