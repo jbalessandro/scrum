@@ -165,6 +165,7 @@
     <Content Include="Images\image2.jpg" />
     <Content Include="Images\image3.jpg" />
     <Content Include="Images\logo_top_menu.gif" />
+    <Content Include="Images\scrumorg.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Administrativo\Views\web.config" />

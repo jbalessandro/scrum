@@ -22,22 +22,28 @@
                     <img style="max-width:100px; margin-top: -7px; height:80px; width:80px;" src="~/Images/logo_top_menu.gif">
                 </a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Courtesy", "Index", "Practice")</li>
-                    <li>@Html.ActionLink("Full access", "Index", "FullAccess")</li>
-                    <li>@Html.ActionLink("Resources", "Index", "Guide")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
+            @using (@Html.BeginForm("PostToPaypal", "Home", FormMethod.Post, new { @id = "frmPostToPayPal" }))
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Courtesy", "Index", "Practice")</li>
+                        <li><a href="#" id="fullAccess">Full access</a></li>
+                        <li>@Html.ActionLink("Resources", "Index", "Guide")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                </div>
+            }
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - ScrumToPractice.com</p>
+            <p>
+                &copy; @DateTime.Now.Year - ScrumToPractice.com<br />
+                <small class="gray">The logos and names of third-party is copyrighted or their respective owners</small>
+            </p>
         </footer>
     </div>
 
@@ -47,5 +53,14 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#fullAccess').click(function () {
+                $('form#frmPostToPayPal').submit();
+            });
+
+        });
+    </script>
 </body>
 </html>
