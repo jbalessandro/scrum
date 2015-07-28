@@ -225,6 +225,7 @@
     <Content Include="Areas\Administrativo\Views\Paypal\ValorAssinaturaMensal.cshtml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\scrumtopractice - Web Deploy.pubxml" />
+    <Content Include="Resources\Scrum-Guide-US.pdf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
