@@ -13,5 +13,11 @@ namespace ScrumToPractice.Web.Controllers
         {
             return View();
         }
+
+        // GET: Guide/Read
+        public ActionResult Read()
+        {
+            return View();
+        }
     }
 }
