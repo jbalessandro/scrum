@@ -97,8 +97,10 @@ textarea {
 .border-gray {
     border: 1px solid #eeeeee;
 }
-
 /* guide */
+#guide {
+    padding-left:0;
+}
 #guide h3:after {
     content:"";
     display: block;

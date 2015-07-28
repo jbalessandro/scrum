@@ -34,10 +34,10 @@
     <div class="container">
         <div class="row">
             @Html.Hidden("idSimulado", (int)Model.QuestaoUsuario.IdSimulado)
-            <div class="col-sm-6 col-md-2">
+            <div class="col-xs-4 col-sm-4 col-md-4">
                 <input id="btnPrevious" type="button" value="Previous" data-questao="@Model.QuestaoUsuario.Id" style='@(Model.PrimeiraQuestao ? "visibility:hidden" : "visibility:visible")' class="btn btn-primary" />
             </div>
-            <div class="col-sm-6 col-md-10 text-right">
+            <div class="col-xs-8 col-sm-8 col-md-8 text-right">
                 <input id="btnAnswerLater" type="button" value="Answer later" data-questao="@Model.QuestaoUsuario.IdQuestao" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
                 <input id="btnNext" type="button" value="Next" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.UltimaQuestao ? "visibility:hidden" : "visibility:visible")' />
                 <input id="btnFinish" type="button" value="Finish exam" data-questao="@Model.QuestaoUsuario.Id" class="btn btn-primary" style='@(Model.Concluir ? "visibility:visible" : "visibility:hidden")' />
