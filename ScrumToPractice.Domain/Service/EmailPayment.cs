@@ -62,7 +62,7 @@ namespace ScrumToPractice.Domain.Service
             .Append("<h3>Welcome to ScrumToPractice</h3>")
             .Append("<br /><br />")
             .Append("This is the link for your practices: ")
-            .Append(string.Format("<a href='http://www.scrumtopractice.com/Exam/{0}'>www.scrumtopractice.com/Exam/{0}</a>", _cliente.Chave))
+            .Append(string.Format("<a href='http://www.scrumtopractice.com/Exam/Exam/?chave={0}'>www.scrumtopractice.com/Exam/Exam/?chave={0}</a>", _cliente.Chave))
             .Append("<br /><br />")
             .Append("Your access will be valid until ")
             .Append(_cliente.ExpiraEm.ToShortDateString())
