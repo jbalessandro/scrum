@@ -139,6 +139,7 @@
     <Compile Include="Areas\Practice\Controllers\PracticeController.cs" />
     <Compile Include="Areas\Practice\Controllers\ResultController.cs" />
     <Compile Include="Areas\Practice\PracticeAreaRegistration.cs" />
+    <Compile Include="Controllers\ExpeditoController.cs" />
     <Compile Include="Controllers\GuideController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -259,6 +260,7 @@
     <Content Include="Views\Home\ContactThanks.cshtml" />
     <Content Include="Views\Guide\Index.cshtml" />
     <Content Include="Views\Guide\Read.cshtml" />
+    <Content Include="Views\Expedito\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
