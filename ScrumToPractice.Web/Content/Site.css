@@ -61,6 +61,8 @@ textarea {
 }
 
 /* tops */
+.top { vertical-align:top; }
+
 .top5 { margin-top: 5px; }
 .top10 { margin-top: 10px; }
 .top15 { margin-top: 15px; }
@@ -81,6 +83,16 @@ textarea {
 .left40 { margin-left: 40px; }
 .left50 { margin-left: 50px; }
 .left60 { margin-left: 60px; }
+
+.pleft5 { padding-left: 5px;}
+.pleft10 { padding-left: 10px; }
+.pleft15 { padding-left: 15px; }
+.pleft17 { padding-left: 17px; }
+.pleft20 { padding-left: 20px; }
+.pleft30 { padding-left: 30px; }
+.pleft40 { padding-left: 40px; }
+.pleft50 { padding-left: 50px; }
+.pleft60 { padding-left: 60px; }
 
 /* width */
 .w50 { width: 50% }

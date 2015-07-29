@@ -20,15 +20,15 @@
                     <img style="max-width:100px; margin-top: -7px; height:80px; width:80px;" src="~/Images/logo_top_menu.gif">
                 </a>
             </div>
-            @using (@Html.BeginForm("PostToPaypal", "Home", FormMethod.Post, new { @id = "frmPostToPayPal" }))
+            @using (@Html.BeginForm("PostToPaypal", "Home", new { area = "" }, FormMethod.Post, new { @id = "frmPostToPayPal" }))
             {
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Courtesy", "Index", "Practice")</li>
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Courtesy", "Index", "Practice", new { area = "" }, null)</li>
                         <li><a href="#" id="fullAccess">Full access</a></li>
-                        <li>@Html.ActionLink("Resources", "Index", "Resources")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Resources", "Index", "Guide", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, null)</li>
                     </ul>
                 </div>
             }

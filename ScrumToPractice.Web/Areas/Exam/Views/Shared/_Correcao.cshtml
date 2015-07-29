@@ -13,17 +13,18 @@
             <thead>
                 <tr class="active">
                     <th>Your Answer</th>
-                    <th>Correct Answer</th>
+                    <th class="pleft20">Correct Answer</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td class="w50">
+                    <td class="w50 top">
                         @if (questao.SelecaoAluno.Count() > 0)
                         {
                             foreach (var respostaAluno in questao.SelecaoAluno)
                             {
                                 @respostaAluno.Resposta.Descricao
+                                <br />
                             }
                         }
                         else
@@ -31,10 +32,11 @@
                             @:You do not answered this question
                         }
                     </td>
-                    <td class="w50">
+                    <td class="w50 pleft20 top">
                         @foreach (var respostaSistema in questao.SelecaoSistema)
                         {
                             @respostaSistema.Resposta.Descricao
+                            <br />
                         }
                     </td>
                 </tr>
