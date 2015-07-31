@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\ICliente.cs" />
+    <Compile Include="Abstract\IClientePagamento.cs" />
     <Compile Include="Abstract\ICorResposta.cs" />
     <Compile Include="Abstract\ICorSimulado.cs" />
     <Compile Include="Abstract\IEmail.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Repository\EFRepository.cs" />
     <Compile Include="Repository\IBaseRepository.cs" />
     <Compile Include="Service\AreaService.cs" />
+    <Compile Include="Service\ClientePagamento.cs" />
     <Compile Include="Service\ClienteService.cs" />
     <Compile Include="Service\CorRespostaService.cs" />
     <Compile Include="Service\CorSimuladoService.cs" />
